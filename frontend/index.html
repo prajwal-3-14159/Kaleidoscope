@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive, high-performance, and beautifully styled fractal explorer optimized for Apple Silicon, featuring Mandelbrot, Julia, and Burning Ship sets.">
+    <title>Quantum Fractals Explorer</title>
+    <!-- Google Fonts: Outfit & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background Canvas Grid Overlay -->
+        <div class="grid-overlay"></div>
+        
+        <!-- Header -->
+        <header class="app-header">
+            <h1 id="app-title">QUANTUM FRACTALS</h1>
+            <p class="subtitle">Apple Silicon & Numba JIT Accelerated</p>
+        </header>
+
+        <!-- Main Explorer Layout -->
+        <main class="explorer-layout">
+            <!-- Canvas Container -->
+            <div class="canvas-viewport" id="viewport-container">
+                <canvas id="fractal-canvas"></canvas>
+                
+                <!-- Loading indicator overlay -->
+                <div class="loading-overlay" id="loading-spinner">
+                    <div class="spinner"></div>
+                    <span>Computing Dimensions...</span>
+                </div>
+                
+                <!-- Zoom / Position HUD Overlay -->
+                <div class="hud-overlay" id="hud-coordinates">
+                    <div class="hud-item"><span class="hud-label">Center:</span> <span id="hud-val-center">0.0, 0.0</span></div>
+                    <div class="hud-item"><span class="hud-label">Zoom:</span> <span id="hud-val-zoom">1.0x</span></div>
+                    <div class="hud-item"><span class="hud-label">Render Time:</span> <span id="hud-val-time">0 ms</span></div>
+                </div>
+            </div>
+
+            <!-- Glassmorphic Controls Sidebar -->
+            <aside class="control-panel" id="controls-panel">
+                <div class="panel-section">
+                    <h2 class="section-title">RENDER ENGINE</h2>
+                    <div class="type-selector">
+                        <button class="type-btn active" id="btn-engine-python" data-engine="python">Python JIT</button>
+                        <button class="type-btn" id="btn-engine-js" data-engine="js">Local Browser</button>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2 class="section-title">FRACTAL TYPE</h2>
+                    <div class="type-selector">
+                        <button class="type-btn active" id="btn-mandelbrot" data-type="mandelbrot">Mandelbrot</button>
+                        <button class="type-btn" id="btn-julia" data-type="julia">Julia Set</button>
+                        <button class="type-btn" id="btn-ship" data-type="ship">Burning Ship</button>
+                    </div>
+                </div>
+
+                <!-- Julia Constant Coordinates Explorer (hidden unless Julia is active) -->
+                <div class="panel-section hidden" id="julia-coords-section">
+                    <h2 class="section-title">JULIA CONSTANT (c)</h2>
+                    <div class="coords-group">
+                        <div class="coord-slider">
+                            <div class="slider-header">
+                                <label for="slider-julia-cre">Real (cr):</label>
+                                <span id="val-julia-cre">-0.70</span>
+                            </div>
+                            <input type="range" id="slider-julia-cre" min="-2.0" max="2.0" step="0.005" value="-0.7">
+                        </div>
+                        <div class="coord-slider">
+                            <div class="slider-header">
+                                <label for="slider-julia-cim">Imag (ci):</label>
+                                <span id="val-julia-cim">0.27</span>
+                            </div>
+                            <input type="range" id="slider-julia-cim" min="-2.0" max="2.0" step="0.005" value="0.27015">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2 class="section-title">COLOR PALETTE</h2>
+                    <div class="palette-grid" id="palette-picker">
+                        <button class="palette-card active" id="pal-cyberpunk" data-palette="cyberpunk">
+                            <span class="palette-preview cyberpunk-grad"></span>
+                            <span class="palette-label">Cyberpunk</span>
+                        </button>
+                        <button class="palette-card" id="pal-fire" data-palette="fire">
+                            <span class="palette-preview fire-grad"></span>
+                            <span class="palette-label">Solarized Fire</span>
+                        </button>
+                        <button class="palette-card" id="pal-ocean" data-palette="ocean">
+                            <span class="palette-preview ocean-grad"></span>
+                            <span class="palette-label">Deep Ocean</span>
+                        </button>
+                        <button class="palette-card" id="pal-slate" data-palette="slate">
+                            <span class="palette-preview slate-grad"></span>
+                            <span class="palette-label">Mono Slate</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="slider-header">
+                        <h2 class="section-title">MAX ITERATIONS</h2>
+                        <span class="badge" id="val-iterations">150</span>
+                    </div>
+                    <p class="slider-description">Controls detail level. High detail calculations compile instantly via Apple Silicon JIT.</p>
+                    <input type="range" id="slider-iterations" min="20" max="1500" step="10" value="150" class="main-slider">
+                </div>
+
+                <div class="panel-section action-section">
+                    <button class="action-btn" id="btn-reset">Reset Coordinates</button>
+                    <button class="action-btn primary" id="btn-download">Export Image (PNG)</button>
+                </div>
+
+                <!-- Info footer inside panel -->
+                <div class="panel-info">
+                    <p>💡 <strong>Controls:</strong> Drag to pan, scroll wheel or pinch to zoom into infinite detail.</p>
+                </div>
+            </aside>
+        </main>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
