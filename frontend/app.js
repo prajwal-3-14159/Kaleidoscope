@@ -63,6 +63,12 @@ const ctx = canvas.getContext('2d');
 const viewportContainer = document.getElementById('viewport-container');
 const loadingSpinner = document.getElementById('loading-spinner');
 
+// Offscreen canvas for continuous zoom/pan preview
+const offscreenCanvas = document.createElement('canvas');
+const offscreenCtx = offscreenCanvas.getContext('2d');
+let lastRenderBounds = null;
+let renderTimeout = null;
+
 // Controls
 const btnEnginePython = document.getElementById('btn-engine-python');
 const btnEngineJs = document.getElementById('btn-engine-js');
@@ -109,6 +115,9 @@ function resizeCanvas() {
     canvas.height = h;
     canvas.style.width = '100%';
     canvas.style.height = '100%';
+    
+    offscreenCanvas.width = w;
+    offscreenCanvas.height = h;
     
     adjustAspectRatio();
 }
@@ -277,6 +286,33 @@ async function renderPython() {
     }
 }
 
+function drawPreview() {
+    if (!lastRenderBounds) return;
+    
+    const currW = state.xmax - state.xmin;
+    const currH = state.ymax - state.ymin;
+    
+    const scaleX = currW / (lastRenderBounds.xmax - lastRenderBounds.xmin);
+    const scaleY = currH / (lastRenderBounds.ymax - lastRenderBounds.ymin);
+    
+    const xOffset = ((lastRenderBounds.xmin - state.xmin) / currW) * canvas.width;
+    const yOffset = ((state.ymax - lastRenderBounds.ymax) / currH) * canvas.height; 
+    
+    const drawW = canvas.width / scaleX;
+    const drawH = canvas.height / scaleY;
+    
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(offscreenCanvas, xOffset, yOffset, drawW, drawH);
+}
+
+function debouncedRender() {
+    clearTimeout(renderTimeout);
+    renderTimeout = setTimeout(() => {
+        render();
+    }, 150);
+}
+
 // Trigger Fractal Render (routing between Python and JS engines)
 async function render() {
     if (state.isRendering) {
@@ -288,16 +324,19 @@ async function render() {
     updateHUDValues();
     
     const startTime = performance.now();
+    let renderSuccess = false;
     
     try {
         if (state.engine === 'js') {
             // Local render using V8 JIT loop
             renderJS();
+            renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (JS)`;
         } else {
             // Server render using Python Numba Parallel calculations
             await renderPython();
+            renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (Py)`;
         }
@@ -306,12 +345,19 @@ async function render() {
         // Fallback to local JS engine if Python backend is offline
         try {
             renderJS();
+            renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (JS Fallback)`;
         } catch (jsErr) {
             console.error('JS Fallback failed too:', jsErr);
         }
     } finally {
+        if (renderSuccess) {
+            offscreenCtx.clearRect(0, 0, offscreenCanvas.width, offscreenCanvas.height);
+            offscreenCtx.drawImage(canvas, 0, 0);
+            lastRenderBounds = { xmin: state.xmin, xmax: state.xmax, ymin: state.ymin, ymax: state.ymax };
+        }
+        
         state.isRendering = false;
         
         if (state.nextRenderArgs) {
@@ -486,7 +532,9 @@ function initEvents() {
         startX = e.clientX;
         startY = e.clientY;
         
-        render();
+        updateHUDValues();
+        drawPreview();
+        debouncedRender();
     });
     
     // Scroll Wheel to Zoom (centered at mouse location)
@@ -517,7 +565,9 @@ function initEvents() {
         state.ymin = mouseIm - (1 - ratioY) * newHeight;
         state.ymax = mouseIm + ratioY * newHeight;
         
-        render();
+        updateHUDValues();
+        drawPreview();
+        debouncedRender();
     }, { passive: false });
     
     // Resize Listener
