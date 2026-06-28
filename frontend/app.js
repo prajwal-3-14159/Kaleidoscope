@@ -268,14 +268,14 @@ const btnEngineWebgl = document.getElementById('btn-engine-webgl');
 const btnEnginePython = document.getElementById('btn-engine-python');
 const btnEngineJs = document.getElementById('btn-engine-js');
 
-const panelJuliaControls = document.getElementById('julia-controls');
-const sliderCre = document.getElementById('slider-cre');
-const sliderCim = document.getElementById('slider-cim');
-const valCre = document.getElementById('val-cre');
-const valCim = document.getElementById('val-cim');
+const panelJuliaControls = document.getElementById('julia-coords-section');
+const sliderCre = document.getElementById('slider-julia-cre');
+const sliderCim = document.getElementById('slider-julia-cim');
+const valCre = document.getElementById('val-julia-cre');
+const valCim = document.getElementById('val-julia-cim');
 
-const fractalSearch = document.getElementById('fractal-search');
-const fractalTypesDatalist = document.getElementById('fractal-types');
+const palettePicker = document.getElementById('palette-picker');
+const fractalSelect = document.getElementById('fractal-select');
 const sliderIterations = document.getElementById('slider-iterations');
 const valIterations = document.getElementById('val-iterations');
 const sliderResolution = document.getElementById('slider-resolution');
@@ -291,29 +291,31 @@ const hudTime = document.getElementById('hud-val-time');
 
 // Setup Canvas Size
 function resizeCanvas() {
-    const rect = viewportContainer.getBoundingClientRect();
-    
+    const container = viewportContainer.getBoundingClientRect();
     const pixelRatio = window.devicePixelRatio || 1;
     const activeScale = pixelRatio * state.resolutionScale;
     
-    let w = Math.max(1, Math.floor(rect.width * activeScale));
-    let h = Math.max(1, Math.floor(rect.height * activeScale));
+    // Guarantee integer sizes >= 1 to prevent Safari ImageData and WebGL crashes
+    const newWidth = Math.max(1, Math.floor(container.width * activeScale));
+    const newHeight = Math.max(1, Math.floor(container.height * activeScale));
     
-    state.width = w;
-    state.height = h;
+    canvas.width = newWidth;
+    canvas.height = newHeight;
     
-    canvas.width = w;
-    canvas.height = h;
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
+    // Set display size
+    canvas.style.width = `${container.width}px`;
+    canvas.style.height = `${container.height}px`;
     
-    offscreenCanvas.width = w;
-    offscreenCanvas.height = h;
+    state.width = canvas.width;
+    state.height = canvas.height;
+    
+    offscreenCanvas.width = newWidth;
+    offscreenCanvas.height = newHeight;
     
     if (glCanvas) {
-        glCanvas.width = w;
-        glCanvas.height = h;
-        if (gl) gl.viewport(0, 0, w, h);
+        glCanvas.width = newWidth;
+        glCanvas.height = newHeight;
+        if (gl) gl.viewport(0, 0, newWidth, newHeight);
     }
     
     adjustAspectRatio();
@@ -445,8 +447,8 @@ function renderJS() {
                     const logZn = Math.log(modulusSq) / 2.0;
                     const nu = Math.log(logZn / log2) / log2;
                     const smoothI = iteration + 1 - nu;
-                    let val = Math.sqrt(smoothI / state.iterations);
-                    const color = interpolateColorJS(val, state.palette);
+                    let val = Math.sqrt(Math.max(0, smoothI) / state.iterations);
+                    const color = interpolateColorJS(val || 0, state.palette);
                     r = color[0]; g = color[1]; b = color[2];
                 }
             }
@@ -627,13 +629,15 @@ function setEngine(engine) {
 function initEvents() {
     FRACTAL_TYPES.forEach(ft => {
         const option = document.createElement('option');
-        option.value = ft.name;
-        fractalTypesDatalist.appendChild(option);
+        option.value = ft.id;
+        option.textContent = ft.name;
+        fractalSelect.appendChild(option);
     });
+    fractalSelect.value = state.fractal_id;
     
-    fractalSearch.addEventListener('change', (e) => {
-        const val = e.target.value;
-        const matched = FRACTAL_TYPES.find(ft => ft.name.toLowerCase() === val.toLowerCase());
+    fractalSelect.addEventListener('change', (e) => {
+        const val = parseInt(e.target.value);
+        const matched = FRACTAL_TYPES.find(ft => ft.id === val);
         if (matched) {
             state.fractal_id = matched.id;
             if (matched.isJulia) panelJuliaControls.classList.remove('hidden');
@@ -670,6 +674,17 @@ function initEvents() {
         debouncedRender();
     });
     
+    palettePicker.addEventListener('click', (e) => {
+        const card = e.target.closest('.palette-card');
+        if (!card) return;
+        
+        document.querySelectorAll('.palette-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        
+        state.palette = card.dataset.palette;
+        render();
+    });
+    
     btnReset.addEventListener('click', resetFractalBounds);
     
     btnDownload.addEventListener('click', () => {
@@ -688,11 +703,12 @@ function initEvents() {
     window.addEventListener('mouseup', () => { isDragging = false; });
     canvas.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
+        const rect = canvas.getBoundingClientRect();
         const dx = e.clientX - startX; const dy = e.clientY - startY;
         const complexWidth = state.xmax - state.xmin;
         const complexHeight = state.ymax - state.ymin;
-        const shiftX = (dx / state.width) * complexWidth;
-        const shiftY = (dy / state.height) * complexHeight;
+        const shiftX = (dx / rect.width) * complexWidth;
+        const shiftY = (dy / rect.height) * complexHeight;
         state.xmin -= shiftX; state.xmax -= shiftX;
         state.ymin += shiftY; state.ymax += shiftY;
         startX = e.clientX; startY = e.clientY;
@@ -706,22 +722,34 @@ function initEvents() {
         const rect = canvas.getBoundingClientRect();
         const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top;
         const complexWidth = state.xmax - state.xmin; const complexHeight = state.ymax - state.ymin;
-        const mouseRe = state.xmin + (mouseX / state.width) * complexWidth;
-        const mouseIm = state.ymax - (mouseY / state.height) * complexHeight;
+        
+        // Calculate the ratio based on CSS rect layout size, not internal resolution
+        const ratioX = mouseX / rect.width; 
+        const ratioY = mouseY / rect.height;
+        
+        const mouseRe = state.xmin + ratioX * complexWidth;
+        const mouseIm = state.ymax - ratioY * complexHeight;
+        
         const zoomFactor = e.deltaY < 0 ? 0.85 : 1.15;
         const newWidth = complexWidth * zoomFactor; const newHeight = complexHeight * zoomFactor;
-        const ratioX = mouseX / state.width; const ratioY = mouseY / state.height;
+        
         state.xmin = mouseRe - ratioX * newWidth;
         state.xmax = mouseRe + (1 - ratioX) * newWidth;
         state.ymin = mouseIm - (1 - ratioY) * newHeight;
         state.ymax = mouseIm + ratioY * newHeight;
+        
         updateHUDValues();
         const isJulia = state.fractal_id % 2 === 1;
         if (!isJulia) drawPreview();
         debouncedRender();
     }, { passive: false });
     
+    // Resize Listener
+    let resizeTimeout;
     window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            resizeCanvas();
             render();
         }, 150);
     });

@@ -179,6 +179,47 @@ body {
     color: var(--text-secondary);
 }
 
+.type-selector {
+    display: flex;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.type-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.type-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.type-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+select.search-input {
+    -webkit-appearance: menulist-button;
+    appearance: menulist-button;
+    cursor: pointer;
+}
+
 /* Coords Slider Styling for Julia */
 .coords-group {
     display: flex;
