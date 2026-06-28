@@ -47,6 +47,7 @@
                 <div class="panel-section">
                     <h2 class="section-title">RENDER ENGINE</h2>
                     <div class="type-selector">
+                        <button class="type-btn" id="btn-engine-webgl" data-engine="webgl">WebGL GPU</button>
                         <button class="type-btn active" id="btn-engine-python" data-engine="python">Python JIT</button>
                         <button class="type-btn" id="btn-engine-js" data-engine="js">Local Browser</button>
                     </div>
@@ -54,11 +55,10 @@
 
                 <div class="panel-section">
                     <h2 class="section-title">FRACTAL TYPE</h2>
-                    <div class="type-selector">
-                        <button class="type-btn active" id="btn-mandelbrot" data-type="mandelbrot">Mandelbrot</button>
-                        <button class="type-btn" id="btn-julia" data-type="julia">Julia Set</button>
-                        <button class="type-btn" id="btn-ship" data-type="ship">Burning Ship</button>
-                    </div>
+                    <input type="text" id="fractal-search" list="fractal-types" class="search-input" placeholder="Search 24+ fractals..." value="Mandelbrot">
+                    <datalist id="fractal-types">
+                        <!-- Populated by JS -->
+                    </datalist>
                 </div>
 
                 <!-- Julia Constant Coordinates Explorer (hidden unless Julia is active) -->
@@ -111,6 +111,15 @@
                     </div>
                     <p class="slider-description">Controls detail level. High detail calculations compile instantly via Apple Silicon JIT.</p>
                     <input type="range" id="slider-iterations" min="20" max="1500" step="10" value="150" class="main-slider">
+                </div>
+
+                <div class="panel-section">
+                    <div class="slider-header">
+                        <h2 class="section-title">RESOLUTION SCALE</h2>
+                        <span class="badge" id="val-resolution">100%</span>
+                    </div>
+                    <p class="slider-description">Adjusts render resolution. 100% uses your monitor's native high-DPI (Retina/4K) pixels.</p>
+                    <input type="range" id="slider-resolution" min="1" max="100" step="1" value="100" class="main-slider">
                 </div>
 
                 <div class="panel-section action-section">

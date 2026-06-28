@@ -155,39 +155,28 @@ body {
     text-transform: uppercase;
 }
 
-/* Selection Buttons */
-.type-selector {
-    display: flex;
-    gap: 8px;
+/* Search Input */
+.search-input {
+    width: 100%;
     background: rgba(0, 0, 0, 0.3);
-    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    padding: 10px 14px;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.type-btn {
-    flex: 1;
-    background: transparent;
-    border: none;
     outline: none;
-    color: var(--text-secondary);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 8px 0;
-    border-radius: calc(var(--radius-md) - 2px);
-    cursor: pointer;
     transition: var(--transition);
 }
 
-.type-btn:hover {
-    color: var(--text-primary);
+.search-input:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
 }
 
-.type-btn.active {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-primary);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.search-input::placeholder {
+    color: var(--text-secondary);
 }
 
 /* Coords Slider Styling for Julia */

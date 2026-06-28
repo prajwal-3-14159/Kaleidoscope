@@ -1,29 +1,74 @@
-// State Variables
+// Pre-defined Fractal Types
+const FRACTAL_TYPES = [
+    { id: 0, name: 'Mandelbrot', isJulia: false },
+    { id: 1, name: 'Julia Set', isJulia: true },
+    { id: 2, name: 'Burning Ship', isJulia: false },
+    { id: 3, name: 'Burning Ship (Julia)', isJulia: true },
+    { id: 4, name: 'Tricorn / Mandelbar', isJulia: false },
+    { id: 5, name: 'Tricorn (Julia)', isJulia: true },
+    { id: 6, name: 'Celtic Mandelbrot', isJulia: false },
+    { id: 7, name: 'Celtic (Julia)', isJulia: true },
+    { id: 8, name: 'Buffalo', isJulia: false },
+    { id: 9, name: 'Buffalo (Julia)', isJulia: true },
+    { id: 10, name: 'Mandelbrot ^3', isJulia: false },
+    { id: 11, name: 'Julia ^3', isJulia: true },
+    { id: 12, name: 'Mandelbrot ^4', isJulia: false },
+    { id: 13, name: 'Julia ^4', isJulia: true },
+    { id: 14, name: 'Mandelbrot ^5', isJulia: false },
+    { id: 15, name: 'Julia ^5', isJulia: true },
+    { id: 16, name: 'Burning Ship ^3', isJulia: false },
+    { id: 17, name: 'Burning Ship ^3 (Julia)', isJulia: true },
+    { id: 18, name: 'Burning Ship ^4', isJulia: false },
+    { id: 19, name: 'Burning Ship ^4 (Julia)', isJulia: true },
+    { id: 20, name: 'Tricorn ^3', isJulia: false },
+    { id: 21, name: 'Tricorn ^3 (Julia)', isJulia: true },
+    { id: 22, name: 'Tricorn ^4', isJulia: false },
+    { id: 23, name: 'Tricorn ^4 (Julia)', isJulia: true }
+];
+
+// Global Application State
 let state = {
     engine: 'python', // 'python' or 'js'
-    type: 'mandelbrot',
     palette: 'cyberpunk',
     iterations: 150,
     xmin: -2.0,
     xmax: 1.0,
-    ymin: -1.5,
-    ymax: 1.5,
+    ymin: -1.2,
+    ymax: 1.2,
+    fractal_id: 0,
     julia: {
-        cre: -0.7,
-        cim: 0.27015
+        cre: -0.4,
+        cim: 0.6
     },
     width: 800,
     height: 600,
     isRendering: false,
     nextRenderArgs: null,
+    resolutionScale: 1.0,
 };
 
-// Default coordinates for reset
-const defaults = {
-    mandelbrot: { xmin: -2.0, xmax: 1.0, ymin: -1.5, ymax: 1.5 },
-    julia:      { xmin: -2.0, xmax: 2.0, ymin: -1.5, ymax: 1.5 },
-    ship:       { xmin: -2.2, xmax: 1.2, ymin: -2.0, ymax: 0.5 }
-};
+// Reset bounds to default based on fractal type
+function resetFractalBounds() {
+    const isJulia = state.fractal_id % 2 === 1;
+    const baseType = Math.floor(state.fractal_id / 2);
+    
+    if (isJulia) {
+        state.xmin = -2.0; state.xmax = 2.0;
+        state.ymin = -1.5; state.ymax = 1.5;
+    } else {
+        if (baseType === 0) { // Standard Mandelbrot
+            state.xmin = -2.0; state.xmax = 1.0;
+            state.ymin = -1.2; state.ymax = 1.2;
+        } else {
+            state.xmin = -2.0; state.xmax = 2.0;
+            state.ymin = -2.0; state.ymax = 2.0;
+        }
+    }
+    
+    adjustAspectRatio();
+    drawPreview();
+    render();
+}
 
 // Pre-defined color palettes for JS fallback (matches backend RGB stops exactly)
 const PALETTES = {
@@ -69,22 +114,172 @@ const offscreenCtx = offscreenCanvas.getContext('2d');
 let lastRenderBounds = null;
 let renderTimeout = null;
 
+// WebGL Setup
+const glCanvas = document.createElement('canvas');
+const gl = glCanvas.getContext('webgl');
+let glProgram = null;
+
+const vsSource = `
+    attribute vec2 a_position;
+    void main() {
+        gl_Position = vec4(a_position, 0.0, 1.0);
+    }
+`;
+
+const fsSource = `
+    precision highp float;
+
+    uniform vec2 u_resolution;
+    uniform vec2 u_offset;
+    uniform vec2 u_range;
+    uniform vec2 u_julia_c;
+    uniform int u_max_iter;
+    uniform int u_base_type;
+    uniform bool u_is_julia;
+    uniform vec3 u_palette[5];
+
+    void main() {
+        vec2 st = gl_FragCoord.xy / u_resolution;
+        vec2 c0 = u_offset + st * u_range;
+        
+        vec2 z = u_is_julia ? c0 : vec2(0.0);
+        vec2 c = u_is_julia ? u_julia_c : c0;
+        
+        float iter = 0.0;
+        float x2 = 0.0;
+        float y2 = 0.0;
+        float max_iter_f = float(u_max_iter);
+        
+        for(int i=0; i<2000; i++) {
+            if (float(i) >= max_iter_f) break;
+            if (x2 + y2 > 10000.0) break;
+            
+            float x_new = 0.0;
+            float y_new = 0.0;
+            float x = z.x;
+            float y = z.y;
+            
+            if (u_base_type == 0) { // Mandelbrot
+                x_new = x2 - y2;
+                y_new = 2.0 * x * y;
+            } else if (u_base_type == 1) { // Burning Ship
+                x_new = x2 - y2;
+                y_new = 2.0 * abs(x * y);
+            } else if (u_base_type == 2) { // Tricorn
+                x_new = x2 - y2;
+                y_new = -2.0 * x * y;
+            } else if (u_base_type == 3) { // Celtic
+                x_new = abs(x2 - y2);
+                y_new = 2.0 * x * y;
+            } else if (u_base_type == 4) { // Buffalo
+                x_new = abs(x2 - y2);
+                y_new = -2.0 * abs(x * y);
+            } else if (u_base_type == 5) { // Mandelbrot ^3
+                x_new = x * (x2 - 3.0 * y2);
+                y_new = y * (3.0 * x2 - y2);
+            } else if (u_base_type == 6) { // Mandelbrot ^4
+                x_new = x2*x2 - 6.0*x2*y2 + y2*y2;
+                y_new = 4.0 * x * y * (x2 - y2);
+            } else if (u_base_type == 7) { // Mandelbrot ^5
+                x_new = x * (x2*x2 - 10.0*x2*y2 + 5.0*y2*y2);
+                y_new = y * (5.0*x2*x2 - 10.0*x2*y2 + y2*y2);
+            } else if (u_base_type == 8) { // Burning Ship ^3
+                x_new = abs(x) * (x2 - 3.0 * y2);
+                y_new = abs(y) * (3.0 * x2 - y2);
+            } else if (u_base_type == 9) { // Burning Ship ^4
+                x_new = x2*x2 - 6.0*x2*y2 + y2*y2;
+                y_new = 4.0 * abs(x * y) * (x2 - y2);
+            } else if (u_base_type == 10) { // Tricorn ^3
+                x_new = x * (x2 - 3.0 * y2);
+                y_new = -y * (3.0 * x2 - y2);
+            } else if (u_base_type == 11) { // Tricorn ^4
+                x_new = x2*x2 - 6.0*x2*y2 + y2*y2;
+                y_new = -4.0 * x * y * (x2 - y2);
+            }
+            
+            z.x = x_new + c.x;
+            z.y = y_new + c.y;
+            
+            x2 = z.x * z.x;
+            y2 = z.y * z.y;
+            iter += 1.0;
+        }
+        
+        if (iter < max_iter_f) {
+            float modulusSq = x2 + y2;
+            float log2 = 0.6931471805599453;
+            float logZn = log(modulusSq) / 2.0;
+            float nu = log(logZn / log2) / log2;
+            float smoothI = iter + 1.0 - nu;
+            
+            float val = smoothI / max_iter_f;
+            val = sqrt(val);
+            
+            float scaledVal = val * 4.0; 
+            int idx = int(scaledVal);
+            float t = fract(scaledVal);
+            
+            vec3 color1 = u_palette[0];
+            vec3 color2 = u_palette[1];
+            
+            if (idx == 0) { color1 = u_palette[0]; color2 = u_palette[1]; }
+            else if (idx == 1) { color1 = u_palette[1]; color2 = u_palette[2]; }
+            else if (idx == 2) { color1 = u_palette[2]; color2 = u_palette[3]; }
+            else if (idx >= 3) { color1 = u_palette[3]; color2 = u_palette[4]; }
+            
+            vec3 finalColor = mix(color1, color2, t) / 255.0;
+            gl_FragColor = vec4(finalColor, 1.0);
+        } else {
+            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+    }
+`;
+
+function initWebGL() {
+    if (!gl) return;
+    
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertexShader, vsSource);
+    gl.compileShader(vertexShader);
+    
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragmentShader, fsSource);
+    gl.compileShader(fragmentShader);
+    
+    glProgram = gl.createProgram();
+    gl.attachShader(glProgram, vertexShader);
+    gl.attachShader(glProgram, fragmentShader);
+    gl.linkProgram(glProgram);
+    
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    const positions = [
+        -1.0,  1.0,
+         1.0,  1.0,
+        -1.0, -1.0,
+         1.0, -1.0,
+    ];
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+}
+initWebGL();
+
 // Controls
+const btnEngineWebgl = document.getElementById('btn-engine-webgl');
 const btnEnginePython = document.getElementById('btn-engine-python');
 const btnEngineJs = document.getElementById('btn-engine-js');
 
-const btnMandelbrot = document.getElementById('btn-mandelbrot');
-const btnJulia = document.getElementById('btn-julia');
-const btnShip = document.getElementById('btn-ship');
-const juliaSection = document.getElementById('julia-coords-section');
-const sliderJuliaCre = document.getElementById('slider-julia-cre');
-const sliderJuliaCim = document.getElementById('slider-julia-cim');
-const valJuliaCre = document.getElementById('val-julia-cre');
-const valJuliaCim = document.getElementById('val-julia-cim');
+const panelJuliaControls = document.getElementById('julia-controls');
+const sliderCre = document.getElementById('slider-cre');
+const sliderCim = document.getElementById('slider-cim');
+const valCre = document.getElementById('val-cre');
+const valCim = document.getElementById('val-cim');
 
-const palettePicker = document.getElementById('palette-picker');
+const fractalSearch = document.getElementById('fractal-search');
+const fractalTypesDatalist = document.getElementById('fractal-types');
 const sliderIterations = document.getElementById('slider-iterations');
 const valIterations = document.getElementById('val-iterations');
+const sliderResolution = document.getElementById('slider-resolution');
+const valResolution = document.getElementById('val-resolution');
 
 const btnReset = document.getElementById('btn-reset');
 const btnDownload = document.getElementById('btn-download');
@@ -98,15 +293,11 @@ const hudTime = document.getElementById('hud-val-time');
 function resizeCanvas() {
     const rect = viewportContainer.getBoundingClientRect();
     
-    // Cap resolution to preserve high frame rates on canvas rendering
-    const maxWidth = 1000;
-    let w = Math.floor(rect.width);
-    let h = Math.floor(rect.height);
+    const pixelRatio = window.devicePixelRatio || 1;
+    const activeScale = pixelRatio * state.resolutionScale;
     
-    if (w > maxWidth) {
-        h = Math.floor(h * (maxWidth / w));
-        w = maxWidth;
-    }
+    let w = Math.max(1, Math.floor(rect.width * activeScale));
+    let h = Math.max(1, Math.floor(rect.height * activeScale));
     
     state.width = w;
     state.height = h;
@@ -118,6 +309,12 @@ function resizeCanvas() {
     
     offscreenCanvas.width = w;
     offscreenCanvas.height = h;
+    
+    if (glCanvas) {
+        glCanvas.width = w;
+        glCanvas.height = h;
+        if (gl) gl.viewport(0, 0, w, h);
+    }
     
     adjustAspectRatio();
 }
@@ -169,90 +366,91 @@ function interpolateColorJS(val, paletteName) {
     return [r, g, b];
 }
 
-// Client-side JS Calculation Engine (Serverless & Compute Friendly)
+// Client-side JS Calculation Engine
 function renderJS() {
     const width = state.width;
     const height = state.height;
-    const imgData = ctx.createImageData(width, height);
-    const data = imgData.data;
     
-    const xmin = state.xmin;
-    const xmax = state.xmax;
-    const ymin = state.ymin;
-    const ymax = state.ymax;
-    const maxIter = state.iterations;
-    const type = state.type;
-    const palette = state.palette;
-    const cre = state.julia.cre;
-    const cim = state.julia.cim;
-    
-    const dx = (xmax - xmin) / width;
-    const dy = (ymax - ymin) / height;
+    const dx = (state.xmax - state.xmin) / width;
+    const dy = (state.ymax - state.ymin) / height;
     
     const escapeRadiusSq = 10000.0;
     const log2 = 0.6931471805599453;
     
-    // Nested pixel loops
+    const palette = PALETTES[state.palette] || PALETTES.cyberpunk;
+    const imgData = new ImageData(width, height);
+    const data = imgData.data;
+    
+    const baseType = Math.floor(state.fractal_id / 2);
+    const isJulia = state.fractal_id % 2 === 1;
+    
     for (let py = 0; py < height; py++) {
-        const y0 = ymax - py * dy;
-        const rowOffset = py * width * 4;
-        
+        const y0 = state.ymax - py * dy;
         for (let px = 0; px < width; px++) {
-            const x0 = xmin + px * dx;
+            const idx = (py * width + px) * 4;
+            const x0 = state.xmin + px * dx;
             
-            let zx, zy, cx, cy;
-            if (type === 'mandelbrot') {
-                zx = 0.0; zy = 0.0;
-                cx = x0; cy = y0;
-            } else if (type === 'julia') {
+            let zx = 0, zy = 0;
+            let cx = x0, cy = y0;
+            if (isJulia) {
                 zx = x0; zy = y0;
-                cx = cre; cy = cim;
-            } else { // burning ship
-                zx = 0.0; zy = 0.0;
-                cx = x0; cy = y0;
+                cx = state.julia.cre; cy = state.julia.cim;
             }
             
             let iteration = 0;
-            let zx2 = 0.0;
-            let zy2 = 0.0;
+            let zx2 = 0;
+            let zy2 = 0;
             
-            while (zx2 + zy2 <= escapeRadiusSq && iteration < maxIter) {
-                if (type === 'ship') {
-                    // Burning Ship formula
-                    zy = Math.abs(2.0 * zx * zy) + cy;
-                    zx = zx2 - zy2 + cx;
-                } else {
-                    // Mandelbrot / Julia formula
-                    zy = 2.0 * zx * zy + cy;
-                    zx = zx2 - zy2 + cx;
+            while (zx2 + zy2 <= escapeRadiusSq && iteration < state.iterations) {
+                let x_new = 0, y_new = 0;
+                let x = zx, y = zy;
+                
+                if (baseType === 0) { // Mandelbrot
+                    x_new = zx2 - zy2; y_new = 2 * x * y;
+                } else if (baseType === 1) { // Burning Ship
+                    x_new = zx2 - zy2; y_new = 2 * Math.abs(x * y);
+                } else if (baseType === 2) { // Tricorn
+                    x_new = zx2 - zy2; y_new = -2 * x * y;
+                } else if (baseType === 3) { // Celtic
+                    x_new = Math.abs(zx2 - zy2); y_new = 2 * x * y;
+                } else if (baseType === 4) { // Buffalo
+                    x_new = Math.abs(zx2 - zy2); y_new = -2 * Math.abs(x * y);
+                } else if (baseType === 5) { // Mandelbrot ^3
+                    x_new = x * (zx2 - 3 * zy2); y_new = y * (3 * zx2 - zy2);
+                } else if (baseType === 6) { // Mandelbrot ^4
+                    x_new = zx2*zx2 - 6*zx2*zy2 + zy2*zy2; y_new = 4 * x * y * (zx2 - zy2);
+                } else if (baseType === 7) { // Mandelbrot ^5
+                    x_new = x * (zx2*zx2 - 10*zx2*zy2 + 5*zy2*zy2); y_new = y * (5*zx2*zx2 - 10*zx2*zy2 + zy2*zy2);
+                } else if (baseType === 8) { // Burning Ship ^3
+                    x_new = Math.abs(x) * (zx2 - 3 * zy2); y_new = Math.abs(y) * (3 * zx2 - zy2);
+                } else if (baseType === 9) { // Burning Ship ^4
+                    x_new = zx2*zx2 - 6*zx2*zy2 + zy2*zy2; y_new = 4 * Math.abs(x * y) * (zx2 - zy2);
+                } else if (baseType === 10) { // Tricorn ^3
+                    x_new = x * (zx2 - 3 * zy2); y_new = -y * (3 * zx2 - zy2);
+                } else if (baseType === 11) { // Tricorn ^4
+                    x_new = zx2*zx2 - 6*zx2*zy2 + zy2*zy2; y_new = -4 * x * y * (zx2 - zy2);
                 }
+                
+                zx = x_new + cx;
+                zy = y_new + cy;
                 zx2 = zx * zx;
                 zy2 = zy * zy;
                 iteration++;
             }
             
             let r = 0, g = 0, b = 0;
-            if (iteration < maxIter) {
+            if (iteration < state.iterations) {
                 const modulusSq = zx2 + zy2;
                 if (modulusSq > 0) {
-                    // Continuous potential formula for anti-banding smooth color transitions
                     const logZn = Math.log(modulusSq) / 2.0;
                     const nu = Math.log(logZn / log2) / log2;
                     const smoothI = iteration + 1 - nu;
-                    let val = smoothI / maxIter;
-                    val = Math.sqrt(val);
-                    const color = interpolateColorJS(val, palette);
-                    r = color[0];
-                    g = color[1];
-                    b = color[2];
+                    let val = Math.sqrt(smoothI / state.iterations);
+                    const color = interpolateColorJS(val, state.palette);
+                    r = color[0]; g = color[1]; b = color[2];
                 }
             }
-            
-            const pixelIdx = rowOffset + px * 4;
-            data[pixelIdx] = r;
-            data[pixelIdx + 1] = g;
-            data[pixelIdx + 2] = b;
-            data[pixelIdx + 3] = 255;
+            data[idx] = r; data[idx+1] = g; data[idx+2] = b; data[idx+3] = 255;
         }
     }
     ctx.putImageData(imgData, 0, 0);
@@ -268,7 +466,7 @@ async function renderPython() {
         ymin: state.ymin,
         ymax: state.ymax,
         max_iter: state.iterations,
-        type: state.type,
+        fractal_id: state.fractal_id,
         palette: state.palette,
         julia_cre: state.julia.cre,
         julia_cim: state.julia.cim
@@ -313,7 +511,44 @@ function debouncedRender() {
     }, 150);
 }
 
-// Trigger Fractal Render (routing between Python and JS engines)
+function renderWebGL() {
+    return new Promise((resolve) => {
+        if (!gl || !glProgram) {
+            console.error("WebGL not initialized");
+            resolve();
+            return;
+        }
+        
+        gl.useProgram(glProgram);
+        
+        const positionLocation = gl.getAttribLocation(glProgram, "a_position");
+        gl.enableVertexAttribArray(positionLocation);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+        
+        gl.uniform2f(gl.getUniformLocation(glProgram, "u_resolution"), state.width, state.height);
+        gl.uniform2f(gl.getUniformLocation(glProgram, "u_offset"), state.xmin, state.ymin);
+        gl.uniform2f(gl.getUniformLocation(glProgram, "u_range"), state.xmax - state.xmin, state.ymax - state.ymin);
+        gl.uniform2f(gl.getUniformLocation(glProgram, "u_julia_c"), state.julia.cre, state.julia.cim);
+        gl.uniform1i(gl.getUniformLocation(glProgram, "u_max_iter"), state.iterations);
+        
+        const baseType = Math.floor(state.fractal_id / 2);
+        const isJulia = state.fractal_id % 2 === 1;
+        gl.uniform1i(gl.getUniformLocation(glProgram, "u_base_type"), baseType);
+        gl.uniform1i(gl.getUniformLocation(glProgram, "u_is_julia"), isJulia ? 1 : 0);
+        
+        const palette = PALETTES[state.palette] || PALETTES.cyberpunk;
+        const flatPalette = [];
+        palette.forEach(color => flatPalette.push(...color));
+        gl.uniform3fv(gl.getUniformLocation(glProgram, "u_palette"), new Float32Array(flatPalette));
+        
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        
+        offscreenCtx.drawImage(glCanvas, 0, 0);
+        ctx.drawImage(offscreenCanvas, 0, 0);
+        resolve();
+    });
+}
+
 async function render() {
     if (state.isRendering) {
         state.nextRenderArgs = { ...state };
@@ -327,255 +562,166 @@ async function render() {
     let renderSuccess = false;
     
     try {
-        if (state.engine === 'js') {
-            // Local render using V8 JIT loop
+        if (state.engine === 'webgl') {
+            await renderWebGL();
+            renderSuccess = true;
+            const endTime = performance.now();
+            hudTime.textContent = `${Math.round(endTime - startTime)} ms (WebGL)`;
+        } else if (state.engine === 'js') {
             renderJS();
             renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (JS)`;
         } else {
-            // Server render using Python Numba Parallel calculations
             await renderPython();
             renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (Py)`;
         }
     } catch (err) {
-        console.warn('Backend unavailable or failed. Falling back to local JS calculation...', err);
-        // Fallback to local JS engine if Python backend is offline
+        console.warn('Backend failed, falling back...', err);
         try {
             renderJS();
             renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (JS Fallback)`;
-        } catch (jsErr) {
-            console.error('JS Fallback failed too:', jsErr);
-        }
+        } catch (jsErr) { console.error('JS Fallback failed:', jsErr); }
     } finally {
         if (renderSuccess) {
             offscreenCtx.clearRect(0, 0, offscreenCanvas.width, offscreenCanvas.height);
             offscreenCtx.drawImage(canvas, 0, 0);
             lastRenderBounds = { xmin: state.xmin, xmax: state.xmax, ymin: state.ymin, ymax: state.ymax };
         }
-        
         state.isRendering = false;
-        
         if (state.nextRenderArgs) {
             const next = state.nextRenderArgs;
             state.nextRenderArgs = null;
-            
-            state.xmin = next.xmin;
-            state.xmax = next.xmax;
-            state.ymin = next.ymin;
-            state.ymax = next.ymax;
-            state.iterations = next.iterations;
-            state.palette = next.palette;
-            state.type = next.type;
-            state.julia = next.julia;
-            state.engine = next.engine;
-            
+            Object.assign(state, next);
             render();
         }
     }
 }
 
-// HUD updates
 function updateHUDValues() {
     const cx = ((state.xmin + state.xmax) / 2).toFixed(6);
     const cy = ((state.ymin + state.ymax) / 2).toFixed(6);
     hudCenter.textContent = `${cx}, ${cy}`;
     
     const currentWidth = state.xmax - state.xmin;
-    const defaultWidth = defaults[state.type].xmax - defaults[state.type].xmin;
-    const zoomLevel = (defaultWidth / currentWidth).toLocaleString(undefined, {
-        maximumFractionDigits: 1
-    });
+    const defaultWidth = 3.0;
+    const zoomLevel = (defaultWidth / currentWidth).toLocaleString(undefined, { maximumFractionDigits: 1 });
     hudZoom.textContent = `${zoomLevel}x`;
 }
 
-// Reset view coordinates
-function resetView() {
-    const def = defaults[state.type];
-    state.xmin = def.xmin;
-    state.xmax = def.xmax;
-    state.ymin = def.ymin;
-    state.ymax = def.ymax;
-    adjustAspectRatio();
-    render();
-}
-
-// Choose computation engine
 function setEngine(engine) {
     state.engine = engine;
-    
-    if (engine === 'python') {
-        btnEnginePython.classList.add('active');
-        btnEngineJs.classList.remove('active');
-    } else {
-        btnEngineJs.classList.add('active');
-        btnEnginePython.classList.remove('active');
-    }
-    
+    btnEnginePython.classList.remove('active');
+    btnEngineJs.classList.remove('active');
+    btnEngineWebgl.classList.remove('active');
+    if (engine === 'python') btnEnginePython.classList.add('active');
+    else if (engine === 'js') btnEngineJs.classList.add('active');
+    else if (engine === 'webgl') btnEngineWebgl.classList.add('active');
     render();
 }
 
-// Choose fractal type
-function setFractalType(type) {
-    state.type = type;
-    
-    [btnMandelbrot, btnJulia, btnShip].forEach(btn => {
-        if (btn.dataset.type === type) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+function initEvents() {
+    FRACTAL_TYPES.forEach(ft => {
+        const option = document.createElement('option');
+        option.value = ft.name;
+        fractalTypesDatalist.appendChild(option);
     });
     
-    if (type === 'julia') {
-        juliaSection.classList.remove('hidden');
-    } else {
-        juliaSection.classList.add('hidden');
-    }
-    
-    resetView();
-}
+    fractalSearch.addEventListener('change', (e) => {
+        const val = e.target.value;
+        const matched = FRACTAL_TYPES.find(ft => ft.name.toLowerCase() === val.toLowerCase());
+        if (matched) {
+            state.fractal_id = matched.id;
+            if (matched.isJulia) panelJuliaControls.classList.remove('hidden');
+            else panelJuliaControls.classList.add('hidden');
+            resetFractalBounds();
+        }
+    });
 
-// Initialize controls and inputs
-function initEvents() {
-    // Engine selector buttons
+    btnEngineWebgl.addEventListener('click', () => setEngine('webgl'));
     btnEnginePython.addEventListener('click', () => setEngine('python'));
     btnEngineJs.addEventListener('click', () => setEngine('js'));
     
-    // Type Selectors
-    btnMandelbrot.addEventListener('click', () => setFractalType('mandelbrot'));
-    btnJulia.addEventListener('click', () => setFractalType('julia'));
-    btnShip.addEventListener('click', () => setFractalType('ship'));
-    
-    // Julia Constant Slider Bindings
-    sliderJuliaCre.addEventListener('input', (e) => {
-        const val = parseFloat(e.target.value);
-        state.julia.cre = val;
-        valJuliaCre.textContent = val.toFixed(3);
+    sliderCre.addEventListener('input', (e) => {
+        state.julia.cre = parseFloat(e.target.value);
+        valCre.textContent = state.julia.cre.toFixed(3);
         render();
     });
-    sliderJuliaCim.addEventListener('input', (e) => {
-        const val = parseFloat(e.target.value);
-        state.julia.cim = val;
-        valJuliaCim.textContent = val.toFixed(3);
+    sliderCim.addEventListener('input', (e) => {
+        state.julia.cim = parseFloat(e.target.value);
+        valCim.textContent = state.julia.cim.toFixed(3);
         render();
     });
     
-    // Iterations Slider
     sliderIterations.addEventListener('input', (e) => {
-        const val = parseInt(e.target.value);
-        state.iterations = val;
-        valIterations.textContent = val;
+        state.iterations = parseInt(e.target.value);
+        valIterations.textContent = state.iterations;
         render();
     });
     
-    // Palette Picker Cards
-    palettePicker.addEventListener('click', (e) => {
-        const card = e.target.closest('.palette-card');
-        if (!card) return;
-        
-        document.querySelectorAll('.palette-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        
-        state.palette = card.dataset.palette;
-        render();
+    sliderResolution.addEventListener('input', (e) => {
+        state.resolutionScale = parseInt(e.target.value) / 100.0;
+        valResolution.textContent = `${e.target.value}%`;
+        resizeCanvas();
+        debouncedRender();
     });
     
-    // Action Buttons
-    btnReset.addEventListener('click', resetView);
+    btnReset.addEventListener('click', resetFractalBounds);
     
-    // Download Canvas Image
     btnDownload.addEventListener('click', () => {
         const link = document.createElement('a');
-        link.download = `fractal_${state.type}_${state.palette}.png`;
+        link.download = `fractal_${state.fractal_id}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
     });
     
-    // Drag to Pan Controls
     let isDragging = false;
     let startX, startY;
-    
     canvas.addEventListener('mousedown', (e) => {
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = e.clientX; startY = e.clientY;
     });
-    
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
-    
+    window.addEventListener('mouseup', () => { isDragging = false; });
     canvas.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        
-        if (dx === 0 && dy === 0) return;
-        
+        const dx = e.clientX - startX; const dy = e.clientY - startY;
         const complexWidth = state.xmax - state.xmin;
         const complexHeight = state.ymax - state.ymin;
-        
         const shiftX = (dx / state.width) * complexWidth;
         const shiftY = (dy / state.height) * complexHeight;
-        
-        state.xmin -= shiftX;
-        state.xmax -= shiftX;
-        state.ymin += shiftY;
-        state.ymax += shiftY;
-        
-        startX = e.clientX;
-        startY = e.clientY;
-        
+        state.xmin -= shiftX; state.xmax -= shiftX;
+        state.ymin += shiftY; state.ymax += shiftY;
+        startX = e.clientX; startY = e.clientY;
         updateHUDValues();
         drawPreview();
         debouncedRender();
     });
     
-    // Scroll Wheel to Zoom (centered at mouse location)
     canvas.addEventListener('wheel', (e) => {
         e.preventDefault();
-        
         const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        
-        const complexWidth = state.xmax - state.xmin;
-        const complexHeight = state.ymax - state.ymin;
-        
+        const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top;
+        const complexWidth = state.xmax - state.xmin; const complexHeight = state.ymax - state.ymin;
         const mouseRe = state.xmin + (mouseX / state.width) * complexWidth;
         const mouseIm = state.ymax - (mouseY / state.height) * complexHeight;
-        
         const zoomFactor = e.deltaY < 0 ? 0.85 : 1.15;
-        
-        const newWidth = complexWidth * zoomFactor;
-        const newHeight = complexHeight * zoomFactor;
-        
-        const ratioX = mouseX / state.width;
-        const ratioY = mouseY / state.height;
-        
+        const newWidth = complexWidth * zoomFactor; const newHeight = complexHeight * zoomFactor;
+        const ratioX = mouseX / state.width; const ratioY = mouseY / state.height;
         state.xmin = mouseRe - ratioX * newWidth;
         state.xmax = mouseRe + (1 - ratioX) * newWidth;
-        
         state.ymin = mouseIm - (1 - ratioY) * newHeight;
         state.ymax = mouseIm + ratioY * newHeight;
-        
         updateHUDValues();
-        drawPreview();
+        const isJulia = state.fractal_id % 2 === 1;
+        if (!isJulia) drawPreview();
         debouncedRender();
     }, { passive: false });
     
-    // Resize Listener
-    let resizeTimeout;
     window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            resizeCanvas();
             render();
         }, 150);
     });

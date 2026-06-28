@@ -80,7 +80,7 @@ def generate_fractal_rgba(
     width, height, 
     xmin, xmax, ymin, ymax, 
     max_iter, 
-    fractal_type, 
+    base_type, is_julia, 
     palette_idx, 
     julia_cre, julia_cim
 ):
@@ -108,13 +108,10 @@ def generate_fractal_rgba(
             x0 = xmin + px * dx
             
             # Initialize complex variables
-            if fractal_type == 0:  # Mandelbrot
-                zx, zy = 0.0, 0.0
-                cx, cy = x0, y0
-            elif fractal_type == 1:  # Julia
+            if is_julia:
                 zx, zy = x0, y0
                 cx, cy = julia_cre, julia_cim
-            else:  # Burning Ship (fractal_type == 2)
+            else:
                 zx, zy = 0.0, 0.0
                 cx, cy = x0, y0
                 
@@ -124,12 +121,50 @@ def generate_fractal_rgba(
             
             # Core Escape Time loop
             while zx2 + zy2 <= escape_radius_sq and iteration < max_iter:
-                if fractal_type == 2:  # Burning Ship: z = (|Re(z)| + i|Im(z)|)^2 + c
-                    zy = abs(2.0 * zx * zy) + cy
-                    zx = zx2 - zy2 + cx
-                else:  # Mandelbrot & Julia: z = z^2 + c
-                    zy = 2.0 * zx * zy + cy
-                    zx = zx2 - zy2 + cx
+                x, y = zx, zy
+                
+                if base_type == 0: # Mandelbrot
+                    x_new = zx2 - zy2
+                    y_new = 2.0 * x * y
+                elif base_type == 1: # Burning Ship
+                    x_new = zx2 - zy2
+                    y_new = 2.0 * abs(x * y)
+                elif base_type == 2: # Tricorn
+                    x_new = zx2 - zy2
+                    y_new = -2.0 * x * y
+                elif base_type == 3: # Celtic
+                    x_new = abs(zx2 - zy2)
+                    y_new = 2.0 * x * y
+                elif base_type == 4: # Buffalo
+                    x_new = abs(zx2 - zy2)
+                    y_new = -2.0 * abs(x * y)
+                elif base_type == 5: # Mandelbrot ^3
+                    x_new = x * (zx2 - 3.0 * zy2)
+                    y_new = y * (3.0 * zx2 - zy2)
+                elif base_type == 6: # Mandelbrot ^4
+                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
+                    y_new = 4.0 * x * y * (zx2 - zy2)
+                elif base_type == 7: # Mandelbrot ^5
+                    x_new = x * (zx2*zx2 - 10.0*zx2*zy2 + 5.0*zy2*zy2)
+                    y_new = y * (5.0*zx2*zx2 - 10.0*zx2*zy2 + zy2*zy2)
+                elif base_type == 8: # Burning Ship ^3
+                    x_new = abs(x) * (zx2 - 3.0 * zy2)
+                    y_new = abs(y) * (3.0 * zx2 - zy2)
+                elif base_type == 9: # Burning Ship ^4
+                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
+                    y_new = 4.0 * abs(x * y) * (zx2 - zy2)
+                elif base_type == 10: # Tricorn ^3
+                    x_new = x * (zx2 - 3.0 * zy2)
+                    y_new = -y * (3.0 * zx2 - zy2)
+                elif base_type == 11: # Tricorn ^4
+                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
+                    y_new = -4.0 * x * y * (zx2 - zy2)
+                else: # Fallback Mandelbrot
+                    x_new = zx2 - zy2
+                    y_new = 2.0 * x * y
+                    
+                zx = x_new + cx
+                zy = y_new + cy
                     
                 zx2 = zx * zx
                 zy2 = zy * zy

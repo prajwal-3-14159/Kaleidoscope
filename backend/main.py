@@ -21,11 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-FRACTAL_TYPES = {
-    "mandelbrot": 0,
-    "julia": 1,
-    "ship": 2
-}
+
 
 @app.get("/api/fractal")
 def get_fractal(
@@ -36,13 +32,13 @@ def get_fractal(
     ymin: float = Query(-1.5),
     ymax: float = Query(1.5),
     max_iter: int = Query(150, ge=1, le=5000),
-    type: str = Query("mandelbrot"),
+    fractal_id: int = Query(0, ge=0, le=23),
     palette: str = Query("cyberpunk"),
     julia_cre: float = Query(-0.7),
     julia_cim: float = Query(0.27015)
 ):
-    # Resolve type and palette indices
-    type_idx = FRACTAL_TYPES.get(type.lower(), 0)
+    base_type = fractal_id // 2
+    is_julia = (fractal_id % 2) == 1
     
     if palette.lower() in PALETTE_NAMES:
         palette_idx = PALETTE_NAMES.index(palette.lower())
@@ -54,7 +50,7 @@ def get_fractal(
         width, height,
         xmin, xmax, ymin, ymax,
         max_iter,
-        type_idx,
+        base_type, is_julia,
         palette_idx,
         julia_cre, julia_cim
     )
