@@ -35,7 +35,8 @@ def get_fractal(
     fractal_id: int = Query(0, ge=0, le=23),
     palette: str = Query("cyberpunk"),
     julia_cre: float = Query(-0.7),
-    julia_cim: float = Query(0.27015)
+    julia_cim: float = Query(0.27015),
+    power: float = Query(2.0)
 ):
     base_type = fractal_id // 2
     is_julia = (fractal_id % 2) == 1
@@ -52,7 +53,8 @@ def get_fractal(
         max_iter,
         base_type, is_julia,
         palette_idx,
-        julia_cre, julia_cim
+        julia_cre, julia_cim,
+        power
     )
     
     # Return the raw binary array directly.

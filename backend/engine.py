@@ -1,5 +1,6 @@
 import numpy as np
 from numba import jit, prange
+import math
 
 # Define color stops for our premium palettes.
 # Each palette consists of 5 RGB colors (values 0-255).
@@ -82,7 +83,8 @@ def generate_fractal_rgba(
     max_iter, 
     base_type, is_julia, 
     palette_idx, 
-    julia_cre, julia_cim
+    julia_cre, julia_cim,
+    power
 ):
     """
     Numba parallelized generator that writes directly into a pre-allocated 
@@ -123,42 +125,67 @@ def generate_fractal_rgba(
             while zx2 + zy2 <= escape_radius_sq and iteration < max_iter:
                 x, y = zx, zy
                 
-                if base_type == 0: # Mandelbrot
-                    x_new = zx2 - zy2
-                    y_new = 2.0 * x * y
+                if base_type == 5: # Sierpinski Triangle
+                    if (int(abs(x) * 100) & int(abs(y) * 100)) != 0:
+                        iteration = max_iter # Force escape
+                        break
+                    x_new = x * 2.0
+                    y_new = y * 2.0
+                elif base_type == 0: # Multibrot
+                    if power == 2.0:
+                        x_new = zx2 - zy2
+                        y_new = 2.0 * x * y
+                    else:
+                        r = math.sqrt(zx2 + zy2)
+                        theta = math.atan2(y, x)
+                        rn = r ** power
+                        x_new = rn * math.cos(power * theta)
+                        y_new = rn * math.sin(power * theta)
                 elif base_type == 1: # Burning Ship
-                    x_new = zx2 - zy2
-                    y_new = 2.0 * abs(x * y)
+                    ax = abs(x)
+                    ay = abs(y)
+                    if power == 2.0:
+                        x_new = ax*ax - ay*ay
+                        y_new = 2.0 * ax * ay
+                    else:
+                        r = math.sqrt(ax*ax + ay*ay)
+                        theta = math.atan2(ay, ax)
+                        rn = r ** power
+                        x_new = rn * math.cos(power * theta)
+                        y_new = rn * math.sin(power * theta)
                 elif base_type == 2: # Tricorn
-                    x_new = zx2 - zy2
-                    y_new = -2.0 * x * y
+                    y_conj = -y
+                    if power == 2.0:
+                        x_new = zx2 - y_conj*y_conj
+                        y_new = 2.0 * x * y_conj
+                    else:
+                        r = math.sqrt(zx2 + y_conj*y_conj)
+                        theta = math.atan2(y_conj, x)
+                        rn = r ** power
+                        x_new = rn * math.cos(power * theta)
+                        y_new = rn * math.sin(power * theta)
                 elif base_type == 3: # Celtic
-                    x_new = abs(zx2 - zy2)
-                    y_new = 2.0 * x * y
+                    if power == 2.0:
+                        x_new = abs(zx2 - zy2)
+                        y_new = 2.0 * x * y
+                    else:
+                        r = math.sqrt(zx2 + zy2)
+                        theta = math.atan2(y, x)
+                        rn = r ** power
+                        x_new = abs(rn * math.cos(power * theta))
+                        y_new = rn * math.sin(power * theta)
                 elif base_type == 4: # Buffalo
-                    x_new = abs(zx2 - zy2)
-                    y_new = -2.0 * abs(x * y)
-                elif base_type == 5: # Mandelbrot ^3
-                    x_new = x * (zx2 - 3.0 * zy2)
-                    y_new = y * (3.0 * zx2 - zy2)
-                elif base_type == 6: # Mandelbrot ^4
-                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
-                    y_new = 4.0 * x * y * (zx2 - zy2)
-                elif base_type == 7: # Mandelbrot ^5
-                    x_new = x * (zx2*zx2 - 10.0*zx2*zy2 + 5.0*zy2*zy2)
-                    y_new = y * (5.0*zx2*zx2 - 10.0*zx2*zy2 + zy2*zy2)
-                elif base_type == 8: # Burning Ship ^3
-                    x_new = abs(x) * (zx2 - 3.0 * zy2)
-                    y_new = abs(y) * (3.0 * zx2 - zy2)
-                elif base_type == 9: # Burning Ship ^4
-                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
-                    y_new = 4.0 * abs(x * y) * (zx2 - zy2)
-                elif base_type == 10: # Tricorn ^3
-                    x_new = x * (zx2 - 3.0 * zy2)
-                    y_new = -y * (3.0 * zx2 - zy2)
-                elif base_type == 11: # Tricorn ^4
-                    x_new = zx2*zx2 - 6.0*zx2*zy2 + zy2*zy2
-                    y_new = -4.0 * x * y * (zx2 - zy2)
+                    ax = abs(x)
+                    ay = abs(y)
+                    if power == 2.0:
+                        x_new = abs(ax*ax - ay*ay)
+                        y_new = -2.0 * ax * ay
+                    else:
+                        r = math.sqrt(ax*ax + ay*ay)
+                        theta = math.atan2(ay, ax)
+                        rn = r ** power
+                        x_new = abs(rn * math.cos(power * theta))
+                        y_new = -abs(rn * math.sin(power * theta))
                 else: # Fallback Mandelbrot
                     x_new = zx2 - zy2
                     y_new = 2.0 * x * y
@@ -172,22 +199,26 @@ def generate_fractal_rgba(
                 
             # Coloring calculation
             if iteration < max_iter:
-                # Smooth coloring using continuous potential
-                modulus_sq = zx2 + zy2
-                # Ensure no log of zero
-                if modulus_sq > 0:
-                    log_zn = np.log(modulus_sq) / 2.0
-                    nu = np.log(log_zn / log_2) / log_2
-                    # Smooth iteration value
-                    smooth_i = iteration + 1 - nu
+                if base_type == 5:
+                    # Solid color for Sierpinski
+                    r, g, b = 0, 255, 128
                 else:
-                    smooth_i = float(iteration)
-                
-                # Normalize color value (0.0 to 1.0) with logarithmic scaling to reveal details
-                val = smooth_i / max_iter
-                # Apply a slight curve to make colors pop in high-detail areas
-                val = np.sqrt(val)
-                r, g, b = interpolate_color(val, palette_idx)
+                    # Smooth coloring using continuous potential
+                    modulus_sq = zx2 + zy2
+                    # Ensure no log of zero
+                    if modulus_sq > 0:
+                        log_zn = math.log(modulus_sq) / 2.0
+                        nu = math.log(log_zn / log_2) / log_2
+                        # Smooth iteration value
+                        smooth_i = iteration + 1 - nu
+                    else:
+                        smooth_i = float(iteration)
+                    
+                    # Normalize color value (0.0 to 1.0) with logarithmic scaling to reveal details
+                    val = smooth_i / max_iter
+                    # Apply a slight curve to make colors pop in high-detail areas
+                    val = math.sqrt(val)
+                    r, g, b = interpolate_color(val, palette_idx)
             else:
                 # Inside the set is solid dark
                 r, g, b = 0, 0, 0
