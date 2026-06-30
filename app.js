@@ -1,21 +1,15 @@
-// Pre-defined Fractal Types
-const FRACTAL_TYPES = [
-    { id: 0, name: 'Mandelbrot', isJulia: false },
-    { id: 1, name: 'Julia Set', isJulia: true },
-    { id: 2, name: 'Burning Ship', isJulia: false },
-    { id: 3, name: 'Burning Ship (Julia)', isJulia: true },
-    { id: 4, name: 'Tricorn / Mandelbar', isJulia: false },
-    { id: 5, name: 'Tricorn (Julia)', isJulia: true },
-    { id: 6, name: 'Celtic Mandelbrot', isJulia: false },
-    { id: 7, name: 'Celtic (Julia)', isJulia: true },
-    { id: 8, name: 'Buffalo', isJulia: false },
-    { id: 9, name: 'Buffalo (Julia)', isJulia: true },
-    { id: 10, name: 'Sierpinski Triangle', isJulia: false }
-];
+import { models } from './models/index.js';
+
+// Dynamically generate FRACTAL_TYPES from models
+const FRACTAL_TYPES = [];
+models.forEach(model => {
+    FRACTAL_TYPES.push({ id: model.id * 2, name: model.name, isJulia: false });
+    FRACTAL_TYPES.push({ id: model.id * 2 + 1, name: model.juliaName || (model.name + ' (Julia)'), isJulia: true });
+});
 
 // Global Application State
 let state = {
-    engine: 'python', // 'python' or 'js'
+    engine: 'webgl', // 'webgl' or 'js'
     power: 1.0,
     palette: 'cyberpunk',
     iterations: 150,
@@ -148,88 +142,14 @@ const fsSource = `
             float x = z.x;
             float y = z.y;
             
-            // Apply fractal base type logic
-            if (u_base_type == 0) { // Mandelbrot/Multibrot
-                // complex power
-                if (u_power == 2.0) {
-                    x_new = x2 - y2;
-                    y_new = 2.0 * x * y;
-                } else {
-                    float r = sqrt(x2 + y2);
-                    float theta = atan(y, x);
-                    float rn = pow(r, u_power);
-                    x_new = rn * cos(u_power * theta);
-                    y_new = rn * sin(u_power * theta);
-                }
-            } else if (u_base_type == 1) { // Burning Ship
-                float ax = abs(x);
-                float ay = abs(y);
-                if (u_power == 2.0) {
-                    x_new = ax*ax - ay*ay;
-                    y_new = 2.0 * ax * ay;
-                } else {
-                    float r = sqrt(ax*ax + ay*ay);
-                    float theta = atan(ay, ax);
-                    float rn = pow(r, u_power);
-                    x_new = rn * cos(u_power * theta);
-                    y_new = rn * sin(u_power * theta);
-                }
-            } else if (u_base_type == 2) { // Tricorn
-                float y_conj = -y;
-                if (u_power == 2.0) {
-                    x_new = x2 - y_conj*y_conj;
-                    y_new = 2.0 * x * y_conj;
-                } else {
-                    float r = sqrt(x2 + y_conj*y_conj);
-                    float theta = atan(y_conj, x);
-                    float rn = pow(r, u_power);
-                    x_new = rn * cos(u_power * theta);
-                    y_new = rn * sin(u_power * theta);
-                }
-            } else if (u_base_type == 3) { // Celtic
-                if (u_power == 2.0) {
-                    x_new = abs(x2 - y2);
-                    y_new = 2.0 * x * y;
-                } else {
-                    float r = sqrt(x2 + y2);
-                    float theta = atan(y, x);
-                    float rn = pow(r, u_power);
-                    x_new = abs(rn * cos(u_power * theta));
-                    y_new = rn * sin(u_power * theta);
-                }
-            } else if (u_base_type == 4) { // Buffalo
-                float ax = abs(x);
-                float ay = abs(y);
-                if (u_power == 2.0) {
-                    x_new = abs(ax*ax - ay*ay);
-                    y_new = -2.0 * ax * ay;
-                } else {
-                    float r = sqrt(ax*ax + ay*ay);
-                    float theta = atan(ay, ax);
-                    float rn = pow(r, u_power);
-                    x_new = abs(rn * cos(u_power * theta));
-                    y_new = -abs(rn * sin(u_power * theta));
-                }
-            } else if (u_base_type == 5) { // Sierpinski Triangle
-                // Bitwise AND of coordinates
-                int ix = int(abs(x) * 100.0);
-                int iy = int(abs(y) * 100.0);
-                // In WebGL ES2, bitwise operators are not supported!
-                // We use a modular approximation:
-                // Actually, let's do a simple Sierpinski escape:
-                // z_new = z^2 + c is not Sierpinski. 
-                // We will implement Sierpinski in JS and Python using bitwise,
-                // but in WebGL 1.0 bitwise is missing. We can use mod.
-                // Or we can just use the standard escape time loop for Sierpinski Power
-                // if bitwise is impossible. But wait! WebGL1 doesn't have & operator.
-                // Let's use a modulus-based approach for Sierpinski.
-                // Modulo arithmetic for bitwise AND: (x mod 2) + (y mod 2)
-                float r = sqrt(x2 + y2);
-                float theta = atan(y, x);
-                float rn = pow(r, u_power);
-                x_new = rn * cos(u_power * theta);
-                y_new = rn * sin(u_power * theta);
-                // Just use Multibrot for WebGL Sierpinski fallback for now
+            // Apply fractal base type logic dynamically from models
+            ${models.map((model, i) => `
+            ${i === 0 ? 'if' : 'else if'} (u_base_type == ${model.id}) {
+                ${model.glsl}
+            }`).join('')}
+            else { // Fallback
+                x_new = x2 - y2;
+                y_new = 2.0 * x * y;
             }
             
             z.x = x_new + c.x;
@@ -299,7 +219,6 @@ initWebGL();
 
 // Controls
 const btnEngineWebgl = document.getElementById('btn-engine-webgl');
-const btnEnginePython = document.getElementById('btn-engine-python');
 const btnEngineJs = document.getElementById('btn-engine-js');
 
 const panelJuliaControls = document.getElementById('julia-coords-section');
@@ -417,6 +336,12 @@ function renderJS() {
     const isJulia = state.fractal_id % 2 === 1;
     const power = state.power;
     
+    // Pre-allocate array to avoid GC pressure in the loop
+    const out = new Float64Array(3);
+    
+    let model = models.find(m => m.id === baseType);
+    if (!model) model = models[0]; // Fallback to Mandelbrot
+    
     for (let py = 0; py < height; py++) {
         const y0 = state.ymax - py * dy;
         for (let px = 0; px < width; px++) {
@@ -434,71 +359,15 @@ function renderJS() {
             let zx2 = 0;
             let zy2 = 0;
             
-            while (zx2 + zy2 <= escapeRadiusSq && iteration < state.iterations) {
-                let x_new = 0, y_new = 0;
+            while (zx2 + zy2 <= 10000 && iteration < state.iterations) {
                 let x = zx, y = zy;
                 
-                if (baseType === 5) {
-                    // Sierpinski Triangle using bitwise AND
-                    if ((Math.floor(Math.abs(x) * 100) & Math.floor(Math.abs(y) * 100)) !== 0) {
-                        iteration = state.iterations; // Force escape
-                        break;
-                    }
-                    x_new = x * 2.0;
-                    y_new = y * 2.0;
-                } else if (baseType === 0) { // Multibrot
-                    if (power === 2.0) {
-                        x_new = zx2 - zy2; y_new = 2 * x * y;
-                    } else {
-                        const r = Math.sqrt(zx2 + zy2);
-                        const theta = Math.atan2(y, x);
-                        const rn = Math.pow(r, power);
-                        x_new = rn * Math.cos(power * theta);
-                        y_new = rn * Math.sin(power * theta);
-                    }
-                } else if (baseType === 1) { // Burning Ship
-                    const ax = Math.abs(x), ay = Math.abs(y);
-                    if (power === 2.0) {
-                        x_new = ax*ax - ay*ay; y_new = 2 * ax * ay;
-                    } else {
-                        const r = Math.sqrt(ax*ax + ay*ay);
-                        const theta = Math.atan2(ay, ax);
-                        const rn = Math.pow(r, power);
-                        x_new = rn * Math.cos(power * theta);
-                        y_new = rn * Math.sin(power * theta);
-                    }
-                } else if (baseType === 2) { // Tricorn
-                    const y_conj = -y;
-                    if (power === 2.0) {
-                        x_new = zx2 - y_conj*y_conj; y_new = 2 * x * y_conj;
-                    } else {
-                        const r = Math.sqrt(zx2 + y_conj*y_conj);
-                        const theta = Math.atan2(y_conj, x);
-                        const rn = Math.pow(r, power);
-                        x_new = rn * Math.cos(power * theta);
-                        y_new = rn * Math.sin(power * theta);
-                    }
-                } else if (baseType === 3) { // Celtic
-                    if (power === 2.0) {
-                        x_new = Math.abs(zx2 - zy2); y_new = 2 * x * y;
-                    } else {
-                        const r = Math.sqrt(zx2 + zy2);
-                        const theta = Math.atan2(y, x);
-                        const rn = Math.pow(r, power);
-                        x_new = Math.abs(rn * Math.cos(power * theta));
-                        y_new = rn * Math.sin(power * theta);
-                    }
-                } else if (baseType === 4) { // Buffalo
-                    const ax = Math.abs(x), ay = Math.abs(y);
-                    if (power === 2.0) {
-                        x_new = Math.abs(ax*ax - ay*ay); y_new = -2 * ax * ay;
-                    } else {
-                        const r = Math.sqrt(ax*ax + ay*ay);
-                        const theta = Math.atan2(ay, ax);
-                        const rn = Math.pow(r, power);
-                        x_new = Math.abs(rn * Math.cos(power * theta));
-                        y_new = -Math.abs(rn * Math.sin(power * theta));
-                    }
+                model.calcJS(x, y, zx2, zy2, power, out);
+                let x_new = out[0];
+                let y_new = out[1];
+                if (out[2] === 1) { // Force escape
+                    iteration = state.iterations;
+                    break;
                 }
                 
                 zx = x_new + cx;
@@ -531,34 +400,7 @@ function renderJS() {
     ctx.putImageData(imgData, 0, 0);
 }
 
-// Server-side Python Numba Engine
-async function renderPython() {
-    const params = new URLSearchParams({
-        width: state.width,
-        height: state.height,
-        xmin: state.xmin,
-        xmax: state.xmax,
-        ymin: state.ymin,
-        ymax: state.ymax,
-        max_iter: state.iterations,
-        fractal_id: state.fractal_id,
-        palette: state.palette,
-        julia_cre: state.julia.cre,
-        julia_cim: state.julia.cim,
-        power: state.power
-    });
-    
-    const response = await fetch(`/api/fractal?${params.toString()}`);
-    if (!response.ok) throw new Error('API server returned error code');
-    
-    const buffer = await response.arrayBuffer();
-    const pixels = new Uint8ClampedArray(buffer);
-    
-    if (pixels.length === state.width * state.height * 4) {
-        const imageData = new ImageData(pixels, state.width, state.height);
-        ctx.putImageData(imageData, 0, 0);
-    }
-}
+// Rendering Pipeline
 
 function drawPreview() {
     if (!lastRenderBounds) return;
@@ -649,11 +491,6 @@ async function render() {
             renderSuccess = true;
             const endTime = performance.now();
             hudTime.textContent = `${Math.round(endTime - startTime)} ms (JS)`;
-        } else {
-            await renderPython();
-            renderSuccess = true;
-            const endTime = performance.now();
-            hudTime.textContent = `${Math.round(endTime - startTime)} ms (Py)`;
         }
     } catch (err) {
         console.warn('Backend failed, falling back...', err);
@@ -695,11 +532,9 @@ function updateHUDValues() {
 
 function setEngine(engine) {
     state.engine = engine;
-    btnEnginePython.classList.remove('active');
     btnEngineJs.classList.remove('active');
     btnEngineWebgl.classList.remove('active');
-    if (engine === 'python') btnEnginePython.classList.add('active');
-    else if (engine === 'js') btnEngineJs.classList.add('active');
+    if (engine === 'js') btnEngineJs.classList.add('active');
     else if (engine === 'webgl') btnEngineWebgl.classList.add('active');
     render();
 }
@@ -721,6 +556,8 @@ function initEvents() {
             if (matched.isJulia) panelJuliaControls.classList.remove('hidden');
             else panelJuliaControls.classList.add('hidden');
             resetFractalBounds();
+            updateHUDValues();
+            debouncedRender();
         }
     });
 
@@ -745,7 +582,6 @@ function initEvents() {
     });
 
     btnEngineWebgl.addEventListener('click', () => setEngine('webgl'));
-    btnEnginePython.addEventListener('click', () => setEngine('python'));
     btnEngineJs.addEventListener('click', () => setEngine('js'));
     
     sliderCre.addEventListener('input', (e) => {
@@ -854,8 +690,14 @@ function initEvents() {
 }
 
 // Initial Bootstrapping
-window.addEventListener('DOMContentLoaded', () => {
+function bootstrap() {
     resizeCanvas();
     initEvents();
     render();
-});
+}
+
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+    bootstrap();
+}

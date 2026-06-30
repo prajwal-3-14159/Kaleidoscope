@@ -19,7 +19,7 @@
         <!-- Header -->
         <header class="app-header">
             <h1 id="app-title">QUANTUM FRACTALS</h1>
-            <p class="subtitle">Apple Silicon & Numba JIT Accelerated</p>
+            <p class="subtitle">High-Performance WebGL Accelerated</p>
         </header>
 
         <!-- Main Explorer Layout -->
@@ -47,8 +47,7 @@
                 <div class="panel-section">
                     <h2 class="section-title">RENDER ENGINE</h2>
                     <div class="type-selector">
-                        <button class="type-btn" id="btn-engine-webgl" data-engine="webgl">WebGL GPU</button>
-                        <button class="type-btn active" id="btn-engine-python" data-engine="python">Python JIT</button>
+                        <button class="type-btn active" id="btn-engine-webgl" data-engine="webgl">WebGL GPU</button>
                         <button class="type-btn" id="btn-engine-js" data-engine="js">Local Browser</button>
                     </div>
                 </div>
@@ -143,6 +142,6 @@
         </main>
     </div>
     
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
