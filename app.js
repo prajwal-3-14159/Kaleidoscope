@@ -1,16 +1,18 @@
 import { models } from './models/index.js';
+import { getTranslation, toggleLanguage } from './i18n.js';
+import { initBenchmark } from './benchmark.js';
 
 // Dynamically generate FRACTAL_TYPES from models
 const FRACTAL_TYPES = [];
 models.forEach(model => {
-    FRACTAL_TYPES.push({ id: model.id * 2, name: model.name, isJulia: false });
-    FRACTAL_TYPES.push({ id: model.id * 2 + 1, name: model.juliaName || (model.name + ' (Julia)'), isJulia: true });
+    FRACTAL_TYPES.push({ id: model.id * 2, nameKey: `fractal-${model.id * 2}`, isJulia: false });
+    FRACTAL_TYPES.push({ id: model.id * 2 + 1, nameKey: `fractal-${model.id * 2 + 1}`, isJulia: true });
 });
 
 // Global Application State
-let state = {
+export let state = {
     engine: 'webgl', // 'webgl' or 'js'
-    power: 1.0,
+    power: 2.0,
     palette: 'cyberpunk',
     iterations: 150,
     xmin: -2.0,
@@ -30,7 +32,7 @@ let state = {
 };
 
 // Reset bounds to default based on fractal type
-function resetFractalBounds() {
+export function resetFractalBounds() {
     const isJulia = state.fractal_id % 2 === 1;
     const baseType = Math.floor(state.fractal_id / 2);
     
@@ -166,7 +168,7 @@ const fsSource = `
             float nu = log(logZn / log2) / log2;
             float smoothI = iter + 1.0 - nu;
             
-            float val = smoothI / max_iter_f;
+            float val = max(0.0, smoothI) / max_iter_f;
             val = sqrt(val);
             
             float scaledVal = val * 4.0; 
@@ -248,14 +250,12 @@ function resizeCanvas() {
     const pixelRatio = window.devicePixelRatio || 1;
     const activeScale = pixelRatio * state.resolutionScale;
     
-    const newWidth = Math.max(1, Math.floor(container.width * activeScale));
-    const newHeight = Math.max(1, Math.floor(container.height * activeScale));
+    // We base the new dimensions off the client bounds of the container
+    const newWidth = Math.max(1, Math.floor(viewportContainer.clientWidth * activeScale));
+    const newHeight = Math.max(1, Math.floor(viewportContainer.clientHeight * activeScale));
     
     canvas.width = newWidth;
     canvas.height = newHeight;
-    
-    canvas.style.width = `${container.width}px`;
-    canvas.style.height = `${container.height}px`;
     
     state.width = canvas.width;
     state.height = canvas.height;
@@ -273,7 +273,7 @@ function resizeCanvas() {
 }
 
 // Adjusts the complex plane coordinates to match the screen aspect ratio
-function adjustAspectRatio() {
+export function adjustAspectRatio() {
     const screenRatio = state.width / state.height;
     
     const cx = (state.xmin + state.xmax) / 2;
@@ -460,17 +460,20 @@ function renderWebGL() {
         palette.forEach(color => flatPalette.push(...color));
         gl.uniform3fv(gl.getUniformLocation(glProgram, "u_palette"), new Float32Array(flatPalette));
         
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        
-        offscreenCtx.drawImage(glCanvas, 0, 0);
-        ctx.drawImage(offscreenCanvas, 0, 0);
-        resolve();
+        requestAnimationFrame(() => {
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            offscreenCtx.drawImage(glCanvas, 0, 0);
+            ctx.drawImage(offscreenCanvas, 0, 0);
+            resolve();
+        });
     });
 }
 
-async function render() {
+export async function render() {
     if (state.isRendering) {
-        state.nextRenderArgs = { ...state };
+        const nextState = { ...state };
+        delete nextState.isRendering;
+        state.nextRenderArgs = nextState;
         return;
     }
     
@@ -516,7 +519,7 @@ async function render() {
     }
 }
 
-function updateHUDValues() {
+export function updateHUDValues() {
     const cx = ((state.xmin + state.xmax) / 2).toFixed(6);
     const cy = ((state.ymin + state.ymax) / 2).toFixed(6);
     hudCenter.textContent = `${cx}, ${cy}`;
@@ -530,7 +533,7 @@ function updateHUDValues() {
     document.getElementById('val-iterations').textContent = state.iterations;
 }
 
-function setEngine(engine) {
+export function setEngine(engine) {
     state.engine = engine;
     btnEngineJs.classList.remove('active');
     btnEngineWebgl.classList.remove('active');
@@ -540,13 +543,25 @@ function setEngine(engine) {
 }
 
 function initEvents() {
-    FRACTAL_TYPES.forEach(ft => {
-        const option = document.createElement('option');
-        option.value = ft.id;
-        option.textContent = ft.name;
-        fractalSelect.appendChild(option);
+    const populateSelect = () => {
+        fractalSelect.innerHTML = '';
+        FRACTAL_TYPES.forEach(ft => {
+            const option = document.createElement('option');
+            option.value = ft.id;
+            option.textContent = getTranslation(ft.nameKey);
+            fractalSelect.appendChild(option);
+        });
+        fractalSelect.value = state.fractal_id;
+    };
+    populateSelect();
+    
+    window.addEventListener('languageChanged', (e) => {
+        populateSelect();
+        const btn = document.getElementById('btn-lang-toggle');
+        if (btn) btn.textContent = e.detail === 'en' ? '🇯🇵 日本語' : '🇺🇸 English';
     });
-    fractalSelect.value = state.fractal_id;
+
+    document.getElementById('btn-lang-toggle').addEventListener('click', toggleLanguage);
     
     fractalSelect.addEventListener('change', (e) => {
         const val = parseInt(e.target.value);
@@ -567,7 +582,7 @@ function initEvents() {
     const btnPowerInc = document.getElementById('btn-power-increase');
     
     inputPower.addEventListener('change', (e) => {
-        state.power = parseFloat(e.target.value) || 1.0;
+        state.power = parseFloat(e.target.value) || 2.0;
         debouncedRender();
     });
     
@@ -623,11 +638,27 @@ function initEvents() {
     
     btnDownload.addEventListener('click', () => {
         const link = document.createElement('a');
-        link.download = `fractal_${state.fractal_id}.png`;
+        link.download = 'kaleidoscope-fractal.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
     });
     
+    const btnToggleBenchmark = document.getElementById('btn-toggle-benchmark');
+    if (btnToggleBenchmark) {
+        btnToggleBenchmark.addEventListener('click', () => {
+            const benchPanel = document.getElementById('benchmark-panel');
+            if (benchPanel.style.display === 'none') {
+                benchPanel.style.display = 'flex';
+                btnToggleBenchmark.classList.add('active');
+            } else {
+                benchPanel.style.display = 'none';
+                btnToggleBenchmark.classList.remove('active');
+            }
+        });
+    }
+
+    initBenchmark();
+
     let isDragging = false;
     let startX, startY;
     canvas.addEventListener('mousedown', (e) => {

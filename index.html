@@ -18,12 +18,41 @@
         
         <!-- Header -->
         <header class="app-header">
-            <h1 id="app-title">KALEIDOSCOPE</h1>
-            <p class="subtitle">Quantum Fractals &bull; WebGL Accelerated</p>
+            <div class="header-top">
+                <h1 id="app-title" data-i18n="app-title">KALEIDOSCOPE</h1>
+                <button id="btn-lang-toggle" class="lang-toggle-btn">🇯🇵 日本語</button>
+            </div>
+            <p class="subtitle" data-i18n="subtitle">Quantum Fractals &bull; WebGL Accelerated</p>
         </header>
 
         <!-- Main Explorer Layout -->
         <main class="explorer-layout">
+            <!-- Left Benchmark Panel -->
+            <aside class="benchmark-panel-left" id="benchmark-panel" style="display: none;">
+                <h2 class="section-title" data-i18n="bench-title">Performance Benchmark</h2>
+                
+                <div class="bench-stats-container">
+                    <div class="bench-stat">
+                        <span class="bench-stat-label" data-i18n="bench-time">Time Remaining:</span>
+                        <span class="bench-stat-value" id="bench-time-val">3:00</span>
+                    </div>
+                    <div class="bench-stat">
+                        <span class="bench-stat-label" data-i18n="bench-fps">Current FPS:</span>
+                        <span class="bench-stat-value" id="bench-fps-val">60</span>
+                    </div>
+                </div>
+                
+                <div class="bench-stat" style="margin-top: 20px;">
+                    <span class="bench-stat-label" data-i18n="bench-highest">Highest Score:</span>
+                    <span class="bench-stat-value" id="bench-highest-val">0</span>
+                </div>
+
+                <div class="panel-section action-section" style="margin-top: 30px;">
+                    <button class="action-btn primary" id="btn-start-benchmark" data-i18n="btn-benchmark-start">Start Benchmark</button>
+                    <button class="action-btn" id="btn-stop-benchmark" data-i18n="btn-benchmark-stop" style="display: none; background: rgba(255,50,50,0.2); border-color: rgba(255,50,50,0.5);">Stop Benchmark</button>
+                </div>
+            </aside>
+
             <!-- Canvas Container -->
             <div class="canvas-viewport" id="viewport-container">
                 <canvas id="fractal-canvas"></canvas>
@@ -31,57 +60,57 @@
                 <!-- Loading indicator overlay -->
                 <div class="loading-overlay" id="loading-spinner">
                     <div class="spinner"></div>
-                    <span>Computing Dimensions...</span>
+                    <span data-i18n="loading">Computing Dimensions...</span>
                 </div>
                 
                 <!-- Zoom / Position HUD Overlay -->
                 <div class="hud-overlay" id="hud-coordinates">
-                    <div class="hud-item"><span class="hud-label">Center:</span> <span id="hud-val-center">0.0, 0.0</span></div>
-                    <div class="hud-item"><span class="hud-label">Zoom:</span> <span id="hud-val-zoom">1.0x</span></div>
-                    <div class="hud-item"><span class="hud-label">Render Time:</span> <span id="hud-val-time">0 ms</span></div>
+                    <div class="hud-item"><span class="hud-label" data-i18n="hud-center">Center:</span> <span id="hud-val-center">0.0, 0.0</span></div>
+                    <div class="hud-item"><span class="hud-label" data-i18n="hud-zoom">Zoom:</span> <span id="hud-val-zoom">1.0x</span></div>
+                    <div class="hud-item"><span class="hud-label" data-i18n="hud-time">Render Time:</span> <span id="hud-val-time">0 ms</span></div>
                 </div>
             </div>
 
             <!-- Glassmorphic Controls Sidebar -->
             <aside class="control-panel" id="controls-panel">
                 <div class="panel-section">
-                    <h2 class="section-title">RENDER ENGINE</h2>
+                    <h2 class="section-title" data-i18n="sec-engine">RENDER ENGINE</h2>
                     <div class="type-selector">
-                        <button class="type-btn active" id="btn-engine-webgl" data-engine="webgl">WebGL GPU</button>
-                        <button class="type-btn" id="btn-engine-js" data-engine="js">Local Browser</button>
+                        <button class="type-btn active" id="btn-engine-webgl" data-engine="webgl" data-i18n="btn-webgl">WebGL GPU</button>
+                        <button class="type-btn" id="btn-engine-js" data-engine="js" data-i18n="btn-js">Local Browser</button>
                     </div>
                 </div>
 
                 <div class="panel-section">
-                    <h2 class="section-title">FRACTAL TYPE</h2>
+                    <h2 class="section-title" data-i18n="sec-fractal">FRACTAL TYPE</h2>
                     <select id="fractal-select" class="search-input">
                         <!-- Populated by JS -->
                     </select>
                 </div>
 
                 <div class="panel-section">
-                    <h2 class="section-title">POWER (n)</h2>
+                    <h2 class="section-title" data-i18n="sec-power">POWER (n)</h2>
                     <div class="power-control">
                         <button class="power-btn" id="btn-power-decrease">-</button>
-                        <input type="number" id="input-fractal-power" class="power-input search-input" value="1" step="0.5">
+                        <input type="number" id="input-fractal-power" class="power-input search-input" value="2" step="0.5">
                         <button class="power-btn" id="btn-power-increase">+</button>
                     </div>
                 </div>
 
                 <!-- Julia Constant Coordinates Explorer (hidden unless Julia is active) -->
                 <div class="panel-section hidden" id="julia-coords-section">
-                    <h2 class="section-title">JULIA CONSTANT (c)</h2>
+                    <h2 class="section-title" data-i18n="sec-julia">JULIA CONSTANT (c)</h2>
                     <div class="coords-group">
                         <div class="coord-slider">
                             <div class="slider-header">
-                                <label for="slider-julia-cre">Real (cr):</label>
+                                <label for="slider-julia-cre" data-i18n="lbl-real">Real (cr):</label>
                                 <span id="val-julia-cre">-0.70</span>
                             </div>
                             <input type="range" id="slider-julia-cre" min="-2.0" max="2.0" step="0.005" value="-0.7">
                         </div>
                         <div class="coord-slider">
                             <div class="slider-header">
-                                <label for="slider-julia-cim">Imag (ci):</label>
+                                <label for="slider-julia-cim" data-i18n="lbl-imag">Imag (ci):</label>
                                 <span id="val-julia-cim">0.27</span>
                             </div>
                             <input type="range" id="slider-julia-cim" min="-2.0" max="2.0" step="0.005" value="0.27015">
@@ -90,56 +119,67 @@
                 </div>
 
                 <div class="panel-section">
-                    <h2 class="section-title">COLOR PALETTE</h2>
+                    <h2 class="section-title" data-i18n="sec-palette">COLOR PALETTE</h2>
                     <div class="palette-grid" id="palette-picker">
                         <button class="palette-card active" id="pal-cyberpunk" data-palette="cyberpunk">
                             <span class="palette-preview cyberpunk-grad"></span>
-                            <span class="palette-label">Cyberpunk</span>
+                            <span class="palette-label" data-i18n="pal-cyberpunk">Cyberpunk</span>
                         </button>
                         <button class="palette-card" id="pal-fire" data-palette="fire">
                             <span class="palette-preview fire-grad"></span>
-                            <span class="palette-label">Solarized Fire</span>
+                            <span class="palette-label" data-i18n="pal-fire">Solarized Fire</span>
                         </button>
                         <button class="palette-card" id="pal-ocean" data-palette="ocean">
                             <span class="palette-preview ocean-grad"></span>
-                            <span class="palette-label">Deep Ocean</span>
+                            <span class="palette-label" data-i18n="pal-ocean">Deep Ocean</span>
                         </button>
                         <button class="palette-card" id="pal-slate" data-palette="slate">
                             <span class="palette-preview slate-grad"></span>
-                            <span class="palette-label">Mono Slate</span>
+                            <span class="palette-label" data-i18n="pal-slate">Mono Slate</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="panel-section">
                     <div class="slider-header">
-                        <h2 class="section-title">MAX ITERATIONS</h2>
+                        <h2 class="section-title" data-i18n="sec-iter">MAX ITERATIONS</h2>
                         <span class="badge" id="val-iterations">150</span>
                     </div>
-                    <p class="slider-description">Controls detail level. High detail calculations compile instantly via Apple Silicon JIT.</p>
+                    <p class="slider-description" data-i18n="desc-iter">Controls detail level. High detail calculations compile instantly via Apple Silicon JIT.</p>
                     <input type="range" id="slider-iterations" min="20" max="1500" step="10" value="150" class="main-slider">
                 </div>
 
                 <div class="panel-section">
                     <div class="slider-header">
-                        <h2 class="section-title">RESOLUTION SCALE</h2>
+                        <h2 class="section-title" data-i18n="sec-res">RESOLUTION SCALE</h2>
                         <span class="badge" id="val-resolution">100%</span>
                     </div>
-                    <p class="slider-description">Adjusts render resolution. 100% uses your monitor's native high-DPI (Retina/4K) pixels.</p>
+                    <p class="slider-description" data-i18n="desc-res">Adjusts render resolution. 100% uses your monitor's native high-DPI (Retina/4K) pixels.</p>
                     <input type="range" id="slider-resolution" min="1" max="100" step="1" value="100" class="main-slider">
                 </div>
 
                 <div class="panel-section action-section">
-                    <button class="action-btn" id="btn-reset">Reset Coordinates</button>
-                    <button class="action-btn primary" id="btn-download">Export Image (PNG)</button>
+                    <button class="action-btn" id="btn-reset" data-i18n="btn-reset">Reset Coordinates</button>
+                    <button class="action-btn" id="btn-toggle-benchmark" data-i18n="btn-benchmark-toggle">Benchmark Mode</button>
+                    <button class="action-btn primary" id="btn-download" data-i18n="btn-download">Export Image (PNG)</button>
                 </div>
 
                 <!-- Info footer inside panel -->
                 <div class="panel-info">
-                    <p>💡 <strong>Controls:</strong> Drag to pan, scroll wheel or pinch to zoom into infinite detail.</p>
+                    <p data-i18n="footer-info">💡 <strong>Controls:</strong> Drag to pan, scroll wheel or pinch to zoom into infinite detail.</p>
                 </div>
             </aside>
         </main>
+        
+        <!-- Benchmark Final Score Modal -->
+        <div class="benchmark-modal-overlay" id="benchmark-modal">
+            <div class="benchmark-modal">
+                <h2 data-i18n="bench-score-title">Benchmark Complete</h2>
+                <div class="benchmark-score-label" data-i18n="bench-score-label">Total Points:</div>
+                <div class="benchmark-score" id="benchmark-score-val">0</div>
+                <button class="action-btn primary" id="btn-close-benchmark" data-i18n="bench-score-close">Close</button>
+            </div>
+        </div>
     </div>
     
     <script type="module" src="app.js"></script>
