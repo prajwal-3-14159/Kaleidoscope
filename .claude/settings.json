@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./node_modules/**)",
+      "Read(./package-lock.json)",
+      "Read(./**/*.png)",
+      "Read(./.DS_Store)"
+    ]
+  }
+}

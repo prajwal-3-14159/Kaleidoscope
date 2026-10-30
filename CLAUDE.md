@@ -38,6 +38,10 @@ Static WebGL2 fractal explorer. No build step, native ES modules, deployed as-is
 - `spec.mode === 'wait'` = reference orbit pending; engines just reproject the old frame.
 - Every new UI string needs `en` and `ja` entries in `src/i18n.js`.
 
+## Context hygiene
+- No `.claudeignore` exists in Claude Code. Search respects `.gitignore`, and `.claude/settings.json` denies reading `node_modules/`, `package-lock.json` and PNGs.
+- Prefer `grep -n` and `sed -n 'a,bp'` on the file you need over whole-file reads (`main.js` and `renderer.js` are large).
+
 ## Conventions
 - Commit messages end with the Co-Authored-By line from the session instructions. Do not commit scratch files.
 - Keep comments short and useful; no build tooling or frameworks.
