@@ -44,6 +44,9 @@ const app = {
     cyclePhase: 0,
     lastSpec: null,
     lastProgress: null,
+    iterBoost: 1,
+    probedKey: null,
+    probing: false,
 };
 
 // ------------------------------------------------------------------ engines
@@ -100,9 +103,15 @@ function homeView() {
 function homeLog2r() { const { w, h } = canvasSize(); return V.viewForBox(homeBox(), w / h).log2r; }
 function zoomLog10() { return Math.max(0, V.zoomFactorLog10(view, homeLog2r())); }
 
+/** Starting guess for the iteration limit at a given zoom depth (decades). */
+function baseIterations(L) {
+    return Math.round(Math.min(2e6, 300 + 250 * L ** 1.3));
+}
+
+// Auto iterations = base guess × an adaptive boost, refined by probing the view
+// (see adaptIterations): the depth of structure varies hugely between locations.
 function autoIterations() {
-    const L = zoomLog10();
-    return Math.round(Math.min(1e6, 300 + 150 * L ** 1.3));
+    return Math.round(Math.min(2e6, baseIterations(zoomLog10()) * app.iterBoost));
 }
 
 function iterFromSlider(v) { return Math.round(10 ** (1 + (v / 1000) * 5)); }
@@ -203,6 +212,7 @@ function setPaletteLut(id) {
 
 function touchView() {
     app.viewVersion++;
+    app.lastViewChange = performance.now();
     scheduleUrlUpdate();
 }
 
@@ -293,6 +303,7 @@ app.setFractal = (id, { julia = state.julia, resetView = true, juliaC = null } =
     if (juliaC) state.juliaC = [...juliaC];
     else if (f.juliaC && !state.julia) state.juliaC = [...f.juliaC];
     if (resetView) view = homeView();
+    app.iterBoost = 1;
     invalidateCompute();
     touchView();
     syncControls();
@@ -477,6 +488,7 @@ function tick(now) {
         const pip = pipSpec();
         $('pip').classList.toggle('visible', !!pip);
         const progress = e.frame(spec, pip);
+        adaptIterations(spec, now);
         if (now - hudTimer > 100) {
             updateHud(progress, spec);
             hudTimer = now;
@@ -484,6 +496,31 @@ function tick(now) {
         app.lastSpec = spec;
     }
     requestAnimationFrame(tick);
+}
+
+/**
+ * Once the view has settled, sample it at low resolution. If escaping pixels come
+ * close to the iteration limit, deeper structure is being cut off: double it.
+ * If they all escape far below it, halve it again (the gap avoids oscillation).
+ */
+async function adaptIterations(spec, now) {
+    if (!state.autoIter || app.probing || app.motion || spec.mode === 'wait' || spec.mode === 'sierpinski') return;
+    if (now - app.lastInteract < 350 || now - (app.lastViewChange || 0) < 350) return;
+    if (app.probedKey === spec.key) return;
+    app.probedKey = spec.key;
+    app.probing = true;
+    try {
+        const st = await engine().probe(spec);
+        if (!st || st.maxMu === 0) return;
+        const n = spec.maxIter;
+        if (st.maxMu > 0.4 * n && n < 2e6) app.iterBoost *= 2;
+        else if (st.maxMu < 0.15 * n && app.iterBoost > 1) app.iterBoost /= 2;
+        else return;
+        invalidateCompute();
+        syncControls();
+    } finally {
+        app.probing = false;
+    }
 }
 
 // ------------------------------------------------------------------ URL state
@@ -747,7 +784,7 @@ function goTour(id) {
     const target = tr.home ? homeView() : tourView(tr);
     if (!sameFractal && tr.home) return;
     const pin = supportsDeepZoom(fractal(), state.power) && target.log2r < -20
-        ? { cx: target.cx, cy: target.cy, bits: target.bits, maxIter: Math.round(Math.min(1e6, 300 + 150 * ((homeLog2r() - target.log2r) * Math.log10(2)) ** 1.3)) }
+        ? { cx: target.cx, cy: target.cy, bits: target.bits, maxIter: baseIterations((homeLog2r() - target.log2r) * Math.log10(2)) }
         : null;
     app.flyTo(target, { pin });
 }

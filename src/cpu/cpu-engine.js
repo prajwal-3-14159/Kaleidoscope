@@ -5,6 +5,7 @@
 import { colorizePixel, makeLinearLut, toSrgb8 } from '../core/colorize.js';
 import { iterateDirect } from '../core/escape.js';
 import { relativeTransform } from '../view.js';
+import { probeStats } from '../gl/renderer.js';
 
 const PREVIEW_DIV = 4;
 
@@ -271,6 +272,15 @@ export class CpuEngine {
         const settings = this._colorSettings(spec.color);
         for (let y = 0; y < h; y++) this._colorRow(layer, y, spec.color, settings);
         return layer.img;
+    }
+
+    /** Low-resolution escape statistics (see GpuRenderer.probe). */
+    async probe(spec) {
+        if (spec.mode === 'wait') return null;
+        const w = 64, h = Math.max(8, Math.round(64 * this.height / this.width));
+        const data = await this._computeAll(spec, w, h, this.width / w);
+        if (this.job) this.job.key = null; // the probe pre-empted the live job; restart it
+        return probeStats(data);
     }
 
     async renderImage(spec, width, height, pxScale, aa, onProgress) {

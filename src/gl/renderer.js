@@ -22,6 +22,18 @@ function jitter(k) {
     return [((k / g) % 1) - 0.5, ((k / (g * g)) % 1) - 0.5];
 }
 
+/** Escape statistics from a buffer of per-pixel data (mu in every 4th float). */
+export function probeStats(buf) {
+    let interior = 0, maxMu = 0;
+    const n = buf.length / 4;
+    for (let i = 0; i < buf.length; i += 4) {
+        const mu = buf[i];
+        if (mu < 0) interior++;
+        else if (mu > maxMu) maxMu = mu;
+    }
+    return { interior: interior / n, maxMu, n };
+}
+
 export class GpuRenderer {
     constructor(canvas) {
         this.canvas = canvas;
@@ -479,6 +491,28 @@ export class GpuRenderer {
 
     /** Force a full re-render on the next frame (e.g. after a reference orbit arrives). */
     invalidate() { if (this.job) this.job.key = null; }
+
+    /**
+     * Render a small low-resolution sample of `spec` and return escape statistics:
+     * { interior: fraction of pixels that never escaped, maxMu, n } — used to adapt
+     * the iteration limit to how deep the structure in view really goes.
+     */
+    probe(spec) {
+        if (spec.mode === 'wait') return null;
+        const gl = this.gl;
+        const w = 96, h = Math.max(8, Math.round(96 * this.set.h / this.set.w));
+        if (!this.probeT || this.probeT.h !== h) {
+            this._freeTarget(this.probeT);
+            this.probeT = this._target(w, h, gl.RGBA32F, gl.NEAREST);
+        }
+        this._compute(spec, this.probeT, 0, h, [-w / 2, -h / 2], this.set.w / w, [0, 0]);
+        const buf = new Float32Array(w * h * 4);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, this.probeT.fbo);
+        gl.readPixels(0, 0, w, h, gl.RGBA, gl.FLOAT, buf);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        this.dirty = true;
+        return probeStats(buf);
+    }
 
     // ------------------------------------------------------------------ picture-in-picture
 
