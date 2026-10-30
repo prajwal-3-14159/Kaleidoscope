@@ -280,7 +280,7 @@ export class CpuEngine {
         const w = 64, h = Math.max(8, Math.round(64 * this.height / this.width));
         const data = await this._computeAll(spec, w, h, this.width / w);
         if (this.job) this.job.key = null; // the probe pre-empted the live job; restart it
-        return probeStats(data);
+        return probeStats(data, spec.maxIter);
     }
 
     async renderImage(spec, width, height, pxScale, aa, onProgress) {

@@ -511,9 +511,14 @@ async function adaptIterations(spec, now) {
     app.probing = true;
     try {
         const st = await engine().probe(spec);
-        if (!st || st.maxMu === 0) return;
+        if (window.kaleidoscope) window.kaleidoscope.lastProbe = st;
+        if (!st) return;
         const n = spec.maxIter;
-        if (st.maxMu > 0.4 * n && n < 2e6) app.iterBoost *= 2;
+        // Unescaped pixels plus a real share escaping late = the limit is cutting off
+        // structure. (A few late pixels alone are normal: near any boundary some
+        // points always escape just under any limit.)
+        const truncated = st.interior > 0.01 && st.late > Math.max(0.003, 0.1 * st.interior);
+        if (truncated && n < 2e6 && app.iterBoost < 256) app.iterBoost *= 2;
         else if (st.maxMu < 0.15 * n && app.iterBoost > 1) app.iterBoost /= 2;
         else return;
         invalidateCompute();
@@ -865,6 +870,6 @@ function boot() {
 }
 
 // Expose for debugging and automated tests.
-window.kaleidoscope = { app, state, gpu, refs, V, get view() { return view; }, set view(v) { view = v; touchView(); }, goTour, setEngine, buildSpec };
+window.kaleidoscope = { app, state, gpu, refs, V, makeSpec, get view() { return view; }, set view(v) { view = v; touchView(); }, goTour, setEngine, buildSpec };
 
 boot();

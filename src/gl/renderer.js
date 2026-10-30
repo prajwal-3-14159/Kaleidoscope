@@ -22,16 +22,23 @@ function jitter(k) {
     return [((k / g) % 1) - 0.5, ((k / (g * g)) % 1) - 0.5];
 }
 
-/** Escape statistics from a buffer of per-pixel data (mu in every 4th float). */
-export function probeStats(buf) {
-    let interior = 0, maxMu = 0;
+/**
+ * Escape statistics from a buffer of per-pixel data (mu in every 4th float):
+ * interior = fraction that never escaped, late = fraction escaping in the last
+ * half of the iteration budget, maxMu = largest escape count.
+ */
+export function probeStats(buf, maxIter) {
+    let interior = 0, late = 0, maxMu = 0;
     const n = buf.length / 4;
     for (let i = 0; i < buf.length; i += 4) {
         const mu = buf[i];
         if (mu < 0) interior++;
-        else if (mu > maxMu) maxMu = mu;
+        else {
+            if (mu > maxMu) maxMu = mu;
+            if (mu > maxIter / 2) late++;
+        }
     }
-    return { interior: interior / n, maxMu, n };
+    return { interior: interior / n, late: late / n, maxMu, n };
 }
 
 export class GpuRenderer {
@@ -499,9 +506,14 @@ export class GpuRenderer {
      */
     probe(spec) {
         if (spec.mode === 'wait') return null;
-        const gl = this.gl;
         const w = 96, h = Math.max(8, Math.round(96 * this.set.h / this.set.w));
-        if (!this.probeT || this.probeT.h !== h) {
+        return probeStats(this.readData(spec, w, h), spec.maxIter);
+    }
+
+    /** Raw per-pixel data for spec on a w×h grid covering the view (rows bottom-up). */
+    readData(spec, w, h) {
+        const gl = this.gl;
+        if (!this.probeT || this.probeT.h !== h || this.probeT.w !== w) {
             this._freeTarget(this.probeT);
             this.probeT = this._target(w, h, gl.RGBA32F, gl.NEAREST);
         }
@@ -511,7 +523,7 @@ export class GpuRenderer {
         gl.readPixels(0, 0, w, h, gl.RGBA, gl.FLOAT, buf);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         this.dirty = true;
-        return probeStats(buf);
+        return buf;
     }
 
     // ------------------------------------------------------------------ picture-in-picture

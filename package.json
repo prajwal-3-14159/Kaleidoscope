@@ -1,1 +1,12 @@
-{"name":"kaleidoscope","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs"}}
+{
+  "name": "kaleidoscope",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:gpu": "node tests/gpu-parity.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.48.0"
+  }
+}
