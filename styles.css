@@ -940,7 +940,8 @@ body.benchmarking #toast { bottom: calc(190px + var(--safe-b)); }
 body.benchmarking #panel,
 body.benchmarking #hint,
 body.benchmarking #pip,
-body.benchmarking #btn-panel { display: none !important; }
+body.benchmarking #btn-panel,
+body.benchmarking #hud { display: none !important; }
 
 /* --------------------------------------------------------------------------
    Mobile: bottom sheet
