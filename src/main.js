@@ -152,6 +152,9 @@ function buildSpec(pin = null) {
     if (f.kind === 'geometric') {
         spec.mode = 'sierpinski';
         spec.sier = sierpinskiFrame(view.cx, view.cy, view.bits, log2pixel);
+        // Removal levels are integers that keep growing with depth: step through the
+        // palette linearly so every level stays distinct, however deep.
+        spec.color = { ...spec.color, mapping: MAPPINGS.linear, density: spec.color.density * 6 };
     } else {
         const minDirect = e === gpu ? GPU_DIRECT_MIN_LOG2PIXEL : CPU_DIRECT_MIN_LOG2PIXEL;
         const deep = supportsDeepZoom(f, state.power) && log2pixel < minDirect;
