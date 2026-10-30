@@ -8,9 +8,10 @@ export const SHADINGS = { flat: 0, filaments: 1, relief: 2 };
 
 /** Palette position (in cycles) for a smooth escape count. */
 export function mapMu(mu, mapping) {
-    if (mapping === 0) return Math.sqrt(mu) * 0.25;
-    if (mapping === 1) return Math.log2(mu + 1) * 0.3;
-    return mu / 48;
+    // Shifted so the outermost band (mu ≈ 1) sits at the start of the palette.
+    if (mapping === 0) return (Math.sqrt(mu) - 1) * 0.25;
+    if (mapping === 1) return (Math.log2(mu + 1) - 1) * 0.3;
+    return (mu - 1) / 48;
 }
 
 const srgbToLinear = c => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);

@@ -34,6 +34,7 @@ export function fromNumber(x, bits) {
 
 /** Multiply x by 2^k without intermediate overflow/underflow. */
 export function mulPow2(x, k) {
+    if (!Number.isFinite(k)) return k > 0 ? x * Infinity : (Number.isNaN(k) ? NaN : x * 0);
     while (k > 1000) { x *= 2 ** 1000; k -= 1000; }
     while (k < -1000) { x *= 2 ** -1000; k += 1000; }
     return x * 2 ** k;

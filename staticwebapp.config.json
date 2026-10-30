@@ -1,0 +1,26 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/src/*", "/*.{css,js,mjs,png,svg,json,ico,txt,map}"]
+  },
+  "routes": [
+    { "route": "/.github/*", "statusCode": 404 },
+    { "route": "/tests/*", "statusCode": 404 },
+    { "route": "/PLAN.md", "statusCode": 404 },
+    { "route": "/package.json", "statusCode": 404 },
+    { "route": "/", "headers": { "Cache-Control": "no-cache" } },
+    { "route": "/*.html", "headers": { "Cache-Control": "no-cache" } },
+    { "route": "/*.css", "headers": { "Cache-Control": "no-cache" } },
+    { "route": "/*.{js,mjs}", "headers": { "Cache-Control": "no-cache" } },
+    { "route": "/src/*", "headers": { "Cache-Control": "no-cache" } }
+  ],
+  "mimeTypes": {
+    ".js": "text/javascript",
+    ".mjs": "text/javascript"
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+  }
+}
