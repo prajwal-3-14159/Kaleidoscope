@@ -2,6 +2,12 @@
 
 Static WebGL2 fractal explorer. No build step, native ES modules, deployed as-is to Azure Static Web Apps (`staticwebapp.config.json`, workflow in `.github/`). Read this file instead of exploring; open only the files a task touches.
 
+## Status (2026-10-31)
+Plan phases 0–6 are implemented; the perturbation ultra-deep zoom (phase 7) is done too. Decisions: Sierpiński kept (exact, no fake Julia), Local Browser CPU engine kept (workers), EN+JA kept.
+- Verified: 22 math tests; GPU↔CPU parity (`npm run test:gpu`); GPU deep zoom at 3e29 (Mandelbrot, ~165k iterations); Sierpiński at 1e53; benchmark quick run on Apple M5 scored ~1,750; CPU deep render works but is slow (~35 s at 1e11 on Burning Ship).
+- NOT verified (the QA subagent died before reporting): all 11 tour stops, Julia PiP/J key, mobile and Japanese layouts, PNG export, power ≠ 2 zoom clamp toast, Burning Ship deep-zoom image vs CPU at a non-trivial spot.
+- Next ideas: re-run QA sweep; CPU deep-zoom speed; pinch/touch check on a real device; update `PLAN.md` (stale).
+
 ## Commands
 - Serve: `python3 -m http.server 8080` (must be http, not file://)
 - Math tests: `npm test` (node --test, 22 tests, ~0.5 s)
@@ -45,4 +51,6 @@ Static WebGL2 fractal explorer. No build step, native ES modules, deployed as-is
 ## Conventions
 - Commit messages end with the Co-Authored-By line from the session instructions. Do not commit scratch files.
 - Keep comments short and useful; no build tooling or frameworks.
+- Subagents: use Sonnet for self-contained pieces (UI, benchmark, docs, QA). Give each a file-ownership contract and tell it to use uniquely named scratch files (a shared scratch script was overwritten once). Headless Chrome hangs without GPU flags.
+- Benchmark: score = 100 × (pixels / benchFrame-seconds) / 1e6; only `benchFrame` time counts; CPU engine runs a smaller 480×270 workload.
 - `PLAN.md` = roadmap/decisions (historical bug list refers to the pre-rewrite code).
