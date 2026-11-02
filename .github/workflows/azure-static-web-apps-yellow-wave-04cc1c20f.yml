@@ -1,5 +1,9 @@
 name: Azure Static Web Apps CI/CD
 
+# Every push to main is tested, then uploaded as-is to Azure Static Web Apps
+# (there is no build step). Pull requests get a preview environment; closing
+# the PR tears it down. The deploy token lives in the repository secrets.
+
 on:
   push:
     branches:
@@ -9,35 +13,58 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: swa-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  build_and_deploy_job:
+  test:
+    name: Test and check
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Maths tests
+        run: npm test
+      - name: Site checks (syntax, links, i18n parity, Japanese shell, sitemap)
+        run: npm run check
+
+  build_and_deploy_job:
+    name: Deploy to Azure Static Web Apps
+    needs: test
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+    steps:
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
-      - name: Build And Deploy
+      - name: Upload site
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_YELLOW_WAVE_04CC1C20F }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # PR preview comments
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
+          app_location: "/"
           api_location: ""
           skip_app_build: true
-          output_location: "" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          output_location: ""
+          config_file_location: "/"
 
   close_pull_request_job:
+    name: Close PR preview
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Close Pull Request Job
     steps:
       - name: Close Pull Request
         id: closepullrequest

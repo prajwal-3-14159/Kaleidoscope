@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sierpiński Triangle — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="The Sierpiński triangle explained: how to build it by cutting, by chance and from Pascal&#x27;s triangle, its dimension of 1.585, and how to zoom into it forever.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="The Sierpiński Triangle — Kaleidoscope Fractal Encyclopedia">
+  <meta property="og:description" content="Four ways to build the Sierpiński triangle, why its dimension is about 1.585, and an exact zoom that never runs out.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Sierpiński triangle rendered in the Kaleidoscope fractal explorer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Sierpiński Triangle — Kaleidoscope Fractal Encyclopedia">
+  <meta name="twitter:description" content="Four ways to build the Sierpiński triangle, why its dimension is about 1.585, and an exact zoom that never runs out.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html#article","headline":"The Sierpiński Triangle","description":"The Sierpiński triangle explained: how to build it by cutting, by chance and from Pascal's triangle, its dimension of 1.585, and how to zoom into it forever.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"Sierpiński triangle","sameAs":"https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"Sierpiński triangle","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/sierpinski.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>Sierpiński triangle</li></ol>
+    <article class="article">
+    <h1>The Sierpiński Triangle</h1>
+    <p class="lede">A triangle made of three triangles, each made of three triangles, and so on without end. It is the simplest fractal to build and one of the most revealing.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/#f=sierpinski">Open in explorer</a> <a class="btn" href="/#f=sierpinski&amp;x=0.2857142857142857142857142857142857142857142857142857142857142857142857&amp;y=0.2474358296526967562182066202151246238489721791157686611508295684931333&amp;z=-180">Infinite Sierpiński</a></div>
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#the-shape">The shape</a></li><li><a href="#history">A short history</a></li><li><a href="#size">Zero area, endless edge</a></li><li><a href="#ways-to-build">Four ways to build the same shape</a></li><li><a href="#infinite-zoom">Zooming forever</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="the-shape">The shape</h2>
+<p>Start with a solid equilateral triangle. Join the midpoints of its three sides and remove the small upside-down triangle in the middle, which leaves three half-size triangles. Now do the same to each of those, and again, and again, forever. What remains is the <strong>Sierpiński triangle</strong>, also called the Sierpiński gasket or sieve.</p>
+<figure><img src="/assets/learn/sierpinski-overview.webp" width="1200" height="675" loading="lazy" alt="The Sierpiński triangle: a large triangle made of three smaller copies of itself, each made of three smaller copies, with an upside-down triangular hole in the middle and smaller holes at every scale, colored by size."><figcaption>The Sierpiński triangle at the explorer's home view.</figcaption></figure>
+<p>It is unlike the other fractals in this encyclopedia. Nothing "escapes", and no equation of the form <math alttext="z → z² + c"><mi>z</mi><mo>→</mo><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> is iterated. The shape is defined directly by a repeating geometric rule, which is why the explorer can draw it exactly, at any depth.</p>
+
+<h2 id="history">A short history</h2>
+<p>The Polish mathematician Wacław Sierpiński described the triangle in 1915 as an example of a curve in which every point is a branching point. The following year he described the square version, now known as the Sierpiński carpet. Benoit Mandelbrot later used both as classic examples of the self-similar shapes he called fractals.</p>
+
+<h2 id="size">Zero area, endless edge</h2>
+<p>Each cut leaves three triangles, each half as wide as before. After <math alttext="n"><mi>n</mi></math> cuts there are <math alttext="3ⁿ"><msup><mn>3</mn><mi>n</mi></msup></math> triangles whose side is <math alttext="2^(−n)"><msup><mn>2</mn><mrow><mo form="prefix">−</mo><mi>n</mi></mrow></msup></math> of the original, so the area left is <math alttext="(3/4)ⁿ"><msup><mrow><mo stretchy="false">(</mo><mn>3</mn><mo lspace="0" rspace="0">/</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><mi>n</mi></msup></math> of the start. That heads to zero, so the finished shape has no area at all. Yet the total length of its edges is multiplied by <math alttext="3/2"><mn>3</mn><mo lspace="0" rspace="0">/</mo><mn>2</mn></math> at every cut and grows without limit. It is something in between a line and a surface, and mathematicians measure that "in between" with a number, its dimension.</p>
+<p>Three half-size copies rebuild the whole, so the shape is exactly <a href="/learn/glossary.html#self-similarity">self-similar</a>. Halving the size takes 3 copies to rebuild the whole, which gives a <a href="/learn/glossary.html#hausdorff-dimension">Hausdorff dimension</a> of</p>
+<math display="block" alttext="D = ln 3 / ln 2 ≈ 1.585"><mi>D</mi><mo>=</mo><mfrac><mrow><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>3</mn></mrow><mrow><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>2</mn></mrow></mfrac><mo>≈</mo><mn>1.585</mn></math>
+<p class="eq-note">Plain text: <code>D = ln 3 / ln 2 ≈ 1.585</code></p>
+<p>That is greater than 1 (a line) and less than 2 (a filled area).</p>
+
+<h2 id="ways-to-build">Four ways to build the same shape</h2>
+<h3 id="cutting">Cutting</h3>
+<p>The method above: remove the middle triangle, repeat.</p>
+<h3 id="chaos-game">The chaos game</h3>
+<p>Mark three corners. Start anywhere, then repeatedly jump halfway toward a randomly chosen corner and plot the point you land on. After the first few jumps the dots trace out the Sierpiński triangle, so order emerges from pure chance. Michael Barnsley popularized this construction.</p>
+<h3 id="pascals-triangle">Pascal's triangle</h3>
+<p>Write out Pascal's triangle, where each number is the sum of the two above it, then color the odd numbers and leave the even ones blank. The pattern is the Sierpiński triangle. A related cellular automaton, Wolfram's Rule 90, draws it too.</p>
+<h3 id="binary-digits">Binary digits</h3>
+<p>This is the method the explorer uses. Draw the right-angled version in the unit square, with <math alttext="u"><mi>u</mi></math> across and <math alttext="v"><mi>v</mi></math> up. A point <math alttext="(u, v)"><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></math> belongs to the triangle exactly when the binary digits of <math alttext="u"><mi>u</mi></math> and <math alttext="v"><mi>v</mi></math> are never both 1 in the same position. It is the Pascal's triangle rule in disguise, and it can be tested one digit at a time. The explorer then stretches the right-angled picture into an equilateral triangle with corners at <math alttext="(0, 0)"><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></math>, <math alttext="(1, 0)"><mo stretchy="false">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></math> and <math alttext="(1/2, (√3)/2)"><mo stretchy="false">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>,</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="false">)</mo></math>.</p>
+
+<h2 id="infinite-zoom">Zooming forever</h2>
+<p>For escape-time fractals the explorer needs <a href="/learn/how-it-works.html#deep-zoom">perturbation theory</a> to go deep. The Sierpiński triangle is easier: the first few binary digits of a pixel are resolved exactly with big-integer arithmetic, and the remaining digits are checked in ordinary numbers. The picture is therefore exact at any depth, up to the same limit of about 10<sup>300</sup> as the other fractals.</p>
+<p>The tour's <em>Infinite Sierpiński</em> view is centered on the point <math alttext="u = 1/7"><mi>u</mi><mo>=</mo><mfrac><mn>1</mn><mn>7</mn></mfrac></math>, <math alttext="v = 2/7"><mi>v</mi><mo>=</mo><mfrac><mn>2</mn><mn>7</mn></mfrac></math>. In binary these are <math alttext="0.001001001…"><mn>0.001001001</mn><mo>…</mo></math> and <math alttext="0.010010010…"><mn>0.010010010</mn><mo>…</mo></math>, which never clash and which repeat every three digits. Zooming in by a factor of 8, three octaves, therefore brings you back to what looks like the same picture. It sits at a magnification of the order of 10<sup>54</sup>, and you can keep going.</p>
+<figure><img src="/assets/learn/sierpinski-deep.webp" width="1200" height="675" loading="lazy" alt="A deep zoom into the Sierpiński triangle: copies of triangles and triangular holes repeat at every scale around the center of the view."><figcaption>A deep view, around 10<sup>54</sup> times magnified. It looks much like a shallow one.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=sierpinski">Open in explorer</a> <a class="btn" href="/#f=sierpinski&amp;x=0.2857142857142857142857142857142857142857142857142857142857142857142857&amp;y=0.2474358296526967562182066202151246238489721791157686611508295684931333&amp;z=-180">Infinite Sierpiński</a> <a class="btn" href="/#f=sierpinski&amp;pal=ice">Ice palette</a></div>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> choose Sierpiński in the fractal list, then scroll or pinch to zoom as far as you like. Press <kbd>R</kbd> to reset the view. There is no Julia set here, so <kbd>J</kbd> does nothing; the shape has no parameter to vary.</p>
+</div>
+<p>To see how the other fractals are drawn, read <a href="/learn/how-it-works.html">How the explorer works</a>.</p>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/buffalo.html" rel="prev">← Buffalo</a><a href="/learn/how-it-works.html" rel="next">How it works →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

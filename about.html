@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>About Kaleidoscope — a fractal explorer for your browser</title>
+  <meta name="description" content="Kaleidoscope is a WebGL2 fractal explorer with GPU and CPU engines and deep zoom to about 10^300. Meet the project, its credits and its accessibility notes.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/about.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="About Kaleidoscope — a fractal explorer for your browser">
+  <meta property="og:description" content="A WebGL2 fractal explorer with GPU and CPU engines and deep zoom to about 10^300, running entirely in your browser. Features, credits and accessibility.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/about.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Kaleidoscope — a fractal explorer for your browser">
+  <meta name="twitter:description" content="A WebGL2 fractal explorer with GPU and CPU engines and deep zoom to about 10^300, running entirely in your browser. Features, credits and accessibility.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/about.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "AboutPage", "name": "About Kaleidoscope — a fractal explorer for your browser", "inLanguage": "en", "url": "https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html", "isPartOf": { "@type": "WebSite", "name": "Kaleidoscope", "url": "https://yellow-wave-04cc1c20f.7.azurestaticapps.net/" } }</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/about.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li>About</li></ol>
+    <article class="article">
+<h1>About Kaleidoscope</h1>
+      <p class="lede">Kaleidoscope is a fractal explorer that runs entirely in your web browser. Pan, zoom and fly through the Mandelbrot set and its relatives, all the way down to magnifications of about 10<sup>300</sup>.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/">Open the explorer</a>
+        <a class="btn" href="/learn/">Learn about fractals</a>
+      </div>
+
+      <h2 id="what">What it is</h2>
+      <p>Kaleidoscope is a static website: no installation, no account and no server doing the work. Your own device draws every image, either on its graphics card with WebGL2 or on its processor with a pool of background workers. It is built for exploring, so you can drag, scroll, pinch and double-click your way into a fractal, then export what you find.</p>
+      <ul>
+        <li><strong>Six fractals.</strong> The Mandelbrot set, Burning Ship, Tricorn, Celtic and Buffalo, each with a Julia variant, plus the Sierpiński triangle. Powers from 1.5 to 12 are supported.</li>
+        <li><strong>Two engines.</strong> A GPU engine (WebGL2 fragment shaders) and a CPU engine (64-bit floating point across Web Workers).</li>
+        <li><strong>Deep zoom to about 10<sup>300</sup>.</strong> For power-2 fractals, Kaleidoscope switches to perturbation theory with rebasing, using high-precision reference orbits, so images stay correct far beyond the reach of ordinary 32-bit and 64-bit numbers.</li>
+        <li><strong>Colour.</strong> Eight palettes interpolated in the OKLab colour space, smooth colouring, distance-estimate filaments, 3D relief lighting and optional animated colour cycling.</li>
+        <li><strong>Progressive rendering.</strong> A quick preview while you move, then sub-pixel samples accumulate for smooth anti-aliased detail.</li>
+        <li><strong>PNG export</strong> at up to 4× resolution, rendered in tiles on your device.</li>
+        <li><strong>Guided tour</strong> of notable places, with animated flights between them.</li>
+        <li><strong>Benchmark</strong> with fixed scenes, to see how your device performs.</li>
+        <li><strong>Shareable links.</strong> The current view is stored in the address, so you can bookmark it or send it to a friend.</li>
+        <li><strong>English and Japanese.</strong></li>
+      </ul>
+      <p>To learn what you are looking at, read the <a href="/learn/">Learn section</a>: articles on each fractal, a plain-language account of how the deep zoom works, and a glossary.</p>
+
+      <h2 id="technology">How it is built</h2>
+      <p>Kaleidoscope is plain HTML, CSS and JavaScript using native ES modules, with no build step and no framework. It is hosted as static files on Azure Static Web Apps. The source code is published on <a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>; licence terms are those stated in the repository.</p>
+
+      <h2 id="credits">Credits</h2>
+      <ul>
+        <li><strong>Perturbation theory</strong> for deep zooming follows K. I. Martin’s 2013 note “superfractalthing”, which showed how to compute a single high-precision reference orbit and iterate every pixel as a small difference from it.</li>
+        <li><strong>Rebasing</strong>, which prevents glitches in perturbed images, follows the technique described by Zhuoran in 2021.</li>
+        <li><strong>OKLab</strong>, the perceptual colour space used to blend palettes, was designed by Björn Ottosson (<a href="https://bottosson.github.io/posts/oklab/" rel="noopener">bottosson.github.io</a>).</li>
+        <li><strong>Fonts.</strong> Outfit by Rodrigo Fuenzalida and Space Grotesk by Florian Karsten, both under the SIL Open Font License 1.1 (<a href="/fonts/OFL-Outfit.txt">licence</a>, <a href="/fonts/OFL-SpaceGrotesk.txt">licence</a>).</li>
+        <li><strong>Hosting</strong> by Azure Static Web Apps (Microsoft).</li>
+        <li>The mathematics of these fractals is the work of many mathematicians over decades; the Learn pages describe it in simple terms.</li>
+      </ul>
+
+      <h2 id="accessibility">Accessibility statement</h2>
+      <p>We want Kaleidoscope to be usable by as many people as possible. We have not had a formal accessibility audit, so this is an honest description of where things stand.</p>
+      <h3>What works</h3>
+      <ul>
+        <li><strong>Keyboard.</strong> The explorer can be controlled from the keyboard, and the side panel uses standard buttons, sliders and switches that you can reach with <kbd>Tab</kbd>. Dialogs are native and close with <kbd>Esc</kbd>.</li>
+        <li><strong>Reduced motion.</strong> If your system asks for reduced motion, interface animations and transitions are effectively switched off, here and in the explorer, and the benchmark score appears without its count-up animation. Colour cycling is off by default.</li>
+        <li><strong>Dark interface.</strong> The interface is dark with light text, and these pages use a responsive layout that works on small screens and with browser zoom.</li>
+        <li><strong>Language.</strong> Everything is available in English and Japanese, and each page declares its language.</li>
+      </ul>
+      <table>
+        <thead><tr><th scope="col">Key</th><th scope="col">Action</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd></td><td>Pan</td></tr>
+          <tr><td><kbd>+</kbd> / <kbd>-</kbd></td><td>Zoom in / out</td></tr>
+          <tr><td><kbd>R</kbd></td><td>Reset the view</td></tr>
+          <tr><td><kbd>J</kbd></td><td>Open the Julia set for the point under the pointer</td></tr>
+          <tr><td><kbd>C</kbd></td><td>Toggle colour cycling</td></tr>
+          <tr><td><kbd>H</kbd></td><td>Hide or show all interface elements</td></tr>
+          <tr><td><kbd>P</kbd></td><td>Show or hide the side panel</td></tr>
+          <tr><td><kbd>F</kbd></td><td>Fullscreen</td></tr>
+          <tr><td><kbd>?</kbd></td><td>Help</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Close dialogs, or cancel a running benchmark</td></tr>
+        </tbody>
+      </table>
+      <h3>Known limits</h3>
+      <ul>
+        <li>A fractal is a picture. The image itself has no text alternative; only the readout of position, zoom and iteration count is text.</li>
+        <li>Choosing a point for the Julia preview depends on the pointer position, and some actions, such as pinch zoom, are touch or mouse gestures. Panning and zooming also work from the keyboard.</li>
+        <li>Colour cycling and the benchmark can show fast-changing, high-contrast patterns; see the <a href="/terms.html#safety">photosensitivity warning</a>.</li>
+        <li>There is no light theme, and the explorer has not been tested extensively with screen readers.</li>
+      </ul>
+      <p>If you run into a barrier, please tell us on <a href="https://github.com/prajwal-3-14159/Kaleidoscope/issues" rel="noopener">GitHub</a> and we will do our best to improve it.</p>
+
+      <h2 id="links">More</h2>
+      <ul>
+        <li><a href="/learn/">Learn</a>: the fractal encyclopedia</li>
+        <li><a href="/privacy.html">Privacy Policy</a>: short, because nothing is collected</li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+        <li><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">Source code and issue tracker on GitHub</a></li>
+      </ul>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

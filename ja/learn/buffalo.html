@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>バッファロー・フラクタル — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="バッファロー・フラクタルは、2 乗の前にも後にも平面を折りたたみます。そのルールと、バーニングシップやケルトとの違い、エクスプローラーでの探検のしかたを紹介します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/buffalo.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/buffalo.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="バッファロー・フラクタル — Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="マンデルブロの仲間のなかで最も折りたたみの多い、2 乗の前後に絶対値をとるフラクタル。ルールを学び、エクスプローラーで開いてみましょう。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/buffalo.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画したバッファロー・フラクタル">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="バッファロー・フラクタル — Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="マンデルブロの仲間のなかで最も折りたたみの多い、2 乗の前後に絶対値をとるフラクタル。ルールを学び、エクスプローラーで開いてみましょう。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/buffalo.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html#article","headline":"バッファロー・フラクタル","description":"バッファロー・フラクタルは、2 乗の前にも後にも平面を折りたたみます。そのルールと、バーニングシップやケルトとの違い、エクスプローラーでの探検のしかたを紹介します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/buffalo.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"バッファロー","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/buffalo.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/buffalo.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>バッファロー</li></ol>
+    <article class="article">
+    <h1>バッファロー・フラクタル</h1>
+    <p class="lede">バッファローは、マンデルブロ集合の仲間のなかで最も折りたたみの多いフラクタルです。2 乗の前に絶対値をとり、そのあとにもさらに折りたたみます。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=buffalo">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=buffalo&amp;c=-0.75,-0.45">バッファローのジュリア集合</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#the-rule">ルール</a></li><li><a href="#history">由来</a></li><li><a href="#what-to-look-for">どこに注目するか</a></li><li><a href="#julia-sets">バッファローのジュリア集合</a></li><li><a href="#tips">自分だけの発見をするには</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="the-rule">ルール</h2>
+<p>バッファロー・フラクタルは、この仲間のなかで最も折りたたみが多いフラクタルです。2 乗の<em>前</em>に折りたたむのは<a href="/ja/learn/burning-ship.html">バーニングシップ</a>と同じですが、そのうえ 2 乗の<em>後</em>にも折りたたみます。実部は正に、虚部は負にするのです。</p>
+<math display="block" alttext="z → |Re w| − i|Im w| + c, where w = (|Re z| + i|Im z|)²"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>w</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>−</mo><mi>i</mi><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>w</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>c</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>w</mi><mi>n</mi></msub><mo>=</mo><msup><mrow><mo stretchy="false">(</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>i</mi><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></math>
+<p class="eq-note">テキスト表記：<code>z → |Re w| − i|Im w| + c, where w = (|Re z| + i|Im z|)²</code></p>
+<p>実数の座標で、<math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> および <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math> と書くと、式はきれいに簡単になります。</p>
+<math display="block" alttext="x&#x27; = |x² − y²| + a,  y&#x27; = −2|x||y| + b"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><msub><mi>y</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math>
+<p class="eq-note">テキスト表記：<code>x&#x27; = |x² − y²| + a,  y&#x27; = −2|x||y| + b</code></p>
+<p>マンデルブロ集合のルールと比べると、実部と虚部の更新がどちらも絶対値で包まれていて、虚部のステップは逆向きに進みます。言い換えると、バッファローはバーニングシップの折りたたみとケルトの折りたたみを組み合わせ、さらに虚部を必ず負にしているのです。</p>
+
+<h2 id="history">由来</h2>
+<p><a href="/ja/learn/celtic.html">ケルト・フラクタル</a>と同じく、これだと指させる創始者の論文はありません。バッファローは、フラクタルアートのコミュニティで育った、マンデルブロの式の絶対値バリエーションの 1 つで、名前は絵の見た目からついた愛称です。ほかの折りたたみ型の集合と同じく解析的な写像ではないため、マンデルブロ集合の古典的な理論ではなく、実験によって調べられています。</p>
+
+<h2 id="what-to-look-for">どこに注目するか</h2>
+<figure><img src="/assets/learn/buffalo-overview.webp" width="1200" height="675" loading="lazy" alt="バッファロー・フラクタル。上の左側がぎざぎざで金色の縁をもつ、偏った形の黒い本体を、暗い赤の帯と直線の縁をもつ灰色の扇形が取り巻いています。"><figcaption>エクスプローラーを開いたときの最初の表示で見る、バッファロー・フラクタル。</figcaption></figure>
+<ul>
+<li><strong>偏った形。</strong>虚部が一方向にしか進まないため、図は実軸について鏡映対称ではなく、中心からずれています。エクスプローラーの最初の表示が、軸より少し上を中心にしているのはそのためです。</li>
+<li><strong>実軸。</strong>実数の <math alttext="c"><mi>c</mi></math> と実数の <math alttext="z"><mi>z</mi></math> では、2 乗の前の折りたたみは何も起こさず、2 乗した値は正になります。そのため実軸の上では、バッファローとマンデルブロ集合は一致します。</li>
+<li><strong>鋭い折り目。</strong>折りたたみは、なめらかな曲線ではなく、角を生み出します。本体のまわりでは、色の帯が直線の縁をもつ扇形に分かれます。レリーフ・シェーディングでは、この折り目が風景のように光を受けます。フラット・シェーディングなら、色の模様そのものが見えます。</li>
+<li><strong>ぎざぎざの縁。</strong>黒い本体の境界は、マンデルブロ集合よりはるかに荒れています。どの区間をズームしても、その荒さはあらゆる拡大率で続き、全体の形の小さなコピーがそこに隠れています。</li>
+</ul>
+
+<h2 id="julia-sets">バッファローのジュリア集合</h2>
+<p><math alttext="c"><mi>c</mi></math> を固定して出発点を変えると、バッファローのジュリア集合が得られます。これは <math alttext="c = −0.75 − 0.45i"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>0.75</mn><mo>−</mo><mn>0.45</mn><mi>i</mi></math> の例です。</p>
+<figure><img src="/assets/learn/buffalo-julia.webp" width="1200" height="675" loading="lazy" alt="c = -0.75 - 0.45i のバッファロー・フラクタルのジュリア集合。らせん状のフィラメントでできた花のような小さなロゼットが格子状に並び、水平と垂直の直線の継ぎ目で区切られています。"><figcaption>バッファローのジュリア集合、c = -0.75 - 0.45i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=buffalo">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=buffalo&amp;c=-0.75,-0.45">このジュリア集合を開く</a> <a class="btn" href="/ja/#f=buffalo&amp;p=3">べき乗 3 を試す</a></div>
+
+<h2 id="tips">自分だけの発見をするには</h2>
+<p>こうした集合は、マンデルブロ集合に比べるとはるかに調べられていないので、自分で発見する余地がたっぷりあります。いくつかアイデアを挙げます。</p>
+<ul>
+<li>境界に沿ってゆっくりドラッグしながら、隅のジュリア集合のプレビューの形が変わらないか見てみましょう。</li>
+<li>見つけたものは、<em>PNG で保存</em>で 2 倍か 4 倍にして、大きな画像にしてみましょう。先に「リンクをコピー」しておけば、正確な場所にまた戻れます。</li>
+<li>パレットを変えてみましょう：<a class="explore" href="/ja/#f=buffalo&amp;pal=ocean">ディープ・オーシャン</a>、<a class="explore" href="/ja/#f=buffalo&amp;pal=aurora">オーロラ</a>、<a class="explore" href="/ja/#f=buffalo&amp;pal=spectrum">スペクトル</a>。</li>
+</ul>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong><kbd>H</kbd> キーでインターフェースをすべて隠し、さらに <kbd>F</kbd> キーで全画面にすると、折りたたみの様子をすっきりと眺められます。もう一度 <kbd>H</kbd> キーを押すと、コントロールが戻ります。</p>
+</div>
+<p>次は、数の反復ではなく三角形から作られる、まったく種類の違うフラクタル、<a href="/ja/learn/sierpinski.html">シェルピンスキーの三角形</a>です。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/celtic.html" rel="prev">← ケルト</a><a href="/ja/learn/sierpinski.html" rel="next">シェルピンスキーの三角形 →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

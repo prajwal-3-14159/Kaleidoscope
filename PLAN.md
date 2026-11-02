@@ -1,5 +1,7 @@
 # Kaleidoscope — Improvement Plan
 
+> **Status (2026-11-03):** all phases below are implemented. This file is kept as the historical record of the rewrite (its bug list refers to the pre-rewrite code). Since then: original colour scheme restored (Classic mapping, original palettes), Learn encyclopedia (EN/JA), legal pages, SEO/PWA files, self-hosted fonts, cinematic benchmark with video recording (benchmark v3), CI test job, Japanese app shell. See `README.md` and `CLAUDE.md` for the current state.
+
 Goal: a visually striking, easy-to-use, mathematically sound static WebGL fractal explorer with a meaningful benchmark mode. No build step; deploys as-is to Azure Static Web Apps.
 
 ## Current state (as of a64aa4a)

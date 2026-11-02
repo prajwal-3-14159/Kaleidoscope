@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Burning Ship Fractal — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="The Burning Ship fractal explained: the absolute-value rule, its 1992 origin, why it looks like a ship, and how to find the armada of miniature ships.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/burning-ship.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="The Burning Ship Fractal — Kaleidoscope Fractal Encyclopedia">
+  <meta property="og:description" content="Fold the plane with absolute values and the Mandelbrot set turns into a jagged ship with masts. See the rule and visit the armada.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/burning-ship.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Burning Ship fractal rendered in the Kaleidoscope fractal explorer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Burning Ship Fractal — Kaleidoscope Fractal Encyclopedia">
+  <meta name="twitter:description" content="Fold the plane with absolute values and the Mandelbrot set turns into a jagged ship with masts. See the rule and visit the armada.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/burning-ship.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html#article","headline":"The Burning Ship","description":"The Burning Ship fractal explained: the absolute-value rule, its 1992 origin, why it looks like a ship, and how to find the armada of miniature ships.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/burning-ship.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"Burning Ship fractal","sameAs":"https://en.wikipedia.org/wiki/Burning_Ship_fractal"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"Burning Ship","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/burning-ship.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/burning-ship.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>Burning Ship</li></ol>
+    <article class="article">
+    <h1>The Burning Ship</h1>
+    <p class="lede">Take the absolute value of each part of the number before squaring, and the smooth Mandelbrot heart turns into a jagged, angular ship with masts and flames.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/#f=burning-ship">Open in explorer</a> <a class="btn" href="/#f=burning-ship&amp;x=-1.7612&amp;y=-0.0293&amp;z=-4.84">The armada</a></div>
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#the-rule">The rule</a></li><li><a href="#history">A short history</a></li><li><a href="#why-it-looks-different">Why folding changes everything</a></li><li><a href="#overview">What to look for</a></li><li><a href="#armada">The armada</a></li><li><a href="#variations">Variations to try</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="the-rule">The rule</h2>
+<p>The Burning Ship uses the same recipe as the <a href="/learn/mandelbrot.html">Mandelbrot set</a>, with one change: before squaring, take the absolute value of the real part and of the imaginary part of <math alttext="z"><mi>z</mi></math>. Negative parts are folded onto positive ones.</p>
+<math display="block" alttext="z → (|Re z| + i|Im z|)² + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msup><mrow><mo stretchy="false">(</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>i</mi><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msub><mi>z</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → (|Re z| + i|Im z|)² + c</code></p>
+<p>Writing <math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> and <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math>, one step is just</p>
+<math display="block" alttext="x&#x27; = x² − y² + a,  y&#x27; = 2|x||y| + b"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>a</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mspace width="0.3em"></mspace><mo stretchy="false" lspace="0" rspace="0">|</mo><msub><mi>y</mi><mi>n</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math>
+<p class="eq-note">Plain text: <code>x&#x27; = x² − y² + a,  y&#x27; = 2|x||y| + b</code></p>
+<p>Compared with the Mandelbrot rule, only the imaginary update changes, from <math alttext="2xy"><mn>2</mn><mi>x</mi><mi>y</mi></math> to <math alttext="2|x||y|"><mn>2</mn><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math>. Points are colored exactly as before: by how quickly they escape.</p>
+
+<h2 id="history">A short history</h2>
+<p>The Burning Ship was first described in 1992 by Michael Michelitsch and Otto Rössler, the latter better known for the Rössler attractor in chaos theory. They called its Julia-like relatives "quasi-Julia sets". The name comes from the picture itself. Plotted with the imaginary axis pointing down, which is the usual convention and the one the explorer uses, the main body looks like a ship with tall masts, and the ragged structures around it like flames.</p>
+
+<h2 id="why-it-looks-different">Why folding changes everything</h2>
+<p>An absolute value is a fold: it reflects half the plane onto the other half and leaves a crease. Every step creases the plane again, and the result is a landscape that is jagged and architectural rather than round and flowing. The Mandelbrot map is "analytic" (smooth in the complex sense), and that lets mathematicians use the powerful machinery of Fatou, Julia, Douady and Hubbard. The absolute value breaks analyticity, so that theory does not apply directly, and the Burning Ship is explored largely by experiment.</p>
+<p>Unlike the Mandelbrot set, the Burning Ship is lopsided: the two folds treat the plane unevenly and there is no mirror symmetry to lean on. Along the real axis itself the two sets still agree. For real numbers the folds change nothing before squaring, so both sets cross the real axis between <math alttext="−2"><mo form="prefix">−</mo><mn>2</mn></math> and <math alttext="1/4"><mfrac><mn>1</mn><mn>4</mn></mfrac></math>.</p>
+
+<h2 id="overview">What to look for</h2>
+<figure><img src="/assets/learn/burning-ship-overview.webp" width="1200" height="675" loading="lazy" alt="The Burning Ship fractal: a black body with a flat lower edge and a jagged, spiky upper edge, with a round lobe at its right end and red and gray bands around it."><figcaption>The Burning Ship at the explorer's home view.</figcaption></figure>
+<p>At the home view the black body has a flat lower edge, which is the real axis, and a ragged upper edge of spiky, ship-like growths: the masts and flames. Smaller copies of the ship sit along the real axis toward the left.</p>
+
+<h2 id="armada">The armada</h2>
+<p>Zoom into the left end of the main ship, near <math alttext="c ≈ −1.76 − 0.03i"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>1.76</mn><mo>−</mo><mn>0.03</mn><mi>i</mi></math>, and the masts resolve into tall, latticed towers of fine structure, with a smaller ship hull at their base. The tour calls this region the <em>Burning Ship armada</em>.</p>
+<figure><img src="/assets/learn/burning-ship-armada.webp" width="1200" height="675" loading="lazy" alt="A deep view near the Burning Ship armada: a black ship hull at the bottom, with tall latticed towers of fine detail rising above it and pale streamers hanging between them."><figcaption>The armada, centered near c = -1.7612 - 0.0293i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=burning-ship&amp;x=-1.7612&amp;y=-0.0293&amp;z=-4.84">Open the armada</a> <a class="btn" href="/#f=burning-ship">Burning Ship home view</a></div>
+
+<h2 id="variations">Variations to try</h2>
+<ul>
+<li><strong>Julia versions.</strong> Fix <math alttext="c"><mi>c</mi></math> and vary the starting point to get a "quasi-Julia" set: <a class="explore" href="/#f=burning-ship&amp;c=-1.62,-0.02">Burning Ship Julia, c = -1.62 - 0.02i</a>.</li>
+<li><strong>Other powers.</strong> The power control in the <em>Shape</em> section works here too. <a class="explore" href="/#f=burning-ship&amp;p=3">Cubic ship</a>.</li>
+<li><strong>Shading.</strong> Relief lighting makes the creases look like cliffs; try <a class="explore" href="/#f=burning-ship&amp;sh=filaments">filament shading</a> for the thin outlines.</li>
+</ul>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> hover over any point and press <kbd>J</kbd>. The Burning Ship is a Mandelbrot-type fractal, so it has its own Julia sets, and the live preview follows your pointer. Press <kbd>R</kbd> to reset the view.</p>
+</div>
+<p>Next, a close cousin that folds in a different way: the <a href="/learn/tricorn.html">Tricorn</a>.</p>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/julia.html" rel="prev">← Julia sets</a><a href="/learn/tricorn.html" rel="next">Tricorn →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

@@ -4,16 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title data-i18n="app.doc-title">Kaleidoscope — Infinite Fractal Explorer</title>
-  <meta name="description" content="Kaleidoscope is a WebGL2 fractal explorer with ultra-deep zoom. Dive into the Mandelbrot set, Julia sets, Burning Ship and more with GPU acceleration, perturbation theory, smooth colouring and one-click exports.">
-  <meta name="theme-color" content="#07070d">
+  <!-- Values below are filled in by scripts/build-shell.mjs (edit scripts/shell-meta.mjs). -->
+  <meta name="description" data-i18n-content="app.doc-desc" content="Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.">
+  <meta name="keywords" content="fractal explorer, Mandelbrot set, Julia set, Burning Ship, deep zoom, WebGL, GPU benchmark, fractal math">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <meta name="theme-color" content="#07080e">
   <meta name="color-scheme" content="dark">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='15' fill='%230b0b16'/%3E%3Cg transform='translate(32 32)'%3E%3Cpath id='p' d='M0 0 L-9 -26 Q0 -32 9 -26 Z' fill='%23a78bfa'/%3E%3Cuse href='%23p' transform='rotate(60)' opacity='.9'/%3E%3Cpath d='M0 0 L-9 -26 Q0 -32 9 -26 Z' fill='%2322d3ee' transform='rotate(120)'/%3E%3Cpath d='M0 0 L-9 -26 Q0 -32 9 -26 Z' fill='%23f472b6' transform='rotate(180)'/%3E%3Cpath d='M0 0 L-9 -26 Q0 -32 9 -26 Z' fill='%23fbbf24' transform='rotate(240)'/%3E%3Cpath d='M0 0 L-9 -26 Q0 -32 9 -26 Z' fill='%2334d399' transform='rotate(300)'/%3E%3Ccircle r='6' fill='%230b0b16'/%3E%3Ccircle r='3' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" data-i18n-content="app.og-title" content="Kaleidoscope — Infinite Fractal Explorer">
+  <meta property="og:description" data-i18n-content="app.doc-desc" content="Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Seahorse Valley of the Mandelbrot set rendered by Kaleidoscope">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" data-i18n-content="app.og-title" content="Kaleidoscope — Infinite Fractal Explorer">
+  <meta name="twitter:description" data-i18n-content="app.doc-desc" content="Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="modulepreload" href="/src/main.js">
+  <script type="application/ld+json" id="ld-app">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#website","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/","name":"Kaleidoscope","inLanguage":["en","ja"],"publisher":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org"}},{"@type":"Organization","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org","name":"Kaleidoscope project","url":"https://github.com/prajwal-3-14159/Kaleidoscope","logo":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/icons/icon-512.png"},{"@type":"WebApplication","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#app","name":"Kaleidoscope — Infinite Fractal Explorer","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/","description":"Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.","inLanguage":"en","applicationCategory":"EducationalApplication","applicationSubCategory":"Mathematics","operatingSystem":"Any","browserRequirements":"Requires JavaScript and a browser with WebGL2","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg","screenshot":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg","keywords":"fractal explorer, Mandelbrot set, Julia set, Burning Ship, deep zoom, WebGL, GPU benchmark, fractal math","featureList":["Mandelbrot, Burning Ship, Tricorn, Celtic, Buffalo and Sierpiński fractals, each with Julia variants","Ultra-deep zoom to about 10^300 using perturbation theory","GPU (WebGL2) and multi-threaded CPU engines","Smooth colouring, distance-estimate filaments and 3D relief lighting","High-resolution PNG export and shareable links","Guided tour, benchmark mode and optional video recording","English and Japanese interface"],"author":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org"},"isPartOf":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#website"}}]}</script>
+  <link rel="stylesheet" href="/bench.css">
 </head>
 <body>
+  <noscript id="seo-intro"><div class="noscript"><p>Kaleidoscope is a free fractal explorer that runs in your browser: zoom into the Mandelbrot set, Julia sets, the Burning Ship and more, with GPU acceleration and ultra-deep zoom. It needs JavaScript and a browser with WebGL2.</p><ul><li><a href="/learn/">Fractal encyclopedia</a></li><li><a href="/about.html">About Kaleidoscope</a></li><li><a href="/ja/">日本語</a></li></ul></div></noscript>
 
   <!-- Full-bleed fractal surface -->
   <div id="stage">
@@ -56,7 +83,7 @@
     <div class="panel-head">
       <span class="panel-title" data-i18n="panel.title"></span>
       <div class="panel-head-actions">
-        <button id="btn-lang" class="text-btn" type="button" data-i18n="lang.switch">日本語</button>
+        <a id="btn-lang" class="text-btn" href="/ja/" hreflang="ja" data-i18n="lang.switch">日本語</a>
         <button id="btn-help" class="icon-btn small" type="button" aria-label="Help" data-i18n-aria="help.title" data-i18n-title="help.title">?</button>
       </div>
     </div>
@@ -91,6 +118,7 @@
             </div>
           </div>
           <p class="note tip" data-i18n="ctl.julia-tip"></p>
+          <a id="learn-link" class="learn-link" href="/learn/mandelbrot.html" data-i18n="ctl.learn-link"></a>
         </div>
       </details>
 
@@ -118,10 +146,12 @@
           <div class="field">
             <label for="mapping" data-i18n="ctl.mapping"></label>
             <select id="mapping">
+              <option value="relative" data-i18n="map.relative"></option>
               <option value="sqrt" data-i18n="map.sqrt"></option>
               <option value="log" data-i18n="map.log"></option>
               <option value="linear" data-i18n="map.linear"></option>
             </select>
+            <p id="mapping-note" class="note hidden" data-i18n="ctl.mapping-note"></p>
           </div>
 
           <div class="field">
@@ -247,6 +277,12 @@
         </div>
       </details>
 
+      <nav class="panel-links" aria-label="More">
+        <a href="/learn/" data-href-en="/learn/" data-href-ja="/ja/learn/" data-i18n="nav.learn"></a>
+        <a href="/about.html" data-href-en="/about.html" data-href-ja="/ja/about.html" data-i18n="nav.about"></a>
+        <a href="/privacy.html" data-href-en="/privacy.html" data-href-ja="/ja/privacy.html" data-i18n="nav.privacy"></a>
+        <a href="/terms.html" data-href-en="/terms.html" data-href-ja="/ja/terms.html" data-i18n="nav.terms"></a>
+      </nav>
     </div>
 
     <footer class="panel-foot" data-i18n="panel.footer"></footer>
@@ -257,16 +293,59 @@
   <div id="toast" role="status" aria-live="polite"></div>
 
   <!-- Benchmark running overlay -->
-  <div id="bench-overlay" class="glass" role="status" aria-live="off">
-    <div class="bench-top">
-      <span class="bench-scene" id="bench-scene"></span>
-      <button type="button" id="btn-bench-abort" class="btn btn-danger small" data-i18n="bench.abort"></button>
+  <div id="bench-overlay" role="status" aria-live="off" data-phase="">
+    <!-- Intro title card + countdown (untimed) -->
+    <div id="bench-intro" hidden>
+      <div class="bi-inner">
+        <div class="bi-rule" aria-hidden="true"></div>
+        <h2 class="bi-title" data-i18n="bench.title"></h2>
+        <p class="bi-mode" id="bench-intro-mode"></p>
+        <p class="bi-gpu" id="bench-intro-gpu"></p>
+        <div class="bi-count-wrap" aria-hidden="true">
+          <span class="bi-ring" id="bench-intro-ring"></span>
+          <span class="bi-count" id="bench-intro-count"></span>
+        </div>
+        <p class="bi-skip" data-i18n="bench.intro-skip"></p>
+      </div>
     </div>
-    <div class="bench-stats">
-      <div class="bench-stat"><span class="stat-label" data-i18n="bench.fps"></span><span class="stat-val" id="bench-fps"></span></div>
-      <div class="bench-stat"><span class="stat-label" data-i18n="bench.elapsed"></span><span class="stat-val" id="bench-elapsed"></span></div>
+
+    <!-- Letterbox: top bar -->
+    <div class="bo-bar bo-top">
+      <span class="bo-rec" id="bench-rec" hidden><i></i><span data-i18n="bench.rec"></span></span>
+      <span class="bo-scene" id="bench-scene"></span>
+      <span class="bo-chip" id="bench-chip"></span>
+      <div class="bo-strip"><i id="bench-progress-bar"></i></div>
     </div>
-    <div class="track"><div class="track-bar" id="bench-progress-bar"></div></div>
+    <button type="button" id="btn-bench-abort" class="btn btn-danger small" data-i18n="bench.abort"></button>
+
+    <!-- Scene title (slides in at the start of each scene) -->
+    <div id="bench-scene-title" class="bo-title" aria-hidden="true">
+      <span class="bt-kicker" id="bench-title-kicker"></span>
+      <span class="bt-name" id="bench-title-name"></span>
+    </div>
+
+    <!-- Letterbox: bottom bar with the live HUD -->
+    <div class="bo-bar bo-bottom">
+      <div class="bo-hud">
+        <div class="bo-cell">
+          <span class="bo-label" data-i18n="bench.fps"></span>
+          <span class="bo-big" id="bench-fps">–</span>
+        </div>
+        <div class="bo-spark">
+          <canvas id="bench-spark"></canvas>
+          <span class="bo-label"><span data-i18n="bench.frame-time"></span> · <b id="bench-ms">–</b></span>
+        </div>
+        <div class="bo-cell">
+          <span class="bo-label" data-i18n="bench.live-score"></span>
+          <span class="bo-val" id="bench-live-score">–</span>
+        </div>
+        <div class="bo-cell bo-end">
+          <span class="bo-label" data-i18n="bench.elapsed"></span>
+          <span class="bo-val" id="bench-elapsed">–</span>
+        </div>
+      </div>
+      <div class="segs" id="bench-segs"></div>
+    </div>
   </div>
 
   <!-- Benchmark dialog -->
@@ -294,6 +373,17 @@
           </label>
         </div>
 
+        <!-- Shown only when canvas.captureStream and MediaRecorder exist -->
+        <div class="bench-record" id="bench-record-row" hidden>
+          <div class="switch-row">
+            <label class="br-text" for="bench-record">
+              <span class="br-title" data-i18n="bench.record"></span>
+              <span class="br-desc" data-i18n="bench.record-desc"></span>
+            </label>
+            <input type="checkbox" id="bench-record" class="switch" role="switch">
+          </div>
+        </div>
+
         <button type="button" id="btn-bench-run" class="btn btn-primary btn-block big" data-i18n="bench.run"></button>
 
         <h3 class="dlg-sub" data-i18n="bench.history"></h3>
@@ -302,8 +392,16 @@
 
       <section id="bench-results" class="hidden">
         <div class="score-block">
+          <span class="bench-pb" id="bench-pb" hidden data-i18n="bench.pb"></span>
           <span class="score-label" data-i18n="bench.score"></span>
-          <span class="score-num" id="bench-score"></span>
+          <div class="score-stage">
+            <span class="score-num" id="bench-score"></span>
+            <div class="burst" id="bench-burst" aria-hidden="true"></div>
+          </div>
+          <div class="tier" id="bench-tier">
+            <span class="tier-dots" id="bench-tier-dots" aria-hidden="true"></span>
+            <span class="tier-name" id="bench-tier-name"></span>
+          </div>
         </div>
         <table class="bench-table">
           <thead>
@@ -315,7 +413,10 @@
           </thead>
           <tbody id="bench-table"></tbody>
         </table>
+        <h3 class="dlg-sub" data-i18n="bench.compare"></h3>
+        <ul class="cmp" id="bench-compare"></ul>
         <p id="bench-meta" class="note"></p>
+        <a id="btn-bench-download" class="btn btn-block" download hidden></a>
         <div class="row-2 even">
           <button type="button" id="btn-bench-copy" class="btn" data-i18n="bench.copy"></button>
           <button type="button" id="btn-bench-again" class="btn btn-primary" data-i18n="bench.again"></button>
@@ -353,6 +454,6 @@
     </div>
   </dialog>
 
-  <script type="module" src="src/main.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>

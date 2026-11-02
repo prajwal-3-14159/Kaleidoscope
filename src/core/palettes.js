@@ -1,19 +1,37 @@
 // Cyclic colour palettes. Stops are interpolated in OKLab (perceptually even) and
 // baked into a 256-entry lookup table shared by the GPU (as a texture) and the CPU.
 
+// `stops` run from the outside of the set inwards (the "Classic" mapping sweeps
+// them exactly once, like the original Kaleidoscope). The optional `wrap` stop is
+// only used by the cyclic mappings, to bridge the last stop back to the first.
 export const PALETTES = [
+    { id: 'cyberpunk', stops: ['#0a0a1e', '#0080ff', '#8000ff', '#ff0080', '#ffe6ff'] },
+    { id: 'fire', stops: ['#000000', '#780000', '#e65a00', '#ffc800', '#ffffc8'], wrap: '#7a1000' },
+    { id: 'ocean', stops: ['#020818', '#004c99', '#009999', '#66ffb2', '#ffffff'], wrap: '#0b3a66' },
+    { id: 'slate', stops: ['#0f172a', '#334155', '#64748b', '#94a3b8', '#f1f5f9'], wrap: '#475569' },
     { id: 'classic', stops: ['#000764', '#206bcb', '#edffff', '#ffaa00', '#000200'] },
-    { id: 'neon', stops: ['#0a0a1e', '#0080ff', '#8000ff', '#ff0080', '#ffe6ff'] },
-    { id: 'fire', stops: ['#000000', '#780000', '#e65a00', '#ffc800', '#ffffc8', '#7a1000'] },
-    { id: 'ocean', stops: ['#020818', '#004c99', '#009999', '#66ffb2', '#ffffff', '#0b3a66'] },
-    { id: 'aurora', stops: ['#050314', '#1b3a6b', '#1fa98b', '#b4f07a', '#f2e6ff', '#7a3fbf'] },
-    { id: 'ice', stops: ['#00010a', '#0a2a5a', '#3d8fd1', '#cdf3ff', '#ffffff', '#5a7bd1'] },
-    { id: 'slate', stops: ['#0f172a', '#334155', '#64748b', '#94a3b8', '#f1f5f9', '#475569'] },
+    { id: 'aurora', stops: ['#050314', '#1b3a6b', '#1fa98b', '#b4f07a', '#f2e6ff'], wrap: '#7a3fbf' },
+    { id: 'ice', stops: ['#00010a', '#0a2a5a', '#3d8fd1', '#cdf3ff', '#ffffff'], wrap: '#5a7bd1' },
     { id: 'spectrum', stops: ['#ff3b3b', '#ffb000', '#d6ff3b', '#2bff88', '#21d4ff', '#4f5bff', '#c23bff'] },
 ];
 
+/** Palette ids that older share links may still use. */
+export const PALETTE_ALIASES = { neon: 'cyberpunk' };
+
 export function getPalette(id) {
+    id = PALETTE_ALIASES[id] || id;
     return PALETTES.find(p => p.id === id) || PALETTES[0];
+}
+
+/** All LUT stops, cyclic (the wrap stop included). */
+function lutStops(p) {
+    return p.wrap ? [...p.stops, p.wrap] : p.stops;
+}
+
+/** Fraction of the LUT covered by the first..last `stops` (used by the Classic mapping). */
+export function paletteSpan(id) {
+    const p = getPalette(id);
+    return (p.stops.length - 1) / lutStops(p).length;
 }
 
 const srgbToLinear = c => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
@@ -50,7 +68,7 @@ export const LUT_SIZE = 256;
 
 /** RGBA8 sRGB lookup table (Uint8Array of LUT_SIZE*4), cyclic. */
 export function buildLut(id) {
-    const labs = getPalette(id).stops.map(h => linearToOklab(hexToLinear(h)));
+    const labs = lutStops(getPalette(id)).map(h => linearToOklab(hexToLinear(h)));
     const n = labs.length;
     const out = new Uint8Array(LUT_SIZE * 4);
     for (let i = 0; i < LUT_SIZE; i++) {
@@ -71,5 +89,5 @@ export function buildLut(id) {
 /** CSS gradient for UI swatches. */
 export function paletteCss(id) {
     const stops = getPalette(id).stops;
-    return `linear-gradient(90deg, ${[...stops, stops[0]].join(', ')})`;
+    return `linear-gradient(90deg, ${stops.join(', ')})`;
 }

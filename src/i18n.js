@@ -5,8 +5,16 @@ const SUPPORTED = ['en', 'ja'];
 
 const en = {
   'app.doc-title': 'Kaleidoscope — Infinite Fractal Explorer',
+  'app.og-title': 'Kaleidoscope — Infinite Fractal Explorer',
+  'app.doc-desc': 'Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.',
   'app.title': 'KALEIDOSCOPE',
   'app.subtitle': 'Infinite fractal explorer',
+
+  // Links to the content pages
+  'nav.learn': 'Learn: fractal encyclopedia',
+  'nav.about': 'About',
+  'nav.privacy': 'Privacy',
+  'nav.terms': 'Terms',
 
   // HUD
   'hud.fractal': 'Fractal',
@@ -47,12 +55,15 @@ const en = {
   'ctl.julia-re': 'Real part (Re c)',
   'ctl.julia-im': 'Imaginary part (Im c)',
   'ctl.julia-tip': 'Tip: on a Mandelbrot-type fractal, hover and press J to open the Julia set for that point.',
+  'ctl.learn-link': 'Learn about this fractal →',
   'ctl.power': 'Power (n)',
   'ctl.power-note': 'Ultra-deep zoom (beyond 10^5×) needs power 2.',
   'ctl.mapping': 'Color mapping',
-  'map.sqrt': 'Square root',
-  'map.log': 'Logarithmic',
-  'map.linear': 'Linear',
+  'map.relative': 'Classic (relative to iterations)',
+  'map.sqrt': 'Square root (cyclic)',
+  'map.log': 'Logarithmic (cyclic)',
+  'map.linear': 'Linear (cyclic)',
+  'ctl.mapping-note': 'Classic colours flatten at deep zoom. A cyclic mapping keeps the detail.',
   'ctl.density': 'Density',
   'ctl.offset': 'Offset',
   'ctl.cycle': 'Cycle colors',
@@ -96,10 +107,10 @@ const en = {
   'fractal.julia-suffix': '{name} Julia',
 
   // Palettes
-  'palette.neon': 'Neon',
-  'palette.fire': 'Fire',
-  'palette.ocean': 'Ocean',
-  'palette.slate': 'Slate',
+  'palette.cyberpunk': 'Cyberpunk',
+  'palette.fire': 'Solarized Fire',
+  'palette.ocean': 'Deep Ocean',
+  'palette.slate': 'Mono Slate',
   'palette.classic': 'Classic',
   'palette.aurora': 'Aurora',
   'palette.ice': 'Ice',
@@ -153,7 +164,29 @@ const en = {
   'bench.scene.julia': 'Julia morph',
   'bench.scene.ship': 'Burning Ship armada',
   'bench.scene.power': 'Power morph',
-  'bench.scene.deep': 'Deep zoom 10³⁰',
+  'bench.scene.deep': 'Deep zoom 10²⁰',
+  'bench.intro-skip': 'Press Esc or Stop to cancel',
+  'bench.starting': 'Starting in {n}…',
+  'bench.scene-of': 'Scene {n} of {total}',
+  'bench.live-score': 'Score (est.)',
+  'bench.frame-time': 'Frame time',
+  'bench.complete': 'Complete',
+  'bench.rec': 'REC',
+  'bench.record': 'Record video',
+  'bench.record-desc': 'Saves the rendered fractal frames as a video you can download afterwards. The on-screen overlay is not included. Recording may lower the score slightly.',
+  'bench.download': 'Download video',
+  'bench.rec-failed': 'Video recording failed',
+  'bench.tier': 'Tier',
+  'bench.tier.legendary': 'Legendary',
+  'bench.tier.ultra': 'Ultra',
+  'bench.tier.high': 'High',
+  'bench.tier.mid': 'Mid',
+  'bench.tier.entry': 'Entry',
+  'bench.pb': 'New personal best',
+  'bench.compare': 'Comparison',
+  'bench.cmp.this': 'This run',
+  'bench.cmp.best': 'Your best',
+  'bench.cmp.ref': 'Apple M5 laptop · quick mode (measured)',
 
   // Help
   'help.title': 'Shortcuts',
@@ -178,8 +211,15 @@ const en = {
 
 const ja = {
   'app.doc-title': 'Kaleidoscope — 無限フラクタル・エクスプローラー',
+  'app.og-title': 'Kaleidoscope — 無限フラクタル・エクスプローラー',
+  'app.doc-desc': 'マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。',
   'app.title': 'KALEIDOSCOPE',
   'app.subtitle': '無限のフラクタルを探検',
+
+  'nav.learn': '学ぶ：フラクタル百科',
+  'nav.about': 'このサイトについて',
+  'nav.privacy': 'プライバシー',
+  'nav.terms': '利用規約',
 
   'hud.fractal': 'フラクタル',
   'hud.center': '中心',
@@ -217,12 +257,15 @@ const ja = {
   'ctl.julia-re': '実部 (Re c)',
   'ctl.julia-im': '虚部 (Im c)',
   'ctl.julia-tip': 'ヒント: マンデルブロ系のフラクタル上でカーソルを合わせて J キーを押すと、その点のジュリア集合を開けます。',
+  'ctl.learn-link': 'このフラクタルについて学ぶ →',
   'ctl.power': 'べき乗 (n)',
   'ctl.power-note': '超深度ズーム（10^5 倍以上）にはべき乗 2 が必要です。',
   'ctl.mapping': '色のマッピング',
-  'map.sqrt': '平方根',
-  'map.log': '対数',
-  'map.linear': '線形',
+  'map.relative': 'クラシック（反復回数に相対）',
+  'map.sqrt': '平方根（循環）',
+  'map.log': '対数（循環）',
+  'map.linear': '線形（循環）',
+  'ctl.mapping-note': 'クラシック配色は深いズームでは平坦になります。循環マッピングにすると細部が見えます。',
   'ctl.density': '色の密度',
   'ctl.offset': '色のオフセット',
   'ctl.cycle': 'カラーサイクル',
@@ -264,10 +307,10 @@ const ja = {
   'fractal.sierpinski': 'シェルピンスキー',
   'fractal.julia-suffix': '{name}・ジュリア',
 
-  'palette.neon': 'ネオン',
-  'palette.fire': 'ファイア',
-  'palette.ocean': 'オーシャン',
-  'palette.slate': 'スレート',
+  'palette.cyberpunk': 'サイバーパンク',
+  'palette.fire': 'ソラライズド・ファイア',
+  'palette.ocean': 'ディープ・オーシャン',
+  'palette.slate': 'モノ・スレート',
   'palette.classic': 'クラシック',
   'palette.aurora': 'オーロラ',
   'palette.ice': 'アイス',
@@ -318,7 +361,29 @@ const ja = {
   'bench.scene.julia': 'ジュリア・モーフ',
   'bench.scene.ship': 'バーニングシップの艦隊',
   'bench.scene.power': 'べき乗モーフ',
-  'bench.scene.deep': '超深度ズーム 10³⁰',
+  'bench.scene.deep': '超深度ズーム 10²⁰',
+  'bench.intro-skip': 'Esc キーまたは「停止」で中止できます',
+  'bench.starting': '{n} 秒後に開始…',
+  'bench.scene-of': 'シーン {n} / {total}',
+  'bench.live-score': '推定スコア',
+  'bench.frame-time': 'フレーム時間',
+  'bench.complete': '完了',
+  'bench.rec': 'REC',
+  'bench.record': '動画を録画',
+  'bench.record-desc': '描画されたフラクタルの映像を動画として保存し、終了後にダウンロードできます。画面上のオーバーレイは含まれません。録画によりスコアがわずかに下がることがあります。',
+  'bench.download': '動画をダウンロード',
+  'bench.rec-failed': '動画を録画できませんでした',
+  'bench.tier': 'ランク',
+  'bench.tier.legendary': '伝説級',
+  'bench.tier.ultra': 'ウルトラ',
+  'bench.tier.high': 'ハイ',
+  'bench.tier.mid': 'ミドル',
+  'bench.tier.entry': 'エントリー',
+  'bench.pb': '自己ベスト更新',
+  'bench.compare': '比較',
+  'bench.cmp.this': '今回の結果',
+  'bench.cmp.best': '自己ベスト',
+  'bench.cmp.ref': 'Apple M5 搭載ノート PC · クイック（実測）',
 
   'help.title': 'ショートカット',
   'help.close': '閉じる',
@@ -343,13 +408,32 @@ const ja = {
 const dictionaries = { en, ja };
 const listeners = new Set();
 
+/** Both dictionaries (used by scripts/check-site.mjs to verify key parity). */
+export const DICTIONARIES = dictionaries;
+
+const onJaPath = () => typeof location !== 'undefined' && /^\/ja(\/|$)/.test(location.pathname);
+
 function detectInitialLang() {
+  // The Japanese shell (/ja/) decides; otherwise the stored choice, then the browser language.
+  if (onJaPath()) return 'ja';
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (SUPPORTED.includes(stored)) return stored;
   } catch (_) { /* storage unavailable */ }
   const nav = (typeof navigator !== 'undefined' && navigator.language) || '';
   return nav.toLowerCase().startsWith('ja') ? 'ja' : 'en';
+}
+
+/** Keep the URL path in step with the language on the app shell (/ ↔ /ja/), without reloading. */
+function syncPath(lang) {
+  if (typeof location === 'undefined' || typeof history === 'undefined') return;
+  const p = location.pathname;
+  const onShell = /^\/(index\.html)?$/.test(p) || /^\/ja(\/(index\.html)?)?$/.test(p);
+  if (!onShell) return;
+  const want = lang === 'ja' ? '/ja/' : '/';
+  if (p !== want) {
+    try { history.replaceState(history.state, '', want + location.search + location.hash); } catch (_) { /* ignore */ }
+  }
 }
 
 let currentLang = detectInitialLang();
@@ -379,6 +463,9 @@ export function applyTranslations(root = document) {
   for (const el of all('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
   for (const el of all('[data-i18n-aria]')) el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
   for (const el of all('[data-i18n-placeholder]')) el.setAttribute('placeholder', t(el.getAttribute('data-i18n-placeholder')));
+  for (const el of all('[data-i18n-content]')) el.setAttribute('content', t(el.getAttribute('data-i18n-content')));
+  // Links to the content pages have one URL per language.
+  for (const el of all('[data-href-en]')) el.setAttribute('href', el.getAttribute(currentLang === 'ja' ? 'data-href-ja' : 'data-href-en'));
 }
 
 export function setLang(lang) {
@@ -386,6 +473,7 @@ export function setLang(lang) {
   currentLang = lang;
   try { localStorage.setItem(STORAGE_KEY, lang); } catch (_) { /* ignore */ }
   document.documentElement.lang = lang;
+  syncPath(lang);
   applyTranslations(document);
   for (const cb of listeners) {
     try { cb(lang); } catch (err) { console.error(err); }
@@ -404,6 +492,7 @@ export function onLangChange(cb) {
 // Initial application once the DOM is ready (no listener notification, no storage write).
 function init() {
   document.documentElement.lang = currentLang;
+  syncPath(currentLang);
   applyTranslations(document);
 }
 if (typeof document !== 'undefined') {

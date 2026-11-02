@@ -1,7 +1,7 @@
 // Kaleidoscope — application entry point: state, render loop, UI wiring.
 
 import { FRACTALS, getFractal, supportsDeepZoom, POWER_MIN, POWER_MAX } from './core/fractals.js';
-import { PALETTES, buildLut, paletteCss } from './core/palettes.js';
+import { PALETTES, buildLut, paletteCss, paletteSpan, getPalette } from './core/palettes.js';
 import { MAPPINGS, SHADINGS } from './core/colorize.js';
 import { sierpinskiFrame } from './core/escape.js';
 import * as V from './view.js';
@@ -10,7 +10,7 @@ import { GpuRenderer } from './gl/renderer.js';
 import { CpuEngine } from './cpu/cpu-engine.js';
 import { attachInput } from './input.js';
 import { TOURS, makeFlight, tourView } from './tour.js';
-import { t, toggleLang, onLangChange, applyTranslations } from './i18n.js';
+import { t, getLang, toggleLang, onLangChange, applyTranslations } from './i18n.js';
 import { initBenchmark } from './benchmark.js';
 
 const $ = (id) => document.getElementById(id);
@@ -23,8 +23,8 @@ const CPU_DIRECT_MIN_LOG2PIXEL = -46;
 
 const DEFAULTS = {
     fractal: 'mandelbrot', julia: false, juliaC: [-0.8, 0.156], power: 2,
-    palette: 'classic', mapping: 'sqrt', densityLog: 0, offset: 0,
-    cycle: false, cycleSpeed: 0.08, shading: 'relief', lightAngle: 45, interior: 'black',
+    palette: 'cyberpunk', mapping: 'relative', densityLog: 0, offset: 0,
+    cycle: false, cycleSpeed: 0.08, shading: 'flat', lightAngle: 45, interior: 'black',
     autoIter: true, iterSlider: 400, aa: 8, res: 100, engine: 'gpu',
 };
 
@@ -128,12 +128,14 @@ function minLog2r() {
     return minPix - 1 + Math.log2(h);
 }
 
-function colorParams() {
+/** Colour settings for the engines. maxIter matters only for the Classic mapping. */
+function colorParams(maxIterations = maxIter()) {
     const a = state.lightAngle * Math.PI / 180;
     return {
         mapping: MAPPINGS[state.mapping], density: 2 ** state.densityLog,
         offset: state.offset + app.cyclePhase, shading: SHADINGS[state.shading],
         light: [Math.cos(a), Math.sin(a)], interiorGlow: state.interior === 'glow',
+        maxIter: maxIterations, span: paletteSpan(state.palette),
     };
 }
 
@@ -146,7 +148,7 @@ function buildSpec(pin = null) {
     const spec = {
         fractal: f, julia: state.julia && f.kind === 'escape', juliaC: state.juliaC, power: state.power,
         maxIter: mi, ysign: ysign(), log2pixel, view, aa: e === gpu ? state.aa : 1,
-        color: colorParams(), colorKey: `${app.colorVersion}`,
+        color: colorParams(mi), colorKey: `${app.colorVersion}`,
     };
     let refTag = '';
     if (f.kind === 'geometric') {
@@ -189,7 +191,7 @@ function makeSpec(p) {
     const f = getFractal(p.fractal);
     const H = e.height;
     const log2pixel = V.log2PixelSize(p.view, H);
-    const color = { ...colorParams(), ...(p.shading ? { shading: SHADINGS[p.shading] } : {}) };
+    const color = { ...colorParams(p.maxIter), ...(p.shading ? { shading: SHADINGS[p.shading] } : {}), ...(p.mapping ? { mapping: MAPPINGS[p.mapping] } : {}) };
     const spec = {
         fractal: f, julia: !!p.julia, juliaC: p.juliaC || f.juliaC || [0, 0], power: p.power ?? 2,
         maxIter: p.maxIter, ysign: f.flipY ? -1 : 1, log2pixel, view: p.view, aa: 1,
@@ -417,7 +419,7 @@ function pipSpec() {
     const spec = {
         fractal: f, julia: true, juliaC: c, power: state.power, maxIter: Math.min(maxIter(), 600),
         ysign: ysign(), log2pixel: Math.log2(pixel), mode: 'direct', center: [box.x, box.y], pixel,
-        color: colorParams(),
+        color: colorParams(Math.min(maxIter(), 600)),
     };
     const rect = [Math.round(margin), Math.round(margin), size, size];
     // DOM frame drawn over the same rectangle.
@@ -521,7 +523,10 @@ async function adaptIterations(spec, now) {
         // structure. (A few late pixels alone are normal: near any boundary some
         // points always escape just under any limit.)
         const truncated = st.interior > 0.01 && st.late > Math.max(0.003, 0.1 * st.interior);
-        if (truncated && n < 2e6 && app.iterBoost < 256) app.iterBoost *= 2;
+        // Nothing escaped at all: either a truly interior view or (deep zoom) far too
+        // few iterations. Escalate a bounded number of times to tell the two apart.
+        const nothingEscaped = st.interior > 0.999 && app.iterBoost < 8;
+        if ((truncated || nothingEscaped) && n < 2e6 && app.iterBoost < 256) app.iterBoost *= 2;
         else if (st.maxMu < 0.15 * n && app.iterBoost > 1) app.iterBoost /= 2;
         else return;
         invalidateCompute();
@@ -568,7 +573,7 @@ function loadHash() {
         state.fractal = f.id;
         if (p.has('c') && f.kind === 'escape') { state.julia = true; state.juliaC = p.get('c').split(',').map(Number); }
         if (p.has('p')) state.power = clampPower(Number(p.get('p')));
-        if (p.has('pal') && PALETTES.some(x => x.id === p.get('pal'))) state.palette = p.get('pal');
+        if (p.has('pal')) state.palette = getPalette(p.get('pal')).id;
         if (p.has('map') && p.get('map') in MAPPINGS) state.mapping = p.get('map');
         if (p.has('d')) state.densityLog = Number(p.get('d')) || 0;
         if (p.has('o')) state.offset = Number(p.get('o')) || 0;
@@ -651,7 +656,7 @@ async function makeThumbnails() {
         const spec = {
             fractal: f, julia: false, juliaC: f.juliaC || [0, 0], power: 2, maxIter: 300,
             ysign: f.flipY ? -1 : 1, log2pixel, view: v,
-            color: { ...colorParams(), offset: state.offset, shading: SHADINGS.relief },
+            color: { ...colorParams(300), offset: state.offset, shading: SHADINGS.relief },
         };
         if (f.kind === 'geometric') { spec.mode = 'sierpinski'; spec.sier = sierpinskiFrame(v.cx, v.cy, v.bits, log2pixel); }
         else { spec.mode = 'direct'; spec.center = [box.x, box.y]; spec.pixel = 2 ** log2pixel; }
@@ -767,7 +772,7 @@ function buildControls() {
     });
     $('btn-export').addEventListener('click', exportImage);
     $('btn-panel').addEventListener('click', togglePanel);
-    $('btn-lang').addEventListener('click', toggleLang);
+    $('btn-lang').addEventListener('click', (e) => { e.preventDefault(); toggleLang(); });
     $('btn-help').addEventListener('click', () => $('help-dialog').showModal());
     $('btn-help-close').addEventListener('click', () => $('help-dialog').close());
     onLangChange(() => { translateDynamic(); syncControls(); });
@@ -789,6 +794,7 @@ function goTour(id) {
         (!tr.julia || (tr.c[0] === state.juliaC[0] && tr.c[1] === state.juliaC[1]));
     if (!sameFractal) app.setFractal(tr.fractal, { julia: !!tr.julia, juliaC: tr.c, resetView: !!tr.home || !sameFractal });
     if (tr.fractal === 'mandelbrot' && state.power !== 2) { state.power = 2; invalidateCompute(); syncControls(); }
+    if (tr.mapping && state.mapping === 'relative') { state.mapping = tr.mapping; invalidateColor(); syncControls(); }
     const target = tr.home ? homeView() : tourView(tr);
     if (!sameFractal && tr.home) return;
     const pin = supportsDeepZoom(fractal(), state.power) && target.log2r < -20
@@ -801,6 +807,8 @@ function syncControls() {
     const f = fractal();
     for (const b of document.querySelectorAll('.fractal-card')) b.classList.toggle('active', b.dataset.fractal === state.fractal);
     $('row-julia').classList.toggle('hidden', f.kind !== 'escape');
+    // Encyclopedia entry for what is on screen (Julia sets share one page).
+    $('learn-link').href = `${getLang() === 'ja' ? '/ja' : ''}/learn/${state.julia ? 'julia' : f.id}.html`;
     $('toggle-julia').checked = state.julia;
     $('julia-controls').classList.toggle('hidden', !state.julia);
     $('julia-re').value = state.juliaC[0];
@@ -813,6 +821,7 @@ function syncControls() {
     $('power-note').classList.toggle('hidden', state.power === 2);
     for (const b of document.querySelectorAll('.palette-swatch')) b.classList.toggle('active', b.dataset.palette === state.palette);
     $('mapping').value = state.mapping;
+    $('mapping-note').classList.toggle('hidden', !(state.mapping === 'relative' && view && zoomLog10() > 6));
     $('density').value = state.densityLog;
     $('density-val').textContent = `${(2 ** state.densityLog).toFixed(2)}×`;
     $('offset').value = state.offset;
@@ -873,6 +882,6 @@ function boot() {
 }
 
 // Expose for debugging and automated tests.
-window.kaleidoscope = { app, state, gpu, refs, V, makeSpec, get view() { return view; }, set view(v) { view = v; touchView(); }, goTour, setEngine, buildSpec };
+window.kaleidoscope = { app, state, gpu, refs, V, makeSpec, get view() { return view; }, set view(v) { view = v; touchView(); }, goTour, setEngine, setPalette, buildSpec };
 
 boot();

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Celtic Fractal — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="The Celtic fractal folds the real part after squaring, giving an arrowhead-shaped set with tree-like clusters. Learn the rule and see how to explore it.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="The Celtic Fractal — Kaleidoscope Fractal Encyclopedia">
+  <meta property="og:description" content="Fold the real part after squaring and an arrowhead-shaped set with tree-like clusters appears. Learn the rule and explore it, Julia sets included.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Celtic fractal rendered in the Kaleidoscope fractal explorer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Celtic Fractal — Kaleidoscope Fractal Encyclopedia">
+  <meta name="twitter:description" content="Fold the real part after squaring and an arrowhead-shaped set with tree-like clusters appears. Learn the rule and explore it, Julia sets included.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html#article","headline":"The Celtic Fractal","description":"The Celtic fractal folds the real part after squaring, giving an arrowhead-shaped set with tree-like clusters. Learn the rule and see how to explore it.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"Celtic","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/celtic.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>Celtic</li></ol>
+    <article class="article">
+    <h1>The Celtic Fractal</h1>
+    <p class="lede">Square the number, then fold its real part to the positive side. The result is an arrowhead-shaped fractal that is symmetric top to bottom.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/#f=celtic">Open in explorer</a> <a class="btn" href="/#f=celtic&amp;c=-0.95,0.24">A Celtic Julia set</a></div>
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#the-rule">The rule</a></li><li><a href="#history">Where it comes from</a></li><li><a href="#what-to-look-for">What to look for</a></li><li><a href="#julia-sets">Celtic Julia sets</a></li><li><a href="#experiments">A quick experiment</a></li><li><a href="#family">Seeing the family resemblance</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="the-rule">The rule</h2>
+<p>The Celtic fractal folds the plane <em>after</em> squaring instead of before. Square <math alttext="z"><mi>z</mi></math> as usual, then take the absolute value of the <strong>real part only</strong> and leave the imaginary part alone, then add <math alttext="c"><mi>c</mi></math>.</p>
+<math display="block" alttext="z → |Re(z²)| + i·Im(z²) + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false">)</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>i</mi><mspace width="0.3em"></mspace><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false">)</mo><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → |Re(z²)| + i·Im(z²) + c</code></p>
+<p>In real coordinates, with <math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> and <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math>:</p>
+<math display="block" alttext="x&#x27; = |x² − y²| + a,  y&#x27; = 2xy + b"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><mspace width="0.3em"></mspace><msub><mi>x</mi><mi>n</mi></msub><msub><mi>y</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi></math>
+<p class="eq-note">Plain text: <code>x&#x27; = |x² − y²| + a,  y&#x27; = 2xy + b</code></p>
+<p>Compared with the Mandelbrot rule the only change is the pair of bars around <math alttext="x² − y²"><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></math>. That fold reflects everything that lands on the left side of the plane onto the right side, so after each step the new real part is never less than <math alttext="a"><mi>a</mi></math>.</p>
+
+<h2 id="history">Where it comes from</h2>
+<p>This one has no single founding paper that we can point to. It belongs to a family of absolute-value variants of the Mandelbrot rule that grew up in the fractal-art community alongside the <a href="/learn/burning-ship.html">Burning Ship</a>. The name is a nickname from that community. Because the fold is not an analytic map, the classical theory of Douady and Hubbard does not apply directly, and the set is mostly explored by looking.</p>
+
+<h2 id="what-to-look-for">What to look for</h2>
+<figure><img src="/assets/learn/celtic-overview.webp" width="1200" height="675" loading="lazy" alt="The Celtic fractal: a black arrowhead-shaped body pointing right with a flat left side, and a smaller bell-shaped black region further left, among blue bands and tree-like clusters."><figcaption>The Celtic fractal at the explorer's home view.</figcaption></figure>
+<ul>
+<li><strong>An arrowhead, not a heart.</strong> The Mandelbrot cardioid has a smooth round outline. Here the main body is an arrowhead pointing right with a flat left side, and a smaller bell-shaped region sits further left.</li>
+<li><strong>Tree-like clusters.</strong> To the left of the flat edge, look for clusters of tiny copies that branch like little trees. <em>Filaments</em> shading traces their thin outlines.</li>
+<li><strong>Straight-edged fans.</strong> On the right the colored bands break into fans with straight edges, a visible effect of the fold.</li>
+<li><strong>A mirror line.</strong> The picture is symmetric about the real axis: conjugating <math alttext="z"><mi>z</mi></math> and <math alttext="c"><mi>c</mi></math> together leaves the rule unchanged.</li>
+<li><strong>The real axis.</strong> For real numbers <math alttext="x²"><msup><mi>x</mi><mn>2</mn></msup></math> is never negative, so the fold does nothing and the Celtic fractal crosses the real axis exactly where the Mandelbrot set does, between <math alttext="−2"><mo form="prefix">−</mo><mn>2</mn></math> and <math alttext="1/4"><mfrac><mn>1</mn><mn>4</mn></mfrac></math>.</li>
+<li><strong>Different powers.</strong> The explorer applies the same fold after the power for any exponent from 1.5 to 12. Set it in the <em>Shape</em> section of the panel, for instance <a class="explore" href="/#f=celtic&amp;p=3">power 3</a>.</li>
+</ul>
+
+<h2 id="julia-sets">Celtic Julia sets</h2>
+<p>Fix <math alttext="c"><mi>c</mi></math> and vary the starting point, and the same rule gives a Celtic Julia set. Here is one for <math alttext="c = −0.95 + 0.24i"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>0.95</mn><mo>+</mo><mn>0.24</mn><mi>i</mi></math>.</p>
+<figure><img src="/assets/learn/celtic-julia.webp" width="1200" height="675" loading="lazy" alt="A Julia set of the Celtic fractal for c = -0.95 + 0.24i: dense clusters of green, cauliflower-like lobes on an orange background."><figcaption>A Celtic Julia set, c = -0.95 + 0.24i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=celtic">Open in explorer</a> <a class="btn" href="/#f=celtic&amp;c=-0.95,0.24">Open this Julia set</a> <a class="btn" href="/#f=celtic&amp;pal=fire">Try the fire palette</a></div>
+
+<h2 id="experiments">A quick experiment</h2>
+<p>Open the home view and drag the pointer slowly from the arrowhead across to the bell-shaped region, watching the Julia preview in the corner. The previews change character as you cross between the two. Then switch <em>Shading</em> between Flat, Filaments and Relief to see how the same boundary looks lit and unlit.</p>
+
+<h2 id="family">Seeing the family resemblance</h2>
+<p>The five Mandelbrot-style fractals in the explorer are one idea with different folds. Open the <a href="/learn/mandelbrot.html">Mandelbrot set</a>, the <a href="/learn/burning-ship.html">Burning Ship</a>, the <a href="/learn/tricorn.html">Tricorn</a> and the <a href="/learn/buffalo.html">Buffalo</a> in turn and compare how each one treats the same stretch of real axis. The <a href="/learn/how-it-works.html#one-formula">one-formula table</a> shows exactly where each fold goes.</p>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> hover over a point and press <kbd>J</kbd> to open the Celtic Julia set for it. Then press <kbd>C</kbd> to start color cycling: the shifting colors make the folded structure easy to follow with your eye.</p>
+</div>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/tricorn.html" rel="prev">← Tricorn</a><a href="/learn/buffalo.html" rel="next">Buffalo →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

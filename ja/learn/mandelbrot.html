@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>マンデルブロ集合 — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="マンデルブロ集合とは何か、その歴史、バルブやらせんの読み方、拡大して見たいおすすめの場所を、数式とエクスプローラーの該当表示へのリンクつきでやさしく解説します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="マンデルブロ集合 — Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="数学で最も有名な図形。その数式と歴史、拡大して見たいおすすめの場所を、ワンクリックで開けるエクスプローラーの表示とともに紹介します。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画したマンデルブロ集合">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="マンデルブロ集合 — Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="数学で最も有名な図形。その数式と歴史、拡大して見たいおすすめの場所を、ワンクリックで開けるエクスプローラーの表示とともに紹介します。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html#article","headline":"マンデルブロ集合","description":"マンデルブロ集合とは何か、その歴史、バルブやらせんの読み方、拡大して見たいおすすめの場所を、数式とエクスプローラーの該当表示へのリンクつきでやさしく解説します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"マンデルブロ集合","sameAs":"https://en.wikipedia.org/wiki/Mandelbrot_set"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"マンデルブロ集合","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/mandelbrot.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>マンデルブロ集合</li></ol>
+    <article class="article">
+    <h1>マンデルブロ集合</h1>
+    <p class="lede">数学で最も有名な図形は、たった 1 行の計算から生まれます。数を 2 乗して定数を足し、それを繰り返すだけです。この集合とは何か、どこから来たのか、拡大するときにどこを見ればよいのかをご紹介します。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=mandelbrot&amp;x=-0.7445398&amp;y=0.1217237&amp;z=-6.38">タツノオトシゴの谷</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#what-it-is">マンデルブロ集合とは</a></li><li><a href="#history">簡単な歴史</a></li><li><a href="#reading">図の読み方</a></li><li><a href="#places">訪ねてみたい場所</a></li><li><a href="#powers">高いべき乗：マルチブロ集合</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="what-it-is">マンデルブロ集合とは</h2>
+<p>平らな紙の上の 1 点を選び、それを<a href="/ja/learn/glossary.html#complex-plane">複素数</a> <math alttext="c"><mi>c</mi></math> とみなします。複素数とは 2 つの部分からなる数で、左右の位置が<em>実部</em>、上下の位置が<em>虚部</em>にあたります。ここで簡単なゲームをしてみましょう。<math alttext="z = 0"><mi>z</mi><mo>=</mo><mn>0</mn></math> から始めて、次の 1 ステップを何度も繰り返します。今ある数を 2 乗して、<math alttext="c"><mi>c</mi></math> を足すのです。</p>
+<math display="block" alttext="z → z² + c（z = 0 から開始）"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → z² + c（z = 0 から開始）</code></p>
+<p><math alttext="c"><mi>c</mi></math> の値によっては、数はいつまでも小さいままです。逆に、限りなく大きくなって無限大へ「脱出」することもあります。<strong>マンデルブロ集合</strong>とは、数が一度も脱出しないような <math alttext="c"><mi>c</mi></math> をすべて集めたものです。エクスプローラーでは、これが黒い領域として表示され、そのまわりの色は、ほかの点がどれだけ速く脱出するかを表しています。</p>
+<p><math alttext="c = 0"><mi>c</mi><mo>=</mo><mn>0</mn></math> で試してみましょう。数は 0 のままなので、0 は集合に含まれます。<math alttext="c = 1"><mi>c</mi><mo>=</mo><mn>1</mn></math> では 0, 1, 2, 5, 26, 677, … となって爆発的に増えるので、1 は集合の外です。<math alttext="c = −1"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>1</mn></math> では 0, -1, 0, -1, … といつまでも繰り返すので、-1 は集合に含まれます。</p>
+<p>集合全体は半径 2 の円の内側に収まっていて、数がいったんこの円の外へ出ると、二度と戻ってきません。そのためプログラムは、点が円を出るまでに何ステップかかるかを数えるだけで済みます。この回数、つまり<a href="/ja/learn/glossary.html#escape-time-algorithm">脱出時間</a>が、色として表示されているものです（<a href="/ja/learn/how-it-works.html">エクスプローラーのしくみ</a>を参照）。</p>
+
+<h2 id="history">簡単な歴史</h2>
+<p><math alttext="z → z² + c"><mi>z</mi><mo>→</mo><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> というルールそのものは古くからあります。ピエール・ファトゥとガストン・ジュリアが、1918 年ごろに紙と鉛筆で研究しました（<a href="/ja/learn/julia.html">ジュリア集合</a>を参照）。図として目に見えるようになったのは、もっと後のことです。ロバート・ブルックス（Robert Brooks）とピーター・マテルスキ（Peter Matelski）の論文（1978 年に執筆、1981 年に発表）に、粗いコンピューター描画が載りました。1980 年には、IBM で研究していたブノワ・マンデルブロが、最初の精密な画像を作りました。彼は 1975 年に「フラクタル」という言葉を生み出していました。</p>
+<p>1980 年代の前半に、アドリアン・ドゥアディとジョン・ハバードが、この集合に確かな数学的土台を与えました。二人は、この集合が<strong>連結</strong>であること、つまり離れ小島のない 1 つながりの図形であることを証明し、マンデルブロにちなんで名前をつけました。1986 年に出版されたパイトゲンとリヒターの著書『フラクタルの美』（原題 <em>The Beauty of Fractals</em>）によって、この集合は広く知られるようになりました。</p>
+
+<h2 id="reading">図の読み方</h2>
+<figure><img src="/assets/learn/mandelbrot-overview.webp" width="1200" height="675" loading="lazy" alt="全体像のマンデルブロ集合。ハート形の黒い主カージオイドの左に丸いバルブがあり、縁にはさらに小さなバルブと細いアンテナが数多く並び、そのまわりを青い帯が取り巻いています。"><figcaption>エクスプローラーを開いたときの最初の表示で見る、マンデルブロ集合の全体像。</figcaption></figure>
+<p>大きなハート形の本体が<a href="/ja/learn/glossary.html#cardioid">主カージオイド</a>です。この内側にあるどの <math alttext="c"><mi>c</mi></math> でも、数はただ 1 つの値に落ち着きます。左側の大きな円盤は<em>周期 2 のバルブ</em>で、ここでは数が 2 つの値を交互にとるようになります。これより小さい<a href="/ja/learn/glossary.html#period-bulb">バルブ</a>にもそれぞれ固有の周期（3, 4, 5, …）があります。バルブから伸びる小さなアンテナの枝の本数を数えると、その周期が読み取れます。</p>
+<p>外側にある色の帯は、脱出の速さを表す等高線で、境界に近づくほど間隔が詰まっていきます。この境界はとても入り組んでいて、<a href="/ja/learn/glossary.html#hausdorff-dimension">ハウスドルフ次元</a>は 2 になります。平面上の曲線としては、これ以上ないほど複雑だということです（宍倉光広氏、1998 年）。</p>
+<p>水平な軸（実軸）に沿って、集合は <math alttext="c = −2"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>2</mn></math> から <math alttext="c = 1/4"><mi>c</mi><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></math> まで伸びています。カージオイドの尖点から左へたどっていくと、数が落ち着く先の値は <math alttext="c = −3/4"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></math> で 2 つに分かれ、続いて 4 つ、8 つと分かれていきます。分岐は次第に速く起こり、<math alttext="c ≈ −1.4012"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>1.4012</mn></math> のあたりに積み重なって、そこからカオスが始まります。連続する分岐の間隔の比、約 4.669 は、ファイゲンバウム定数と呼ばれます。</p>
+
+<h2 id="places">訪ねてみたい場所</h2>
+<p>それぞれのボタンで、その場所の表示がそのまま開きます。</p>
+
+<h3 id="seahorse-valley">タツノオトシゴの谷</h3>
+<p>主カージオイドと周期 2 の円盤とのあいだにある溝で、上側にあります。タツノオトシゴの尾のように巻いたらせんを探してみてください。</p>
+<figure><img src="/assets/learn/mandelbrot-seahorse.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合のタツノオトシゴの谷。右側にある集合の黒い縁に沿って、タツノオトシゴの尾のように巻いたらせんと、星のような渦が、金色と赤で並んでいます。"><figcaption>タツノオトシゴの谷、c = -0.7445 + 0.1217i 付近。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;x=-0.7445398&amp;y=0.1217237&amp;z=-6.38">タツノオトシゴの谷を開く</a></div>
+
+<h3 id="elephant-valley">ゾウの谷</h3>
+<p><math alttext="c = 1/4"><mi>c</mi><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></math> にあるカージオイドの尖点のすぐ右側に、小さな丸いバルブが行列のように並び、そのひとつひとつから、ゾウの鼻を思わせる巻きひげが伸びています。</p>
+<figure><img src="/assets/learn/mandelbrot-elephant.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合のゾウの谷。青い背景の中、境界に沿って小さな丸い黒いバルブが連なり、それぞれに巻きひげと細かならせん模様がついています。"><figcaption>ゾウの谷、c = 0.2829 + 0.0103i 付近。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;x=0.2829&amp;y=0.0103&amp;z=-6.38">ゾウの谷を開く</a></div>
+
+<h3 id="triple-spiral">三重らせん</h3>
+<p>カージオイドをさらに上へたどると、境界がくびれて細い谷になり、その両側の壁にらせんがずらりと並んでいます。<kbd>C</kbd> キーを押すと、色が壁に沿って流れる様子を見られます。</p>
+<figure><img src="/assets/learn/mandelbrot-spiral.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合の外側にある、先細りの細い谷。両側の壁に小さならせんが何列も並び、上下には集合の黒い内部が見えています。"><figcaption>三重らせんの領域、c = -0.0886 + 0.6545i 付近。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;x=-0.0886&amp;y=0.6545&amp;z=-6.38">三重らせんを開く</a></div>
+
+<h3 id="mini-mandelbrot">ミニ・マンデルブロ</h3>
+<p>左へ伸びる細い棘の上、<math alttext="c ≈ −1.7549"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>1.7549</mn></math> のところに、集合全体の小さなコピーがあります。周期 3 のバルブの中心です。こうした「ミニ・マンデルブロ（ミニブロ）」はあらゆる拡大率で現れ、どれも少しずつ引き伸ばされ、ねじれています。</p>
+<figure><img src="/assets/learn/mandelbrot-minibrot.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合全体を小さくしたコピー、ミニ・マンデルブロ。独自のカージオイドとバルブを持ち、そのまわりには長い筋が背景へ放射状に伸びています。"><figcaption>c = -1.75488 にあるミニ・マンデルブロ。実軸上にある周期 3 の成分の中心です。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;x=-1.7548776662466927&amp;y=0&amp;z=-5.5">ミニ・マンデルブロを開く</a></div>
+
+<h3 id="deep-spiral">非常に深いらせん</h3>
+<p>この表示の高さの半分は <math alttext="4 × 10^(−30)"><mn>4</mn><mo>×</mo><msup><mn>10</mn><mrow><mo form="prefix">−</mo><mn>30</mn></mrow></msup></math> で、拡大率はおよそ <math alttext="3 × 10^29"><mn>3</mn><mo>×</mo><msup><mn>10</mn><mn>29</mn></msup></math> 倍です。30 cm の画面で言えば、観測可能な宇宙のおよそ 100 倍の幅に引き伸ばしたマンデルブロ集合の絵へ、ズームして入り込むようなものです。通常の 64 ビットの数は約 16 桁しか表せないため、エクスプローラーは<a href="/ja/learn/how-it-works.html#deep-zoom">摂動法</a>に切り替えます。</p>
+<figure><img src="/assets/learn/mandelbrot-deep.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合の深いズーム。小さな暗い中心を、小さなミニ・マンデルブロが取り囲み、そのまわりを金色のらせんと巻きひげが同心円状に取り巻いています。"><figcaption>ズーム 10<sup>-30</sup>：構造は尽きることがありません。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;x=-0.743643887037158704752191506114774&amp;y=0.131825904205311970493132056385139&amp;z=-97.6&amp;map=sqrt">10⁻³⁰ まで潜る</a></div>
+
+<h2 id="powers">高いべき乗：マルチブロ集合</h2>
+<p>指数が 2 でなければならない理由はありません。べき乗 <math alttext="p"><mi>p</mi></math> を使うと、<strong>マルチブロ集合</strong>（Multibrot）と呼ばれる仲間たちが得られます。</p>
+<math display="block" alttext="z → z^p + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mi>p</mi></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → z^p + c</code></p>
+<p>べき乗が整数のとき、図形は <math alttext="(p − 1)"><mo stretchy="false">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math> 回の回転対称性を持ちます。3 次の集合なら丸い部分（ローブ）が 2 つ、4 次なら 3 つです。2.5 のように分数のべき乗では、<math alttext="zᵖ"><msup><mi>z</mi><mi>p</mi></msup></math> の取りうる複数の値のうち 1 つをコンピューターが選ばなければなりません（<a href="/ja/learn/glossary.html#principal-branch">主枝</a>）。その選び方が負の実軸をまたぐところで飛ぶため、かすかな<strong>継ぎ目</strong>が残ります。エクスプローラーは、1.5 から 12 までの任意のべき乗を受け付けます。</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/power-3.webp" width="1200" height="675" loading="lazy" alt="3 次のマルチブロ集合（べき乗 3）。大きな黒い円形のローブが縦に 2 つ並び、そのまわりに小さなバルブがあります。"><figcaption>べき乗 3。</figcaption></figure>
+<figure><img src="/assets/learn/power-4.webp" width="1200" height="675" loading="lazy" alt="4 次のマルチブロ集合（べき乗 4）。大きな黒いローブが 3 つ重なり合い、そのまわりに小さなバルブがあります。"><figcaption>べき乗 4。</figcaption></figure>
+<figure><img src="/assets/learn/power-2.5.webp" width="1200" height="675" loading="lazy" alt="べき乗 2.5 のマンデルブロ型集合。集合から左へ、負の実軸に沿って、かすかな水平の継ぎ目が伸びています。"><figcaption>べき乗 2.5：左側の継ぎ目に注目してください。</figcaption></figure>
+</div>
+<div class="btn-row"><a class="btn" href="/ja/#f=mandelbrot&amp;p=3">べき乗 3</a> <a class="btn" href="/ja/#f=mandelbrot&amp;p=4">べき乗 4</a> <a class="btn" href="/ja/#f=mandelbrot&amp;p=2.5">べき乗 2.5</a></div>
+<p>超深度ズームにはべき乗 2 が必要です。それ以外のべき乗では、エクスプローラーは通常の精度の限界でズームを止め、その旨をお知らせします。</p>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong>マンデルブロ集合の好きな点にカーソルを合わせて <kbd>J</kbd> キーを押すと、その点のジュリア集合が開きます。小さなピクチャ・イン・ピクチャのプレビューが、ポインターについてきます。<kbd>R</kbd> キーを押すと、最初の表示に戻ります。</p>
+</div>
+<p>コントロールパネルの<em>探索</em>セクションには、ここまでに紹介した場所をすべて巡るガイドツアーがあります。次は<a href="/ja/learn/julia.html">ジュリア集合</a>です。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/" rel="up">← トピック一覧</a><a href="/ja/learn/julia.html" rel="next">ジュリア集合 →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

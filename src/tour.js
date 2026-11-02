@@ -14,6 +14,7 @@ export const TOURS = [
         id: 'deep', fractal: 'mandelbrot',
         x: '-0.743643887037158704752191506114774', y: '0.131825904205311970493132056385139',
         z: Math.log2(4e-30),
+        mapping: 'sqrt', // iteration-relative (Classic) colours go flat this deep
     },
     { id: 'rabbit', fractal: 'mandelbrot', julia: true, c: [-0.123, 0.745], home: true },
     { id: 'dendrite', fractal: 'mandelbrot', julia: true, c: [0, 1], home: true },

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>トライコーン（マンデルバー）— Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="トライコーン（マンデルバー集合）は、2 乗の前に z を複素共役に置き換えるフラクタルです。腕が 3 本になる理由、その対称性、エクスプローラーでの見つけ方を解説します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/tricorn.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/tricorn.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="トライコーン（マンデルバー）— Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="2 乗の前に数の共役をとると、マンデルブロ集合のハート形は 3 つの角をもつ三角帽に変わります。ルールを学んで、エクスプローラーで開いてみましょう。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/tricorn.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画したトライコーン・フラクタル">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="トライコーン（マンデルバー）— Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="2 乗の前に数の共役をとると、マンデルブロ集合のハート形は 3 つの角をもつ三角帽に変わります。ルールを学んで、エクスプローラーで開いてみましょう。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/tricorn.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html#article","headline":"トライコーン（マンデルバー）","description":"トライコーン（マンデルバー集合）は、2 乗の前に z を複素共役に置き換えるフラクタルです。腕が 3 本になる理由、その対称性、エクスプローラーでの見つけ方を解説します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/tricorn.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"Tricorn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/tricorn.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/tricorn.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>トライコーン</li></ol>
+    <article class="article">
+    <h1>トライコーン（マンデルバー）</h1>
+    <p class="lede">2 乗する前に、数を実軸に関して裏返します。すると、おなじみのマンデルブロ集合のハート形は、3 つの角をもつ三角帽、トライコーンに変わります。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=tricorn">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=tricorn&amp;c=-0.48,0.52">トライコーンのジュリア集合</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#the-rule">ルール</a></li><li><a href="#history">簡単な歴史</a></li><li><a href="#three-fold">角が 3 つになる理由</a></li><li><a href="#what-to-look-for">どこに注目するか</a></li><li><a href="#julia-sets">トライコーンのジュリア集合</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="the-rule">ルール</h2>
+<p>トライコーンは、マンデルブロ集合のレシピを、バーニングシップとは別の方法で変えたものです。数を折りたたむ代わりに、裏返します。2 乗する前に、<math alttext="z"><mi>z</mi></math> を<strong>複素共役</strong>に置き換えるのです。複素共役とは、数を実軸に関して鏡に映した数で、虚部の符号が反転します。</p>
+<math display="block" alttext="z → conj(z)² + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mover><mi>z</mi><mo>¯</mo></mover><mi>n</mi><mrow><mspace width="0.3em"></mspace><mn>2</mn></mrow></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → conj(z)² + c</code></p>
+<p>実数の座標で、<math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> および <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math> と書くと、1 ステップは次のようになります。</p>
+<math display="block" alttext="x&#x27; = x² − y² + a,  y&#x27; = −2xy + b"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>a</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mspace width="0.3em"></mspace><msub><mi>x</mi><mi>n</mi></msub><msub><mi>y</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi></math>
+<p class="eq-note">テキスト表記：<code>x&#x27; = x² − y² + a,  y&#x27; = −2xy + b</code></p>
+<p>マンデルブロ集合のルールとの違いは、<math alttext="2xy"><mn>2</mn><mi>x</mi><mi>y</mi></math> の前にあるマイナス記号だけです。この符号 1 つで、おなじみのハート形とバルブは、腕が 3 本、角が 3 つの形に変わります。これが「トライコーン」、つまり三角帽です。</p>
+
+<h2 id="history">簡単な歴史</h2>
+<p>この集合は 1989 年に W. D. Crowe、R. Hasson、P. J. Rippon、P. E. D. Strain-Clark によって研究され、<strong>マンデルバー集合</strong>と名づけられました。のちにジョン・ミルナーが、実 3 次多項式の研究の中でこの集合に再び出会い、<strong>トライコーン</strong>という名前をつけました。現在は、どちらの名前も使われています。</p>
+
+<h2 id="three-fold">角が 3 つになる理由</h2>
+<figure><img src="/assets/learn/tricorn-overview.webp" width="1200" height="675" loading="lazy" alt="トライコーン・フラクタル。三つ又の星のような、腕が 3 本の黒い図形で、各腕の先に小さな丸いバルブがあり、縁に沿って細いフィラメントが伸びています。"><figcaption>エクスプローラーを開いたときの最初の表示で見る、トライコーン。</figcaption></figure>
+<p>共役をとると回転の向きが逆になるため、トライコーンのルールの 1 ステップは、通常の「解析的」な写像ではありません。マンデルブロ集合に使われるいつもの理論は、そのままでは通用しないのです。ただ、うまい工夫で話の一部を救えます。ルールを<em>2 回</em>適用すると、2 回の共役が打ち消し合います。その結果は、4 次の普通の多項式になります。</p>
+<math display="block" alttext="z → (z² + conj(c))² + c   （2 ステップ分を合成）"><mi>z</mi><mo>↦</mo><msup><mrow><mo stretchy="false">(</mo><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mover><mi>c</mi><mo>¯</mo></mover><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → (z² + conj(c))² + c   （2 ステップ分を合成）</code></p>
+<p>平面を 3 分の 1 回転（<math alttext="120^°"><msup><mn>120</mn><mo>°</mo></msup></math>）させると、<math alttext="c"><mi>c</mi></math> は同じ図形を与える別のパラメータに移ります。3 回対称性は、ここから生まれます。トライコーンは実軸に関して鏡映対称でもあるので、全体としては、反転と回転を組み合わせた 6 通りのどの操作をしても同じに見えます。これは正三角形の対称性です。</p>
+
+<h2 id="what-to-look-for">どこに注目するか</h2>
+<ul>
+<li><strong>3 本の腕。</strong>120 度ずつ離れて伸び、それぞれの先に小さな丸いバルブがあります。1 本は負の実軸に沿っています。</li>
+<li><strong>バルブととげ。</strong>本体の縁からぶら下がり、3 方向のパターンを繰り返しています。</li>
+<li><strong>全体の形の小さなコピー。</strong>傾いたり引き伸ばされたりして、より深いところにあります。縁のまわりをズームして探してみてください。</li>
+<li><strong>実軸。</strong>実数の共役は何も変えないので、実軸の上では、トライコーンとマンデルブロ集合は一致します。</li>
+</ul>
+<p>マンデルブロ集合と同じく、トライコーンは、ジュリア集合が連結になるパラメータ <math alttext="c"><mi>c</mi></math> の集合です。ある <math alttext="c"><mi>c</mi></math> がどちら側に入るかは、臨界点 0 の軌道によって決まります。</p>
+<p>指数を変えることもできます。<math alttext="z ↦ conj(z)^d + c"><mi>z</mi><mo>↦</mo><msup><mover><mi>z</mi><mo>¯</mo></mover><mrow><mspace width="0.3em"></mspace><mi>d</mi></mrow></msup><mo>+</mo><mi>c</mi></math> で <math alttext="d"><mi>d</mi></math> が整数のとき、図形は <math alttext="(d + 1)"><mo stretchy="false">(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></math> 回の回転対称性を持ちます。こうした図形は<strong>マルチコーン</strong>（multicorn）と呼ばれます。パネルの<em>形状</em>セクションでべき乗を設定して、ぜひ確かめてみてください。</p>
+
+<h2 id="julia-sets">トライコーンのジュリア集合</h2>
+<p>マンデルブロ集合と同じように、<math alttext="c"><mi>c</mi></math> を固定して出発点を変えると、ジュリア集合が得られます。これは <math alttext="c = −0.48 + 0.52i"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>0.48</mn><mo>+</mo><mn>0.52</mn><mi>i</mi></math> の場合です。</p>
+<figure><img src="/assets/learn/tricorn-julia.webp" width="1200" height="675" loading="lazy" alt="c = -0.48 + 0.52i のトライコーンのジュリア集合。暗い中心のまわりに、花びらのようなふわふわした小さなローブが輪になって並び、やわらかな青と灰色で描かれています。"><figcaption>トライコーンのジュリア集合、c = -0.48 + 0.52i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=tricorn">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=tricorn&amp;c=-0.48,0.52">このジュリア集合を開く</a> <a class="btn" href="/ja/#f=tricorn&amp;p=3">べき乗 3 を試す</a></div>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong>トライコーンの好きな点にカーソルを合わせて <kbd>J</kbd> キーを押すと、その点のジュリア集合が開きます。ポインターを動かすと隅のプレビューも更新されるので、縁に沿ってなぞりながら、ジュリア集合の形が変わっていく様子を眺められます。</p>
+</div>
+<p>次は、折りたたみのバリエーションがさらに 2 つ続きます。<a href="/ja/learn/celtic.html">ケルト・フラクタル</a>と<a href="/ja/learn/buffalo.html">バッファロー・フラクタル</a>です。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/burning-ship.html" rel="prev">← バーニングシップ</a><a href="/ja/learn/celtic.html" rel="next">ケルト →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>シェルピンスキーの三角形 — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="シェルピンスキーの三角形の解説。切り取り、偶然、パスカルの三角形からの作り方、次元が約 1.585 である理由、そしてどこまでもズームしていく方法を紹介します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/sierpinski.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="シェルピンスキーの三角形 — Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="シェルピンスキーの三角形を作る 4 つの方法、次元が約 1.585 になる理由、そして尽きることのない正確なズームを紹介します。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画したシェルピンスキーの三角形">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="シェルピンスキーの三角形 — Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="シェルピンスキーの三角形を作る 4 つの方法、次元が約 1.585 になる理由、そして尽きることのない正確なズームを紹介します。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html#article","headline":"シェルピンスキーの三角形","description":"シェルピンスキーの三角形の解説。切り取り、偶然、パスカルの三角形からの作り方、次元が約 1.585 である理由、そしてどこまでもズームしていく方法を紹介します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/sierpinski.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"シェルピンスキーの三角形","sameAs":"https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"シェルピンスキーの三角形","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/sierpinski.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/sierpinski.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>シェルピンスキーの三角形</li></ol>
+    <article class="article">
+    <h1>シェルピンスキーの三角形</h1>
+    <p class="lede">3 つの三角形でできた三角形。その三角形も、それぞれ 3 つの三角形でできていて、これが果てしなく続きます。最も簡単に作れるフラクタルでありながら、最も多くのことを教えてくれるフラクタルの 1 つです。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=sierpinski">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=sierpinski&amp;x=0.2857142857142857142857142857142857142857142857142857142857142857142857&amp;y=0.2474358296526967562182066202151246238489721791157686611508295684931333&amp;z=-180">果てしないシェルピンスキー</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#the-shape">形</a></li><li><a href="#history">簡単な歴史</a></li><li><a href="#size">面積はゼロ、縁は無限</a></li><li><a href="#ways-to-build">同じ形を作る 4 つの方法</a></li><li><a href="#infinite-zoom">どこまでもズームする</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="the-shape">形</h2>
+<p>中身の詰まった正三角形から始めます。3 つの辺の中点を結び、真ん中にできる逆向きの小さな三角形を取り除くと、半分の大きさの三角形が 3 つ残ります。この 3 つのそれぞれに同じ操作を行い、さらにまた同じ操作を、いつまでも繰り返します。最後に残るのが<strong>シェルピンスキーの三角形</strong>です。シェルピンスキーのガスケットや、ふるいとも呼ばれます。</p>
+<figure><img src="/assets/learn/sierpinski-overview.webp" width="1200" height="675" loading="lazy" alt="シェルピンスキーの三角形。大きな三角形が、自分と同じ形の小さなコピー 3 つでできており、そのコピーもそれぞれ 3 つの小さなコピーでできています。中央には逆向きの三角形の穴があり、あらゆる大きさにさらに小さな穴があって、大きさごとに色分けされています。"><figcaption>エクスプローラーを開いたときの最初の表示で見る、シェルピンスキーの三角形。</figcaption></figure>
+<p>この百科に出てくるほかのフラクタルとは、性質が違います。何かが「脱出」することはなく、<math alttext="z → z² + c"><mi>z</mi><mo>→</mo><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> のような式を反復することもありません。形は、繰り返される幾何学的なルールで直接定義されます。だからこそ、エクスプローラーはどんな深さでも正確に描画できるのです。</p>
+
+<h2 id="history">簡単な歴史</h2>
+<p>ポーランドの数学者ヴァツワフ・シェルピンスキーは、1915 年にこの三角形を、すべての点が分岐点であるような曲線の例として示しました。翌年には、正方形版を発表しています。これは現在、シェルピンスキーのカーペットとして知られています。のちにブノワ・マンデルブロは、この 2 つを、自分がフラクタルと名づけた自己相似な図形の古典的な例として取り上げました。</p>
+
+<h2 id="size">面積はゼロ、縁は無限</h2>
+<p>切り取りを 1 回行うごとに、幅が前の半分の三角形が 3 つ残ります。<math alttext="n"><mi>n</mi></math> 回切り取ったあとには、<math alttext="3ⁿ"><msup><mn>3</mn><mi>n</mi></msup></math> 個の三角形があり、その一辺はもとの <math alttext="2^(−n)"><msup><mn>2</mn><mrow><mo form="prefix">−</mo><mi>n</mi></mrow></msup></math> 倍です。残っている面積は最初の <math alttext="(3/4)ⁿ"><msup><mrow><mo stretchy="false">(</mo><mn>3</mn><mo lspace="0" rspace="0">/</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><mi>n</mi></msup></math> 倍です。これはゼロに向かうので、完成した図形には面積がまったくありません。ところが、縁の長さの合計は、切り取りのたびに <math alttext="3/2"><mn>3</mn><mo lspace="0" rspace="0">/</mo><mn>2</mn></math> 倍になり、限りなく増えていきます。線と面の中間のような存在で、数学者はこの「中間」を、次元という数で測ります。</p>
+<p>半分の大きさのコピー 3 つで全体が組み上がるので、この図形は厳密な<a href="/ja/learn/glossary.html#self-similarity">自己相似</a>です。大きさを半分にすると、全体を組み直すのにコピーが 3 つ必要になります。これにより、<a href="/ja/learn/glossary.html#hausdorff-dimension">ハウスドルフ次元</a>は次のようになります。</p>
+<math display="block" alttext="D = ln 3 / ln 2 ≈ 1.585"><mi>D</mi><mo>=</mo><mfrac><mrow><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>3</mn></mrow><mrow><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>2</mn></mrow></mfrac><mo>≈</mo><mn>1.585</mn></math>
+<p class="eq-note">テキスト表記：<code>D = ln 3 / ln 2 ≈ 1.585</code></p>
+<p>これは 1（線）より大きく、2（塗りつぶされた面）より小さい値です。</p>
+
+<h2 id="ways-to-build">同じ形を作る 4 つの方法</h2>
+<h3 id="cutting">切り取り</h3>
+<p>上で紹介した方法です。真ん中の三角形を取り除き、それを繰り返します。</p>
+<h3 id="chaos-game">カオスゲーム</h3>
+<p>3 つの頂点に印をつけます。どこからでも好きな点で始めて、ランダムに選んだ頂点に向かって半分の距離だけ跳び、着地した点に印をつける、ということを繰り返します。最初の数回を過ぎると、点がシェルピンスキーの三角形をなぞり始め、純粋な偶然から秩序が現れてきます。この作り方を広めたのは、マイケル・バーンズリーです。</p>
+<h3 id="pascals-triangle">パスカルの三角形</h3>
+<p>パスカルの三角形を書き出します。各数は、その上にある 2 つの数の和です。そして、奇数に色をつけ、偶数は空白のままにします。浮かび上がる模様が、シェルピンスキーの三角形です。これに関連するセル・オートマトン、ウルフラムのルール 90 でも、同じ図が描かれます。</p>
+<h3 id="binary-digits">2 進数の桁</h3>
+<p>エクスプローラーが使っているのは、この方法です。単位正方形の中に、直角三角形版を描きます。横方向を <math alttext="u"><mi>u</mi></math>、縦方向を <math alttext="v"><mi>v</mi></math> とします。点 <math alttext="(u, v)"><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></math> が三角形に属するのは、<math alttext="u"><mi>u</mi></math> と <math alttext="v"><mi>v</mi></math> の 2 進数表示で、同じ位置の桁がどちらも 1 になることが一度もないときです。これは、パスカルの三角形のルールが姿を変えたもので、1 桁ずつ調べることができます。そのうえで、エクスプローラーは直角三角形の図を引き伸ばして、頂点が <math alttext="(0, 0)"><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></math>、<math alttext="(1, 0)"><mo stretchy="false">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></math>、<math alttext="(1/2, (√3)/2)"><mo stretchy="false">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>,</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac><mo stretchy="false">)</mo></math> にある正三角形にしています。</p>
+
+<h2 id="infinite-zoom">どこまでもズームする</h2>
+<p>脱出時間型のフラクタルを深く拡大するには、エクスプローラーは<a href="/ja/learn/how-it-works.html#deep-zoom">摂動法</a>を必要とします。シェルピンスキーの三角形は、もっと簡単です。ピクセルの 2 進数の最初の数桁を多倍長整数で正確に決め、残りの桁は通常の数で確かめます。そのため、ほかのフラクタルと同じ約 10<sup>300</sup> という限界まで、どんな深さでも図は正確です。</p>
+<p>ツアーの<em>果てしないシェルピンスキー</em>は、点 <math alttext="u = 1/7"><mi>u</mi><mo>=</mo><mfrac><mn>1</mn><mn>7</mn></mfrac></math>、<math alttext="v = 2/7"><mi>v</mi><mo>=</mo><mfrac><mn>2</mn><mn>7</mn></mfrac></math> を中心にした表示です。2 進数ではそれぞれ <math alttext="0.001001001…"><mn>0.001001001</mn><mo>…</mo></math> と <math alttext="0.010010010…"><mn>0.010010010</mn><mo>…</mo></math> で、どちらも 3 桁ごとに繰り返し、両者が衝突することはありません。そのため、8 倍（3 オクターブ、つまり 2 倍を 3 回）ズームするたびに、同じに見える図に戻ってきます。この表示は 10<sup>54</sup> のオーダーの拡大率にあり、さらに先へ進めます。</p>
+<figure><img src="/assets/learn/sierpinski-deep.webp" width="1200" height="675" loading="lazy" alt="シェルピンスキーの三角形の深いズーム。表示の中心のまわりで、三角形のコピーと三角形の穴が、あらゆる大きさで繰り返されています。"><figcaption>約 10<sup>54</sup> 倍に拡大した深い表示。浅い表示とよく似ています。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=sierpinski">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=sierpinski&amp;x=0.2857142857142857142857142857142857142857142857142857142857142857142857&amp;y=0.2474358296526967562182066202151246238489721791157686611508295684931333&amp;z=-180">果てしないシェルピンスキー</a> <a class="btn" href="/ja/#f=sierpinski&amp;pal=ice">アイス・パレット</a></div>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong>フラクタルの一覧からシェルピンスキーを選び、スクロールやピンチで好きなだけズームしてみてください。<kbd>R</kbd> キーを押すと、表示がリセットされます。ここにはジュリア集合がないので、<kbd>J</kbd> キーを押しても何も起こりません。この図形には、変化させるパラメータがないからです。</p>
+</div>
+<p>ほかのフラクタルがどのように描かれているかは、<a href="/ja/learn/how-it-works.html">エクスプローラーのしくみ</a>をお読みください。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/buffalo.html" rel="prev">← バッファロー</a><a href="/ja/learn/how-it-works.html" rel="next">しくみ →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

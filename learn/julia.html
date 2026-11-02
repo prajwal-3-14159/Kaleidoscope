@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Julia Sets — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="Julia sets explained: how one rule gives endless shapes, why they are connected or shatter into dust, with the rabbit, dendrite and Siegel disk to explore.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="Julia Sets — Kaleidoscope Fractal Encyclopedia">
+  <meta property="og:description" content="Every point of the Mandelbrot plane has its own Julia set. Meet the rabbit, the dendrite, the Siegel disk and Cantor dust.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A Douady rabbit Julia set rendered in the Kaleidoscope fractal explorer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Julia Sets — Kaleidoscope Fractal Encyclopedia">
+  <meta name="twitter:description" content="Every point of the Mandelbrot plane has its own Julia set. Meet the rabbit, the dendrite, the Siegel disk and Cantor dust.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html#article","headline":"Julia Sets","description":"Julia sets explained: how one rule gives endless shapes, why they are connected or shatter into dust, with the rabbit, dendrite and Siegel disk to explore.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"Julia set","sameAs":"https://en.wikipedia.org/wiki/Julia_set"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"Julia sets","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/julia.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>Julia sets</li></ol>
+    <article class="article">
+    <h1>Julia Sets</h1>
+    <p class="lede">Every point on the Mandelbrot plane has its own Julia set, a different picture made by the very same rule. Together they are one of the most beautiful ideas in the whole subject.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=-0.123,0.745">Open the Douady rabbit</a> <a class="btn" href="/#f=mandelbrot&amp;c=0,1">Dendrite</a> <a class="btn" href="/#f=mandelbrot&amp;c=-0.390541,-0.586788">Siegel disk</a></div>
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#what-it-is">What a Julia set is</a></li><li><a href="#history">A short history</a></li><li><a href="#dichotomy">One theorem organizes the gallery</a></li><li><a href="#gallery">A gallery</a></li><li><a href="#two-sides">Two sides of one picture</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="what-it-is">What a Julia set is</h2>
+<p>In the <a href="/learn/mandelbrot.html">Mandelbrot set</a> you always start the game at 0 and ask which constants <math alttext="c"><mi>c</mi></math> keep it bounded. A <strong>Julia set</strong> turns that around. You pick one constant <math alttext="c"><mi>c</mi></math> and keep it fixed, then ask which <em>starting points</em> <math alttext="z₀"><msub><mi>z</mi><mn>0</mn></msub></math> stay bounded under the same rule.</p>
+<math display="block" alttext="z → z² + c, with c fixed and many different starting points z₀"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → z² + c, with c fixed and many different starting points z₀</code></p>
+<p>The starting points that never escape form the <strong>filled Julia set</strong>. Its edge is the <strong>Julia set</strong> proper, and everything outside that edge belongs to the <a href="/learn/glossary.html#fatou-set">Fatou set</a>, where neighboring starting points behave alike: they all escape, or they all spiral into the same repeating cycle. Every <math alttext="c"><mi>c</mi></math> gives a different picture, so the plane holds a whole gallery, one Julia set per point. Two easy cases: for <math alttext="c = 0"><mi>c</mi><mo>=</mo><mn>0</mn></math> the Julia set is the unit circle, and for <math alttext="c = −2"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>2</mn></math> it is the straight segment from -2 to 2.</p>
+
+<h2 id="history">A short history</h2>
+<p>Gaston Julia was 25 when he published a long memoir on iterating functions in 1918, and it won the Grand Prix of the French Academy of Sciences. Pierre Fatou had been working on the same questions independently. Their pencil-and-paper results described these sets in remarkable detail, but nobody could actually see one. The subject faded for decades until computers revived it in the late 1970s and 1980s, and Benoit Mandelbrot's pictures made it famous.</p>
+
+<h2 id="dichotomy">One theorem organizes the gallery</h2>
+<p>The Fatou-Julia dichotomy says that for <math alttext="z² + c"><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> the Julia set is either one connected piece or a cloud of infinitely many separate specks, a so-called <a href="/learn/glossary.html#cantor-dust">Cantor dust</a>. Nothing in between happens. It is connected exactly when <math alttext="c"><mi>c</mi></math> belongs to the Mandelbrot set, which is why the Mandelbrot set is also called the <a href="/learn/glossary.html#connectedness-locus">connectedness locus</a>: it is a map showing which Julia sets come in one piece.</p>
+<p>The reason is the fate of the <a href="/learn/glossary.html#critical-point">critical point</a> 0. If its orbit escapes to infinity, the Julia set shatters into dust; if it stays bounded, the Julia set holds together.</p>
+
+<h2 id="gallery">A gallery</h2>
+
+<h3 id="douady-rabbit">Douady's rabbit</h3>
+<p>At <math alttext="c ≈ −0.123 + 0.745i"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>0.123</mn><mo>+</mo><mn>0.745</mn><mi>i</mi></math>, inside the period-3 bulb of the Mandelbrot set, the Julia set grows three-fold ears. It is named after Adrien Douady. Its three-way shape matches the period-3 bulb it comes from.</p>
+<figure><img src="/assets/learn/julia-rabbit.webp" width="1200" height="675" loading="lazy" alt="The Douady rabbit Julia set for c = -0.123 + 0.745i: a central black region with lobes joined at pinch points, branching three ways."><figcaption>The Douady rabbit, c = -0.123 + 0.745i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=-0.123,0.745">Open the rabbit</a></div>
+
+<h3 id="dendrite">The dendrite</h3>
+<p>For <math alttext="c = i"><mi>c</mi><mo>=</mo><mi>i</mi></math> the Julia set is a tree of branching filaments with no loops and no interior; every point sits on the boundary. This <math alttext="c"><mi>c</mi></math> is a <a href="/learn/glossary.html#misiurewicz-point">Misiurewicz point</a> at the top of the Mandelbrot set: the orbit of 0 runs <math alttext="0 → i → −1 + i → −i → −1 + i → …"><mn>0</mn><mo>→</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>→</mo><mo>…</mo></math> and then repeats a two-step cycle forever.</p>
+<figure><img src="/assets/learn/julia-dendrite.webp" width="1200" height="675" loading="lazy" alt="A dendrite Julia set for c = i: a thin, glowing, branching tree of filaments with no enclosed regions."><figcaption>The dendrite, c = i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=0,1">Open the dendrite</a></div>
+
+<h3 id="siegel-disk">A Siegel disk</h3>
+<p>At <math alttext="c ≈ −0.390541 − 0.586788i"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>0.390541</mn><mo>−</mo><mn>0.586788</mn><mi>i</mi></math>, on the edge of the main cardioid, the fixed point has a rotation number equal to the golden ratio's fractional part, about 0.618: each step turns nearby points by that fraction of a full turn. Instead of escaping or settling, they circle forever inside a <a href="/learn/glossary.html#siegel-disk">Siegel disk</a>. Carl Ludwig Siegel proved in 1942 that such disks exist when the rotation number is badly approximated by fractions, and the golden ratio is the classic example.</p>
+<figure><img src="/assets/learn/julia-siegel.webp" width="1200" height="675" loading="lazy" alt="A Julia set with a Siegel disk: a chain of large smooth black regions fringed with small cauliflower-like buds."><figcaption>A Siegel disk, c = -0.390541 - 0.586788i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=-0.390541,-0.586788">Open the Siegel disk</a></div>
+
+<h3 id="san-marco">San Marco</h3>
+<p>At <math alttext="c = −3/4"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></math> the main cardioid and the period-2 disc touch. The Julia set here is pinched at countless points and is nicknamed the San Marco fractal, after the Venetian basilica and square it is said to resemble.</p>
+<figure><img src="/assets/learn/julia-sanmarco.webp" width="1200" height="675" loading="lazy" alt="The San Marco Julia set for c = -0.75: a symmetric chain of large round black lobes, each fringed with smaller buds."><figcaption>San Marco, c = -0.75.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=-0.75,0">Open San Marco</a></div>
+
+<h3 id="cantor-dust">Cantor dust</h3>
+<p>Choose <math alttext="c"><mi>c</mi></math> outside the Mandelbrot set, for example <math alttext="c = 0.3 + 0.6i"><mi>c</mi><mo>=</mo><mn>0.3</mn><mo>+</mo><mn>0.6</mn><mi>i</mi></math>, and the Julia set falls apart into infinitely many separate specks.</p>
+<figure><img src="/assets/learn/julia-cantor.webp" width="1200" height="675" loading="lazy" alt="A disconnected Julia set for c = 0.3 + 0.6i, outside the Mandelbrot set: a scatter of separate pinwheel-shaped specks, a Cantor dust."><figcaption>Cantor dust, c = 0.3 + 0.6i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;c=0.3,0.6">Open the dust</a></div>
+
+<h2 id="two-sides">Two sides of one picture</h2>
+<p>The two kinds of picture are tightly linked. Zoom into the Mandelbrot set near a boundary point <math alttext="c"><mi>c</mi></math> and the view comes to resemble the Julia set of that same <math alttext="c"><mi>c</mi></math>. Tan Lei proved this in 1990 for Misiurewicz points. That is why a Julia set is a good preview of what lies under your pointer.</p>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> on any Mandelbrot-type fractal, hover over a point to see its Julia set in a small picture-in-picture window, and press <kbd>J</kbd> to open it full size. Turn on <em>Julia mode</em> in the side panel to type your own Re c and Im c.</p>
+</div>
+<p>Burning Ship, Tricorn, Celtic and Buffalo all have Julia versions too. Start with the <a href="/learn/burning-ship.html">Burning Ship</a>, or go back to the <a href="/learn/mandelbrot.html">Mandelbrot set</a>.</p>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/mandelbrot.html" rel="prev">← Mandelbrot set</a><a href="/learn/burning-ship.html" rel="next">Burning Ship →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

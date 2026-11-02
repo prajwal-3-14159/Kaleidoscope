@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kaleidoscope について — ブラウザで楽しむフラクタルエクスプローラー</title>
+  <meta name="description" content="Kaleidoscope は、GPU と CPU の 2 つのエンジンを備え、約 10^300 倍まで拡大できる WebGL2 のフラクタルエクスプローラーです。特徴、クレジット、アクセシビリティをご紹介します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/about.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/about.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/about.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Kaleidoscope について — ブラウザで楽しむフラクタルエクスプローラー">
+  <meta property="og:description" content="GPU と CPU の 2 つのエンジンを備え、約 10^300 倍まで拡大できる、ブラウザだけで動く WebGL2 のフラクタルエクスプローラー。特徴、クレジット、アクセシビリティ。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/about.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/about.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kaleidoscope について — ブラウザで楽しむフラクタルエクスプローラー">
+  <meta name="twitter:description" content="GPU と CPU の 2 つのエンジンを備え、約 10^300 倍まで拡大できる、ブラウザだけで動く WebGL2 のフラクタルエクスプローラー。特徴、クレジット、アクセシビリティ。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/about.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "AboutPage", "name": "Kaleidoscope について — ブラウザで楽しむフラクタルエクスプローラー", "inLanguage": "ja", "url": "https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/about.html", "isPartOf": { "@type": "WebSite", "name": "Kaleidoscope", "url": "https://yellow-wave-04cc1c20f.7.azurestaticapps.net/" } }</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/about.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li>このサイトについて</li></ol>
+    <article class="article">
+<h1>Kaleidoscope について</h1>
+      <p class="lede">Kaleidoscope は、ウェブブラウザだけで動くフラクタルエクスプローラーです。マンデルブロ集合とその仲間たちの中を、およそ 10<sup>300</sup> 倍の拡大率まで、ドラッグしたり、ズームしたり、飛んでいったりしながら探検できます。</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/ja/">エクスプローラーを開く</a>
+        <a class="btn" href="/ja/learn/">フラクタルを学ぶ</a>
+      </div>
+
+      <h2 id="what">Kaleidoscope とは</h2>
+      <p>Kaleidoscope は静的な Web サイトです。インストールもアカウント登録も不要で、計算を担うサーバーもありません。画像はすべてお使いの端末が描画します。グラフィックスカードで WebGL2 を使うか、バックグラウンドのワーカー群でプロセッサを使うかを選べます。探索のために作られているので、ドラッグ、スクロール、ピンチ、ダブルクリックでフラクタルの奥へ進み、見つけた景色を書き出せます。</p>
+      <ul>
+        <li><strong>6 種類のフラクタル。</strong>マンデルブロ集合、バーニングシップ、トライコーン、ケルト、バッファローは、それぞれジュリア集合版もあります。これにシェルピンスキーの三角形を加えた 6 種類です。べき乗は 1.5 から 12 まで指定できます。</li>
+        <li><strong>2 つのエンジン。</strong>GPU エンジン（WebGL2 のフラグメントシェーダー）と、CPU エンジン（Web Workers による 64 ビット浮動小数点演算）です。</li>
+        <li><strong>約 10<sup>300</sup> 倍までの深いズーム。</strong>べき乗が 2 のフラクタルでは、摂動法とリベースを使い、高精度の参照軌道を基準に計算します。そのため、通常の 32 ビット・64 ビットの数値では届かない深さでも、正しい画像が得られます。</li>
+        <li><strong>色づかい。</strong>OKLab 色空間で補間する 8 種類のパレット、滑らかな色付け、距離推定による細い筋の表現、立体的なレリーフ照明、お好みでアニメーションするカラーサイクルがあります。</li>
+        <li><strong>プログレッシブ描画。</strong>操作中はすばやくプレビューを表示し、止まるとサブピクセルのサンプルが重なって、滑らかなアンチエイリアス付きの細部が現れます。</li>
+        <li><strong>PNG 書き出し。</strong>最大 4 倍の解像度で、お使いの端末上でタイル状に描画して書き出します。</li>
+        <li><strong>ガイド付きツアー。</strong>見どころとなる場所を、アニメーションの飛行でめぐります。</li>
+        <li><strong>ベンチマーク。</strong>固定されたシーンで、お使いの端末の性能を確かめられます。</li>
+        <li><strong>共有できるリンク。</strong>現在の表示はアドレスに保存されるので、ブックマークしたり、友人に送ったりできます。</li>
+        <li><strong>日本語と英語</strong>に対応しています。</li>
+      </ul>
+      <p>目の前の景色が何なのかを知りたいときは、<a href="/ja/learn/">「学ぶ」セクション</a>をご覧ください。各フラクタルの解説、深いズームの仕組みをやさしく説明した記事、用語集があります。</p>
+
+      <h2 id="technology">作りについて</h2>
+      <p>Kaleidoscope は、ネイティブの ES モジュールを使った素の HTML、CSS、JavaScript でできており、ビルド工程もフレームワークもありません。Azure Static Web Apps 上に静的ファイルとして公開されています。ソースコードは <a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a> で公開されており、ライセンスの条件はリポジトリに記載されているとおりです。</p>
+
+      <h2 id="credits">クレジット</h2>
+      <ul>
+        <li><strong>摂動法</strong>による深いズームは、K. I. Martin 氏による 2013 年のノート「superfractalthing」に基づいています。高精度の参照軌道を 1 本だけ計算し、各ピクセルをそこからの小さな差として反復する方法を示したものです。</li>
+        <li><strong>リベース</strong>は、摂動法で起こる画像の破綻（グリッチ）を防ぐ手法で、2021 年に Zhuoran 氏が示した方法に従っています。</li>
+        <li><strong>OKLab</strong>：パレットの補間に使っている知覚均等な色空間で、Björn Ottosson 氏が考案しました（<a href="https://bottosson.github.io/posts/oklab/" rel="noopener">bottosson.github.io</a>）。</li>
+        <li><strong>フォント。</strong>Outfit（Rodrigo Fuenzalida 氏）と Space Grotesk（Florian Karsten 氏）。いずれも SIL Open Font License 1.1 です（<a href="/fonts/OFL-Outfit.txt">ライセンス</a>、<a href="/fonts/OFL-SpaceGrotesk.txt">ライセンス</a>）。</li>
+        <li><strong>ホスティング：</strong>Azure Static Web Apps（Microsoft）。</li>
+        <li>これらのフラクタルの数学は、数十年にわたる多くの数学者の成果です。「学ぶ」ページでは、それをやさしい言葉で紹介しています。</li>
+      </ul>
+
+      <h2 id="accessibility">アクセシビリティについて</h2>
+      <p>Kaleidoscope を、できるだけ多くの方に使っていただけるようにしたいと考えています。正式なアクセシビリティ監査は受けていませんので、現状をありのままにお伝えします。</p>
+      <h3>対応していること</h3>
+      <ul>
+        <li><strong>キーボード操作。</strong>エクスプローラーはキーボードで操作でき、サイドパネルは <kbd>Tab</kbd> キーで移動できる標準的なボタン、スライダー、スイッチでできています。ダイアログは標準のものを使っており、<kbd>Esc</kbd> キーで閉じられます。</li>
+        <li><strong>視差・動きの軽減。</strong>お使いのシステムで動きの軽減（アニメーションの抑制）を設定している場合、このページやエクスプローラーのアニメーションやトランジションは実質的にオフになり、ベンチマークのスコアもカウントアップせずに表示されます。カラーサイクルは初期状態でオフです。</li>
+        <li><strong>ダークなインターフェース。</strong>暗い背景に明るい文字の配色で、これらのページはスマートフォンなどの小さな画面やブラウザの拡大表示にも対応したレイアウトです。</li>
+        <li><strong>言語。</strong>すべて日本語と英語で利用でき、各ページには言語が指定されています。</li>
+      </ul>
+      <table>
+        <thead><tr><th scope="col">キー</th><th scope="col">操作</th></tr></thead>
+        <tbody>
+          <tr><td><kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd></td><td>移動（パン）</td></tr>
+          <tr><td><kbd>+</kbd> / <kbd>-</kbd></td><td>拡大 / 縮小</td></tr>
+          <tr><td><kbd>R</kbd></td><td>表示をリセット</td></tr>
+          <tr><td><kbd>J</kbd></td><td>ポインターの位置のジュリア集合を開く</td></tr>
+          <tr><td><kbd>C</kbd></td><td>カラーサイクルの切り替え</td></tr>
+          <tr><td><kbd>H</kbd></td><td>すべての UI の表示・非表示</td></tr>
+          <tr><td><kbd>P</kbd></td><td>サイドパネルの表示・非表示</td></tr>
+          <tr><td><kbd>F</kbd></td><td>全画面表示</td></tr>
+          <tr><td><kbd>?</kbd></td><td>ヘルプ</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>ダイアログを閉じる、実行中のベンチマークを中止</td></tr>
+        </tbody>
+      </table>
+      <h3>現在の制約</h3>
+      <ul>
+        <li>フラクタルは画像です。描かれている内容そのものには代替テキストがなく、文字として提供されているのは、位置、拡大率、反復回数の表示だけです。</li>
+        <li>ジュリア集合のプレビューで点を選ぶ操作はポインターの位置に依存します。ピンチズームのように、タッチやマウスのジェスチャーに頼る操作もあります。移動と拡大・縮小は、キーボードでも行えます。</li>
+        <li>カラーサイクルとベンチマークでは、素早く切り替わるコントラストの強い映像が表示されることがあります。<a href="/ja/terms.html#safety">光過敏性に関する注意</a>をご覧ください。</li>
+        <li>ライトテーマはありません。また、スクリーンリーダーでの動作確認は十分には行えていません。</li>
+      </ul>
+      <p>使いにくい点がありましたら、<a href="https://github.com/prajwal-3-14159/Kaleidoscope/issues" rel="noopener">GitHub</a> でお知らせください。改善に努めます。</p>
+
+      <h2 id="links">関連ページ</h2>
+      <ul>
+        <li><a href="/ja/learn/">学ぶ</a>：フラクタル百科</li>
+        <li><a href="/ja/privacy.html">プライバシーポリシー</a>：何も収集していないので、短くまとまっています</li>
+        <li><a href="/ja/terms.html">利用規約</a></li>
+        <li><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub のソースコードと課題トラッカー</a></li>
+      </ul>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシーポリシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

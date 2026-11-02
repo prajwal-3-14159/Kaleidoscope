@@ -285,6 +285,8 @@ export class GpuRenderer {
         gl.uniform1i(u('u_shading'), color.shading);
         gl.uniform2f(u('u_light'), color.light[0], color.light[1]);
         gl.uniform1i(u('u_interiorGlow'), color.interiorGlow ? 1 : 0);
+        gl.uniform1f(u('u_maxIter'), color.maxIter || 1);
+        gl.uniform1f(u('u_span'), color.span ?? 1);
         gl.bindFramebuffer(gl.FRAMEBUFFER, outTarget.fbo);
         gl.viewport(0, 0, outTarget.w, outTarget.h);
         gl.enable(gl.SCISSOR_TEST);

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ケルト・フラクタル — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="ケルト・フラクタルは、2 乗したあとで実部を折りたたむことで生まれる、矢じり形で木のような房をもつ集合です。ルールと見どころ、エクスプローラーでの探し方を解説します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/celtic.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="ケルト・フラクタル — Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="2 乗したあとで実部を折りたたむと、木のような房をもつ矢じり形の集合が現れます。ルールを学び、ジュリア集合も含めて探検してみましょう。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画したケルト・フラクタル">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ケルト・フラクタル — Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="2 乗したあとで実部を折りたたむと、木のような房をもつ矢じり形の集合が現れます。ルールを学び、ジュリア集合も含めて探検してみましょう。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html#article","headline":"ケルト・フラクタル","description":"ケルト・フラクタルは、2 乗したあとで実部を折りたたむことで生まれる、矢じり形で木のような房をもつ集合です。ルールと見どころ、エクスプローラーでの探し方を解説します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/celtic.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"ケルト","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/celtic.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/celtic.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>ケルト</li></ol>
+    <article class="article">
+    <h1>ケルト・フラクタル</h1>
+    <p class="lede">数を 2 乗してから、その実部を正の側へ折りたたみます。できあがるのは、上下対称の、矢じり形のフラクタルです。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=celtic">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=celtic&amp;c=-0.95,0.24">ケルトのジュリア集合</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#the-rule">ルール</a></li><li><a href="#history">由来</a></li><li><a href="#what-to-look-for">どこに注目するか</a></li><li><a href="#julia-sets">ケルトのジュリア集合</a></li><li><a href="#experiments">ちょっとした実験</a></li><li><a href="#family">家族のよく似た点を探す</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="the-rule">ルール</h2>
+<p>ケルト・フラクタルは、2 乗の前ではなく<em>後</em>に平面を折りたたみます。まず <math alttext="z"><mi>z</mi></math> をいつもどおり 2 乗し、次に<strong>実部だけ</strong>の絶対値をとって虚部はそのままにし、最後に <math alttext="c"><mi>c</mi></math> を足します。</p>
+<math display="block" alttext="z → |Re(z²)| + i·Im(z²) + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false">)</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>i</mi><mspace width="0.3em"></mspace><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false">)</mo><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → |Re(z²)| + i·Im(z²) + c</code></p>
+<p>実数の座標で、<math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> および <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math> と書くと、次のようになります。</p>
+<math display="block" alttext="x&#x27; = |x² − y²| + a,  y&#x27; = 2xy + b"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>n</mi><mn>2</mn></msubsup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi><mo>,</mo><mspace width="1em"></mspace><msub><mi>y</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><mspace width="0.3em"></mspace><msub><mi>x</mi><mi>n</mi></msub><msub><mi>y</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi></math>
+<p class="eq-note">テキスト表記：<code>x&#x27; = |x² − y²| + a,  y&#x27; = 2xy + b</code></p>
+<p>マンデルブロ集合のルールと比べて変わるのは、<math alttext="x² − y²"><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup></math> を囲む 1 組の縦棒だけです。この折りたたみは、平面の左側に落ちたものをすべて右側へ折り返します。そのため、各ステップのあとの新しい実部は、<math alttext="a"><mi>a</mi></math> を下回ることがありません。</p>
+
+<h2 id="history">由来</h2>
+<p>このフラクタルには、これだと指させる創始者の論文がありません。<a href="/ja/learn/burning-ship.html">バーニングシップ</a>と同じ時期に、フラクタルアートのコミュニティで育った、マンデルブロのルールの絶対値バリエーションの一族に属しています。名前も、そのコミュニティで生まれた愛称です。この折りたたみは解析的な写像ではないため、ドゥアディとハバードの古典的な理論はそのままでは使えず、この集合は主に、実際に眺めることで調べられています。</p>
+
+<h2 id="what-to-look-for">どこに注目するか</h2>
+<figure><img src="/assets/learn/celtic-overview.webp" width="1200" height="675" loading="lazy" alt="ケルト・フラクタル。右向きの矢じり形で左側が平らな黒い本体と、そのさらに左にある釣り鐘形の小さな黒い領域が、青い帯と木のような房に囲まれています。"><figcaption>エクスプローラーを開いたときの最初の表示で見る、ケルト・フラクタル。</figcaption></figure>
+<ul>
+<li><strong>ハート形ではなく矢じり形。</strong>マンデルブロ集合のカージオイドは、なめらかな丸い輪郭です。ここでは主役の本体が、左側の平らな、右向きの矢じり形になり、さらに左のほうに、より小さな釣り鐘形の領域があります。</li>
+<li><strong>木のような房。</strong>平らな縁の左側には、小さな木のように枝分かれする、小さなコピーの房があります。<em>フィラメント</em>のシェーディングを使うと、その細い輪郭がなぞれます。</li>
+<li><strong>直線の縁をもつ扇形。</strong>右側では、色の帯が直線の縁をもつ扇形に分かれます。折りたたみがはっきり現れたものです。</li>
+<li><strong>鏡の線。</strong>図は実軸について対称です。<math alttext="z"><mi>z</mi></math> と <math alttext="c"><mi>c</mi></math> をいっしょに共役にしても、ルールは変わらないからです。</li>
+<li><strong>実軸。</strong>実数では <math alttext="x²"><msup><mi>x</mi><mn>2</mn></msup></math> が負になることはないので、折りたたみは何も起こさず、ケルト・フラクタルは、マンデルブロ集合とまったく同じ <math alttext="−2"><mo form="prefix">−</mo><mn>2</mn></math> から <math alttext="1/4"><mfrac><mn>1</mn><mn>4</mn></mfrac></math> のあいだで実軸と交わります。</li>
+<li><strong>さまざまなべき乗。</strong>エクスプローラーは、1.5 から 12 までのどの指数でも、べき乗のあとに同じ折りたたみを適用します。パネルの<em>形状</em>セクションで設定してください。たとえば<a class="explore" href="/ja/#f=celtic&amp;p=3">べき乗 3</a>です。</li>
+</ul>
+
+<h2 id="julia-sets">ケルトのジュリア集合</h2>
+<p><math alttext="c"><mi>c</mi></math> を固定して出発点を変えると、同じルールからケルトのジュリア集合が得られます。これは <math alttext="c = −0.95 + 0.24i"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>0.95</mn><mo>+</mo><mn>0.24</mn><mi>i</mi></math> の例です。</p>
+<figure><img src="/assets/learn/celtic-julia.webp" width="1200" height="675" loading="lazy" alt="c = -0.95 + 0.24i のケルト・フラクタルのジュリア集合。オレンジ色の背景に、緑色のカリフラワーのようなローブが密集しています。"><figcaption>ケルトのジュリア集合、c = -0.95 + 0.24i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=celtic">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=celtic&amp;c=-0.95,0.24">このジュリア集合を開く</a> <a class="btn" href="/ja/#f=celtic&amp;pal=fire">ソラライズド・ファイアのパレットを試す</a></div>
+
+<h2 id="experiments">ちょっとした実験</h2>
+<p>最初の表示を開き、隅のジュリア集合のプレビューを見ながら、ポインターを矢じり形から釣り鐘形の領域までゆっくりドラッグしてみましょう。2 つの領域をまたぐとき、プレビューの雰囲気が変わります。続いて、<em>シェーディング</em>をフラット、フィラメント、レリーフと切り替えて、同じ境界が光を当てたときと当てないときでどう見えるかを確かめてください。</p>
+
+<h2 id="family">家族のよく似た点を探す</h2>
+<p>エクスプローラーにある 5 つのマンデルブロ系フラクタルは、折りたたみ方が違うだけの、同じ発想から生まれたものです。<a href="/ja/learn/mandelbrot.html">マンデルブロ集合</a>、<a href="/ja/learn/burning-ship.html">バーニングシップ</a>、<a href="/ja/learn/tricorn.html">トライコーン</a>、<a href="/ja/learn/buffalo.html">バッファロー</a>を順に開いて、実軸の同じ区間をそれぞれがどう扱うかを比べてみましょう。折りたたみがどこに入るかは、<a href="/ja/learn/how-it-works.html#one-formula">1 つの式にまとめた表</a>に正確に示してあります。</p>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong>点にカーソルを合わせて <kbd>J</kbd> キーを押すと、その点のケルトのジュリア集合が開きます。続けて <kbd>C</kbd> キーを押してカラーサイクルを始めてみてください。移り変わる色のおかげで、折りたたまれた構造を目で追いやすくなります。</p>
+</div>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/tricorn.html" rel="prev">← トライコーン</a><a href="/ja/learn/buffalo.html" rel="next">バッファロー →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

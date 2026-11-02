@@ -340,12 +340,16 @@ uniform float u_offset;
 uniform int u_shading;
 uniform vec2 u_light;
 uniform int u_interiorGlow;
+uniform float u_maxIter;      // Classic mapping only
+uniform float u_span;         // Classic mapping only: LUT fraction covered by the palette stops
 out vec4 outColor;
 
 float mapMu(float mu) {
     // Shifted so the outermost band (mu ≈ 1) sits at the start of the palette.
     if (u_mapping == 0) return (sqrt(mu) - 1.0) * 0.25;
     if (u_mapping == 1) return (log2(mu + 1.0) - 1.0) * 0.3;
+    // Classic: sqrt(mu / maxIter) sweeps the stops once (mirrors core/colorize.js).
+    if (u_mapping == 3) return min(0.9995, sqrt(max(mu, 0.0) / max(u_maxIter, 1.0))) * u_span;
     return (mu - 1.0) / 48.0;
 }
 

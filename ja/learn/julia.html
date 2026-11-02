@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ジュリア集合 — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="ジュリア集合とは何か。1 つのルールからなぜ無限の形が生まれ、なぜ連結になったり塵のように砕けたりするのかを、ウサギ、デンドライト、ジーゲル円板の例とともに解説します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/julia.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="ジュリア集合 — Kaleidoscope フラクタル百科">
+  <meta property="og:description" content="マンデルブロ平面のすべての点に、それぞれのジュリア集合があります。ウサギ、デンドライト、ジーゲル円板、カントールの塵に出会ってみましょう。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope フラクタルエクスプローラーで描画した、ドゥアディのウサギ（ジュリア集合）">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ジュリア集合 — Kaleidoscope フラクタル百科">
+  <meta name="twitter:description" content="マンデルブロ平面のすべての点に、それぞれのジュリア集合があります。ウサギ、デンドライト、ジーゲル円板、カントールの塵に出会ってみましょう。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html#article","headline":"ジュリア集合","description":"ジュリア集合とは何か。1 つのルールからなぜ無限の形が生まれ、なぜ連結になったり塵のように砕けたりするのかを、ウサギ、デンドライト、ジーゲル円板の例とともに解説します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/julia.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"ジュリア集合","sameAs":"https://en.wikipedia.org/wiki/Julia_set"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"ジュリア集合","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/julia.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/julia.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>ジュリア集合</li></ol>
+    <article class="article">
+    <h1>ジュリア集合</h1>
+    <p class="lede">マンデルブロ平面のどの点にも、それぞれ専用のジュリア集合があります。まったく同じルールから生まれる、それぞれ異なる図形です。これらをあわせて眺めると、フラクタルという分野でもとりわけ美しい発想の 1 つであることがわかります。</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=-0.123,0.745">ドゥアディのウサギをエクスプローラーで開く</a> <a class="btn" href="/ja/#f=mandelbrot&amp;c=0,1">デンドライト</a> <a class="btn" href="/ja/#f=mandelbrot&amp;c=-0.390541,-0.586788">ジーゲル円板</a></div>
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#what-it-is">ジュリア集合とは</a></li><li><a href="#history">簡単な歴史</a></li><li><a href="#dichotomy">1 つの定理がギャラリーを整理する</a></li><li><a href="#gallery">ギャラリー</a></li><li><a href="#two-sides">1 枚の絵の表と裏</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="what-it-is">ジュリア集合とは</h2>
+<p><a href="/ja/learn/mandelbrot.html">マンデルブロ集合</a>では、ゲームをいつも 0 から始めて、どんな定数 <math alttext="c"><mi>c</mi></math> なら数が有界にとどまるかを調べました。<strong>ジュリア集合</strong>は、この見方を裏返します。定数 <math alttext="c"><mi>c</mi></math> を 1 つ選んで固定し、同じルールのもとで、どの<em>出発点</em> <math alttext="z₀"><msub><mi>z</mi><mn>0</mn></msub></math> が有界にとどまるかを調べるのです。</p>
+<math display="block" alttext="z → z² + c（c は固定、出発点 z₀ はさまざま）"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → z² + c（c は固定、出発点 z₀ はさまざま）</code></p>
+<p>脱出しない出発点の集まりを、<strong>充填ジュリア集合</strong>といいます。その縁が<strong>ジュリア集合</strong>そのものです。縁の外側はすべて<a href="/ja/learn/glossary.html#fatou-set">ファトゥ集合</a>に属します。ここでは、隣り合う出発点がどれも似た振る舞いをします。すべて脱出するか、すべて同じ周期的なサイクルへ渦を巻いて近づくかのどちらかです。<math alttext="c"><mi>c</mi></math> が変わるたびに別の図形になるので、この平面には、点の数だけジュリア集合があるギャラリーが広がっています。わかりやすい例が 2 つあります。<math alttext="c = 0"><mi>c</mi><mo>=</mo><mn>0</mn></math> のとき、ジュリア集合は単位円になります。<math alttext="c = −2"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>2</mn></math> のときは、-2 から 2 までの線分になります。</p>
+
+<h2 id="history">簡単な歴史</h2>
+<p>ガストン・ジュリアは 25 歳だった 1918 年に、関数の反復についての長大な論文を発表し、フランス科学アカデミーの大賞を受賞しました。同じ問題には、ピエール・ファトゥも独立に取り組んでいました。二人が紙と鉛筆で導いた結果は、これらの集合をみごとなまでに詳しく記述していましたが、実際にその姿を目で見た人はいませんでした。この分野は数十年のあいだ忘れられ、1970 年代後半から 1980 年代にコンピューターによってよみがえりました。ブノワ・マンデルブロの描いた図が、それを広く知らしめたのです。</p>
+
+<h2 id="dichotomy">1 つの定理がギャラリーを整理する</h2>
+<p>ファトゥ＝ジュリアの二分定理によれば、<math alttext="z² + c"><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> のジュリア集合は、1 つにつながった図形か、無限個のばらばらの粒の雲かのどちらかです。後者は<a href="/ja/learn/glossary.html#cantor-dust">カントールの塵</a>と呼ばれます。その中間はありません。つながっているのは、まさに <math alttext="c"><mi>c</mi></math> がマンデルブロ集合に属するときです。そのため、マンデルブロ集合は<a href="/ja/learn/glossary.html#connectedness-locus">連結性の軌跡</a>（connectedness locus）とも呼ばれます。どのジュリア集合が 1 つにつながっているかを示す地図、というわけです。</p>
+<p>その理由は、<a href="/ja/learn/glossary.html#critical-point">臨界点</a> 0 の行く末にあります。0 の軌道が無限大へ脱出すれば、ジュリア集合は塵となって砕け、有界にとどまれば、ジュリア集合はひとつにまとまります。</p>
+
+<h2 id="gallery">ギャラリー</h2>
+
+<h3 id="douady-rabbit">ドゥアディのウサギ</h3>
+<p>マンデルブロ集合の周期 3 のバルブの内側、<math alttext="c ≈ −0.123 + 0.745i"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>0.123</mn><mo>+</mo><mn>0.745</mn><mi>i</mi></math> では、ジュリア集合に 3 方向の耳が生えます。名前はアドリアン・ドゥアディにちなんでいます。この 3 方向の形は、もとになった周期 3 のバルブと対応しています。</p>
+<figure><img src="/assets/learn/julia-rabbit.webp" width="1200" height="675" loading="lazy" alt="c = -0.123 + 0.745i のドゥアディのウサギ（ジュリア集合）。中央の黒い領域が、くびれた点でつながったローブを持ち、3 方向に枝分かれしています。"><figcaption>ドゥアディのウサギ、c = -0.123 + 0.745i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=-0.123,0.745">ウサギを開く</a></div>
+
+<h3 id="dendrite">デンドライト（樹状集合）</h3>
+<p><math alttext="c = i"><mi>c</mi><mo>=</mo><mi>i</mi></math> のジュリア集合は、輪も内部もない、枝分かれした糸の木です。すべての点が境界の上にあります。この <math alttext="c"><mi>c</mi></math> は、マンデルブロ集合の上端にある<a href="/ja/learn/glossary.html#misiurewicz-point">ミシュレヴィチ点</a>です。0 の軌道は <math alttext="0 → i → −1 + i → −i → −1 + i → …"><mn>0</mn><mo>→</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mi>i</mi><mo>→</mo><mo form="prefix">−</mo><mn>1</mn><mo>+</mo><mi>i</mi><mo>→</mo><mo>…</mo></math> と進み、そのあとは 2 ステップのサイクルをいつまでも繰り返します。</p>
+<figure><img src="/assets/learn/julia-dendrite.webp" width="1200" height="675" loading="lazy" alt="c = i のデンドライト型ジュリア集合。閉じた領域を持たない、細く光る、枝分かれした糸の木です。"><figcaption>デンドライト、c = i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=0,1">デンドライトを開く</a></div>
+
+<h3 id="siegel-disk">ジーゲル円板</h3>
+<p>主カージオイドの縁にある <math alttext="c ≈ −0.390541 − 0.586788i"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>0.390541</mn><mo>−</mo><mn>0.586788</mn><mi>i</mi></math> では、不動点の回転数が黄金比の小数部分、約 0.618 に等しくなります。1 ステップごとに、近くの点が 1 回転のその割合だけ回るということです。これらの点は、脱出することも落ち着くこともなく、<a href="/ja/learn/glossary.html#siegel-disk">ジーゲル円板</a>の中をいつまでも周回します。カール・ルートヴィヒ・ジーゲルは 1942 年に、回転数が分数ではうまく近似できないときにこうした円板が存在することを証明しました。黄金比は、その典型的な例です。</p>
+<figure><img src="/assets/learn/julia-siegel.webp" width="1200" height="675" loading="lazy" alt="ジーゲル円板を持つジュリア集合。なめらかな大きな黒い領域が連なり、縁にはカリフラワーのような小さな芽が並んでいます。"><figcaption>ジーゲル円板、c = -0.390541 - 0.586788i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=-0.390541,-0.586788">ジーゲル円板を開く</a></div>
+
+<h3 id="san-marco">サン・マルコ</h3>
+<p><math alttext="c = −3/4"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></math> では、主カージオイドと周期 2 の円盤が接しています。ここのジュリア集合は、数えきれないほどの点でくびれており、ヴェネツィアのサン・マルコ大聖堂と広場に似ているといわれることから、サン・マルコ・フラクタルの愛称で呼ばれています。</p>
+<figure><img src="/assets/learn/julia-sanmarco.webp" width="1200" height="675" loading="lazy" alt="c = -0.75 のサン・マルコ型ジュリア集合。大きな丸い黒いローブが左右対称に連なり、それぞれの縁に小さな芽が並んでいます。"><figcaption>サン・マルコ、c = -0.75。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=-0.75,0">サン・マルコを開く</a></div>
+
+<h3 id="cantor-dust">カントールの塵</h3>
+<p>マンデルブロ集合の外側から <math alttext="c"><mi>c</mi></math> を選んでみましょう。たとえば <math alttext="c = 0.3 + 0.6i"><mi>c</mi><mo>=</mo><mn>0.3</mn><mo>+</mo><mn>0.6</mn><mi>i</mi></math> です。するとジュリア集合は、無限個のばらばらの粒に砕け散ります。</p>
+<figure><img src="/assets/learn/julia-cantor.webp" width="1200" height="675" loading="lazy" alt="マンデルブロ集合の外側にある c = 0.3 + 0.6i の、つながっていないジュリア集合。風車の形をした小さな粒が散らばった、カントールの塵です。"><figcaption>カントールの塵、c = 0.3 + 0.6i。</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot&amp;c=0.3,0.6">塵を開く</a></div>
+
+<h2 id="two-sides">1 枚の絵の表と裏</h2>
+<p>この 2 種類の図は、深く結びついています。マンデルブロ集合の境界上の点 <math alttext="c"><mi>c</mi></math> の近くを拡大していくと、見える景色は、同じ <math alttext="c"><mi>c</mi></math> のジュリア集合に似てきます。これをミシュレヴィチ点について証明したのが、1990 年のタン・レイ氏（Tan Lei）です。ジュリア集合が、ポインターの下に何があるかを知るのにうってつけのプレビューになるのは、そのためです。</p>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong>マンデルブロ系のフラクタルで、点にカーソルを合わせると、その点のジュリア集合が小さなピクチャ・イン・ピクチャのウィンドウに表示されます。<kbd>J</kbd> キーを押すと、全画面で開きます。コントロールパネルで<em>ジュリア集合モード</em>をオンにすると、実部 (Re c) と虚部 (Im c) を自分で入力できます。</p>
+</div>
+<p>バーニングシップ、トライコーン、ケルト、バッファローにも、それぞれジュリア集合版があります。まずは<a href="/ja/learn/burning-ship.html">バーニングシップ</a>から始めるか、<a href="/ja/learn/mandelbrot.html">マンデルブロ集合</a>に戻ってみましょう。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/mandelbrot.html" rel="prev">← マンデルブロ集合</a><a href="/ja/learn/burning-ship.html" rel="next">バーニングシップ →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

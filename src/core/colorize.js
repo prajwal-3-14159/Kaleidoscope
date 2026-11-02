@@ -3,14 +3,20 @@
 
 import { LUT_SIZE } from './palettes.js';
 
-export const MAPPINGS = { sqrt: 0, log: 1, linear: 2 };
+export const MAPPINGS = { sqrt: 0, log: 1, linear: 2, relative: 3 };
 export const SHADINGS = { flat: 0, filaments: 1, relief: 2 };
 
-/** Palette position (in cycles) for a smooth escape count. */
-export function mapMu(mu, mapping) {
+/**
+ * Palette position (in cycles) for a smooth escape count. Mappings 0-2 are cyclic
+ * and independent of the iteration limit. Mapping 3 ("Classic") is the original
+ * Kaleidoscope look: sqrt(mu / maxIter) sweeps the palette stops exactly once
+ * (`span` = the LUT fraction covered by the stops), so it depends on maxIter.
+ */
+export function mapMu(mu, mapping, maxIter = 1, span = 1) {
     // Shifted so the outermost band (mu ≈ 1) sits at the start of the palette.
     if (mapping === 0) return (Math.sqrt(mu) - 1) * 0.25;
     if (mapping === 1) return (Math.log2(mu + 1) - 1) * 0.3;
+    if (mapping === 3) return Math.min(0.9995, Math.sqrt(Math.max(0, mu) / Math.max(1, maxIter))) * span;
     return (mu - 1) / 48;
 }
 
@@ -37,7 +43,7 @@ const smoothstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b
 
 /**
  * Colour one pixel. `s` = { lut (linear Float32Array), mapping, density, offset,
- * shading, lightX, lightY, interiorGlow }. Writes linear RGB into out[0..2].
+ * shading, lightX, lightY, interiorGlow, maxIter, span }. Writes linear RGB into out[0..2].
  */
 export function colorizePixel(mu, log2de, angle, extra, s, out) {
     if (mu < 0) {
@@ -50,7 +56,7 @@ export function colorizePixel(mu, log2de, angle, extra, s, out) {
         }
         return;
     }
-    sampleLut(s.lut, mapMu(mu, s.mapping) * s.density + s.offset, out);
+    sampleLut(s.lut, mapMu(mu, s.mapping, s.maxIter, s.span) * s.density + s.offset, out);
     if (s.shading === 1) {
         // Filaments: brighten pixels within a few pixels of the set boundary.
         const de = 2 ** log2de;

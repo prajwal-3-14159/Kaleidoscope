@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How the Explorer Works — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="How Kaleidoscope draws fractals: escape-time iteration, smooth coloring, distance estimates, relief lighting, anti-aliasing and deep zoom via perturbation.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="How the Fractal Explorer Works — Kaleidoscope">
+  <meta property="og:description" content="Escape-time iteration, smooth coloring, relief lighting and perturbation theory for zooms to 10^300, explained gently.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A deep Mandelbrot zoom rendered with perturbation theory in Kaleidoscope">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How the Fractal Explorer Works — Kaleidoscope">
+  <meta name="twitter:description" content="Escape-time iteration, smooth coloring, relief lighting and perturbation theory for zooms to 10^300, explained gently.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html#article","headline":"How the Explorer Works","description":"How Kaleidoscope draws fractals: escape-time iteration, smooth coloring, distance estimates, relief lighting, anti-aliasing and deep zoom via perturbation.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"How it works","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/how-it-works.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>How it works</li></ol>
+    <article class="article">
+    <h1>How the Explorer Works</h1>
+    <p class="lede">A peek behind the pictures: how a few lines of arithmetic, repeated millions of times, turn into images you can fly through, even down to a magnification of 10<sup>300</sup>.</p>
+    
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#one-formula">One formula for five fractals</a></li><li><a href="#escape-time">Escape-time iteration</a></li><li><a href="#smooth-coloring">Smooth coloring</a></li><li><a href="#relief">Distance estimates and relief lighting</a></li><li><a href="#antialiasing">Progressive anti-aliasing</a></li><li><a href="#deep-zoom">Going very deep: perturbation theory</a></li><li><a href="#engines">Two engines and an exact triangle</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="one-formula">One formula for five fractals</h2>
+<p>Every escape-time fractal in the explorer is written as a single rule. Take the current number <math alttext="z"><mi>z</mi></math>, optionally <em>fold</em> it (the "pre" step), raise it to the power <math alttext="p"><mi>p</mi></math>, optionally fold the result (the "post" step), and add the constant <math alttext="c"><mi>c</mi></math>.</p>
+<math display="block" alttext="z → post(pre(z)^p) + c"><mi>z</mi><mo>→</mo><mi mathvariant="normal">post</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msup><mrow><mi mathvariant="normal">pre</mi><mo lspace="0" rspace="0">&#x2061;</mo><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><mrow><mspace width="0.3em"></mspace><mi>p</mi></mrow></msup><mo stretchy="false">)</mo><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → post(pre(z)^p) + c</code></p>
+<p>Folds are small reflections: the absolute value of the real part or of the imaginary part, or the complex conjugate. Different folds give different fractals. For power 2, with <math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> and <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math>:</p>
+<table>
+<thead><tr><th>Fractal</th><th>Folds</th><th>One step</th></tr></thead>
+<tbody>
+<tr><td><a href="/learn/mandelbrot.html">Mandelbrot</a></td><td>none</td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>, <math alttext="y′ = 2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/learn/burning-ship.html">Burning Ship</a></td><td><math alttext="|x|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math>, <math alttext="|y|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> before squaring</td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>, <math alttext="y′ = 2|x||y| + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/learn/tricorn.html">Tricorn</a></td><td>conjugate before squaring</td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>, <math alttext="y′ = −2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/learn/celtic.html">Celtic</a></td><td><math alttext="|Re |"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math> after squaring</td><td><math alttext="x′ = |x² − y²| + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi></math>, <math alttext="y′ = 2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/learn/buffalo.html">Buffalo</a></td><td>both before, <math alttext="|Re |"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math> and <math alttext="−|Im |"><mo form="prefix">−</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math> after</td><td><math alttext="x′ = |x² − y²| + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi></math>, <math alttext="y′ = −2|x||y| + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math></td></tr>
+</tbody>
+</table>
+<p>Mandelbrot-style views start at <math alttext="z = c"><mi>z</mi><mo>=</mo><mi>c</mi></math> and let <math alttext="c"><mi>c</mi></math> vary with the pixel. Julia views fix <math alttext="c"><mi>c</mi></math> and let the starting <math alttext="z"><mi>z</mi></math> vary. The power <math alttext="p"><mi>p</mi></math> can be any value from 1.5 to 12: whole numbers use exact repeated multiplication, and fractional ones use the principal branch of the complex power, which leaves a seam.</p>
+
+<h2 id="escape-time">Escape-time iteration</h2>
+<p>For each pixel the explorer repeats the rule and watches the size of <math alttext="z"><mi>z</mi></math>. If <math alttext="|z|²"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></math> ever exceeds 65536, which means <math alttext="|z|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> passes the <a href="/learn/glossary.html#escape-radius">escape radius</a> <math alttext="R = 256"><mi>R</mi><mo>=</mo><mn>256</mn></math>, the pixel is declared to have escaped and the loop stops. If a pixel survives to the iteration limit it is painted black. The limit is chosen automatically and rises as you zoom in, because deeper views need more steps to separate nearby points. The classic radius for the Mandelbrot set is only 2; a larger one makes the smooth coloring below work better.</p>
+
+<h2 id="smooth-coloring">Smooth coloring</h2>
+<p>Counting whole steps gives ugly bands. The fix is a fractional count saying <em>how far into the last step</em> the orbit escaped. With final value <math alttext="z"><mi>z</mi></math> after <math alttext="n"><mi>n</mi></math> steps and escape radius <math alttext="R"><mi>R</mi></math>:</p>
+<math display="block" alttext="mu = n − log_p( log|z|² / log R² )"><mi>μ</mi><mo>=</mo><mi>n</mi><mo>−</mo><msub><mi>log</mi><mi>p</mi></msub><mo lspace="0" rspace="0.17em">&#x2061;</mo><mfrac><mrow><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></mrow><mrow><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac></math>
+<p class="eq-note">Plain text: <code>mu = n − log_p( log|z|² / log R² )</code></p>
+<p>The idea is simple. When an orbit is far from zero, one more step raises its size to roughly the <math alttext="p"><mi>p</mi></math>-th power, which multiplies <math alttext="log |z|²"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></math> by about <math alttext="p"><mi>p</mi></math>. Taking <math alttext="logₚ"><msub><mi>log</mi><mi>p</mi></msub><mo lspace="0" rspace="0">&#x2061;</mo></math> of the ratio tells you what fraction of a step the orbit overshot the radius. Using the actual power <math alttext="p"><mi>p</mi></math> rather than a fixed <math alttext="log 2"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>2</mn></math> keeps the bands continuous at every power.</p>
+<p>The number <math alttext="μ"><mi>μ</mi></math> is then mapped to a position in a <a href="/learn/glossary.html#palette">palette</a>. The default, <em>Classic</em>, sweeps the palette once from the outer bands to the iteration limit, so its colors shift when the limit changes. Three <em>cyclic</em> mappings, <em>square root</em>, <em>logarithmic</em> and <em>linear</em>, depend on <math alttext="μ"><mi>μ</mi></math> alone. They differ in how much they squeeze the high values near the set, so the bands look wider or narrower there. Palettes are blended in the OKLab color space, designed so that equal steps look equally different to the eye. Density and offset sliders stretch and shift the palette, and the <kbd>C</kbd> key animates the offset: <a href="/learn/glossary.html#color-cycling">color cycling</a>.</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/mapping-relative.webp" width="1200" height="675" loading="lazy" alt="The seahorse-valley edge of the Mandelbrot set colored with the Classic mapping, in blues and purples."><figcaption>Classic (default)</figcaption></figure>
+<figure><img src="/assets/learn/mapping-sqrt.webp" width="1200" height="675" loading="lazy" alt="The same view colored with the square-root mapping, in a pink and blue palette."><figcaption>Square root</figcaption></figure>
+<figure><img src="/assets/learn/mapping-log.webp" width="1200" height="675" loading="lazy" alt="The same view colored with the logarithmic mapping."><figcaption>Logarithmic</figcaption></figure>
+<figure><img src="/assets/learn/mapping-linear.webp" width="1200" height="675" loading="lazy" alt="The same view colored with the linear mapping."><figcaption>Linear</figcaption></figure>
+</div>
+
+<h2 id="relief">Distance estimates and relief lighting</h2>
+<p>Each step also carries along the 2 × 2 <a href="/learn/glossary.html#jacobian">Jacobian</a>, a small table of numbers that records how strongly a tiny change in the starting point is magnified. From the Jacobian size <math alttext="|J|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>J</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> the explorer gets a <a href="/learn/glossary.html#distance-estimate">distance estimate</a>, roughly how far each pixel is from the set:</p>
+<math display="block" alttext="d ≈ |z| ln|z| / |J|"><mi>d</mi><mo>≈</mo><mfrac><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mspace width="0.3em"></mspace><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>J</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow></mfrac></math>
+<p class="eq-note">Plain text: <code>d ≈ |z| ln|z| / |J|</code></p>
+<p>That shows up as thin bright filaments in <em>Filaments</em> shading, structures a plain escape count misses. For <em>Relief</em> shading the smooth glow of the escape potential <math alttext="log |z|"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> is treated as a hilly landscape. Its slope direction, which is proportional to <math alttext="J^Tz"><msup><mi>J</mi><mi>T</mi></msup><mi>z</mi></math>, becomes a surface normal, and ordinary diffuse and specular lighting from an adjustable light angle makes the edges look three-dimensional.</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/shading-flat.webp" width="1200" height="675" loading="lazy" alt="A Mandelbrot boundary view with flat shading: colors only, with no lighting or outlines."><figcaption>Flat</figcaption></figure>
+<figure><img src="/assets/learn/shading-filaments.webp" width="1200" height="675" loading="lazy" alt="The same view with filament shading: pixels close to the boundary of the set are brightened to near white."><figcaption>Filaments</figcaption></figure>
+<figure><img src="/assets/learn/shading-relief.webp" width="1200" height="675" loading="lazy" alt="The same view with relief shading, lit from a fixed direction so the structure looks three-dimensional."><figcaption>Relief</figcaption></figure>
+</div>
+<div class="btn-row"><a class="btn" href="/#f=mandelbrot&amp;sh=flat">Flat</a> <a class="btn" href="/#f=mandelbrot&amp;sh=filaments">Filaments</a> <a class="btn" href="/#f=mandelbrot&amp;sh=relief">Relief</a></div>
+
+<h2 id="antialiasing">Progressive anti-aliasing</h2>
+<p>While you drag or zoom, the explorer draws a fast, rough preview. Once the view is still, it adds extra samples at jittered positions inside each pixel and averages them: 1, 4, 8 or 16 per pixel, your choice in the <em>Detail</em> section. This is <a href="/learn/glossary.html#anti-aliasing">anti-aliasing</a>. The work is split into small bands, so the page stays responsive.</p>
+
+<h2 id="deep-zoom">Going very deep: perturbation theory</h2>
+<p>Computers store most numbers with about 7 (32-bit) or 16 (64-bit) significant digits. At a magnification of 10<sup>30</sup>, neighboring pixels differ far beyond that, so ordinary arithmetic collapses into blocks. The trick, <a href="/learn/glossary.html#perturbation">perturbation</a>, is to do the hard arithmetic only once.</p>
+<p>The explorer computes a single <a href="/learn/glossary.html#reference-orbit">reference orbit</a> <math alttext="Zₙ"><msub><mi>Z</mi><mi>n</mi></msub></math> at the center of the view with very high precision, using big integers (BigInt), with more digits the deeper you go. Every pixel then follows only its small difference <math alttext="δₙ"><msub><mi>δ</mi><mi>n</mi></msub></math> from that orbit, and a short calculation shows how the difference evolves:</p>
+<math display="block" alttext="z = Z + δ,  and  δ&#x27; = 2·Z·δ + δ² + δ_c"><msub><mi>z</mi><mi>n</mi></msub><mo>=</mo><msub><mi>Z</mi><mi>n</mi></msub><mo>+</mo><msub><mi>δ</mi><mi>n</mi></msub><mo>,</mo><mspace width="1em"></mspace><msub><mi>δ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>Z</mi><mi>n</mi></msub><mspace width="0.3em"></mspace><msub><mi>δ</mi><mi>n</mi></msub><mo>+</mo><msubsup><mi>δ</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><msub><mi>δ</mi><mi>c</mi></msub></math>
+<p class="eq-note">Plain text: <code>z = Z + δ,  and  δ&#x27; = 2·Z·δ + δ² + δ_c</code></p>
+<p>Because <math alttext="δ"><mi>δ</mi></math> is tiny, ordinary floating-point numbers are accurate enough. On the GPU each <math alttext="δ"><mi>δ</mi></math> is stored as a mantissa and an exponent, to reach values smaller than 32-bit floats allow. The folded fractals use a helper for <math alttext="|c + d| − |c|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>c</mi><mo>+</mo><mi>d</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>−</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>c</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> that avoids losing digits to cancellation.</p>
+<p>A single reference is not always representative. When a pixel's own orbit comes closer to 0 than to the reference orbit, the difference stops being small. The explorer then <a href="/learn/glossary.html#rebasing">rebases</a> the pixel: its difference becomes its full value <math alttext="z"><mi>z</mi></math>, and it restarts against the beginning of the reference orbit. That removes the glitches plain perturbation produces, so any reference point is valid and the current one is reused until the view drifts too far from it. The reference is computed in a background worker, so the page does not freeze.</p>
+<figure><img src="/assets/learn/mandelbrot-deep.webp" width="1200" height="675" loading="lazy" alt="A deep Mandelbrot zoom at around 10 to the power minus 30, drawn with perturbation theory: golden spirals and curls in concentric rings."><figcaption>A view at 10<sup>-30</sup>, drawn with perturbation.</figcaption></figure>
+<p>With this method, power-2 fractals can go to about 10<sup>300</sup>. Other powers use direct iteration and stop at the limit of floating-point precision, and the explorer tells you when you reach it.</p>
+
+<h2 id="engines">Two engines and an exact triangle</h2>
+<p>The default <em>GPU</em> engine iterates millions of pixels in parallel in a WebGL2 shader. The <em>CPU</em> engine splits the picture across worker threads using 64-bit numbers: slower, but it works without WebGL. The <a href="/learn/sierpinski.html">Sierpiński triangle</a> uses neither escape-time iteration nor perturbation, only exact binary-digit arithmetic, as that page explains.</p>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> open the side panel with <kbd>P</kbd> to change the shading, the color mapping, the palette and the anti-aliasing level, and press <kbd>?</kbd> for the full list of shortcuts. Your whole view is stored in the page address, so <em>Copy link</em> shares it exactly.</p>
+</div>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot">Open in explorer</a> <a class="btn" href="/#f=mandelbrot&amp;x=-0.743643887037158704752191506114774&amp;y=0.131825904205311970493132056385139&amp;z=-97.6&amp;map=sqrt">Deep zoom to 10⁻³⁰</a> <a class="btn" href="/#f=mandelbrot&amp;map=log">Log mapping</a></div>
+<p>Unfamiliar words are collected in the <a href="/learn/glossary.html">glossary</a>.</p>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/sierpinski.html" rel="prev">← Sierpiński triangle</a><a href="/learn/glossary.html" rel="next">Glossary →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

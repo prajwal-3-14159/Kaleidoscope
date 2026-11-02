@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="app.doc-title">Kaleidoscope — 無限フラクタル・エクスプローラー</title>
+  <!-- Values below are filled in by scripts/build-shell.mjs (edit scripts/shell-meta.mjs). -->
+  <meta name="description" data-i18n-content="app.doc-desc" content="マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。">
+  <meta name="keywords" content="フラクタル, マンデルブロ集合, ジュリア集合, バーニングシップ, 深度ズーム, WebGL, GPU ベンチマーク, フラクタル 数学">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" data-i18n-content="app.og-title" content="Kaleidoscope — 無限フラクタル・エクスプローラー">
+  <meta property="og:description" data-i18n-content="app.doc-desc" content="マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope で描画したマンデルブロ集合のタツノオトシゴの谷">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" data-i18n-content="app.og-title" content="Kaleidoscope — 無限フラクタル・エクスプローラー">
+  <meta name="twitter:description" data-i18n-content="app.doc-desc" content="マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="modulepreload" href="/src/main.js">
+  <script type="application/ld+json" id="ld-app">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#website","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/","name":"Kaleidoscope","inLanguage":["en","ja"],"publisher":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org"}},{"@type":"Organization","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org","name":"Kaleidoscope project","url":"https://github.com/prajwal-3-14159/Kaleidoscope","logo":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/icons/icon-512.png"},{"@type":"WebApplication","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/#app","name":"Kaleidoscope — 無限フラクタル・エクスプローラー","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/","description":"マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。","inLanguage":"ja","applicationCategory":"EducationalApplication","applicationSubCategory":"Mathematics","operatingSystem":"Any","browserRequirements":"Requires JavaScript and a browser with WebGL2","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg","screenshot":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/home.jpg","keywords":"フラクタル, マンデルブロ集合, ジュリア集合, バーニングシップ, 深度ズーム, WebGL, GPU ベンチマーク, フラクタル 数学","featureList":["マンデルブロ、バーニングシップ、トライコーン、ケルト、バッファロー、シェルピンスキーの各フラクタルとジュリア版","摂動法による約 10^300 倍までの超深度ズーム","GPU（WebGL2）エンジンとマルチスレッド CPU エンジン","滑らかな配色、距離推定によるフィラメント表示、3D レリーフ照明","高解像度 PNG 書き出しと共有リンク","ガイドツアー、ベンチマークモード、動画録画（任意）","英語・日本語インターフェース"],"author":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#org"},"isPartOf":{"@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/#website"}}]}</script>
+  <link rel="stylesheet" href="/bench.css">
+</head>
+<body>
+  <noscript id="seo-intro"><div class="noscript"><p>Kaleidoscope はブラウザで動く無料のフラクタル・エクスプローラーです。マンデルブロ集合、ジュリア集合、バーニングシップなどを GPU で高速に描画し、超深度ズームで探索できます。JavaScript と WebGL2 対応ブラウザが必要です。</p><ul><li><a href="/ja/learn/">フラクタル百科</a></li><li><a href="/ja/about.html">Kaleidoscope について</a></li><li><a href="/">English</a></li></ul></div></noscript>
+
+  <!-- Full-bleed fractal surface -->
+  <div id="stage">
+    <canvas id="gl-canvas"></canvas>
+    <canvas id="cpu-canvas" hidden></canvas>
+  </div>
+
+  <!-- Picture-in-picture Julia preview frame (interior is transparent; the canvas draws the image) -->
+  <div id="pip" aria-hidden="true">
+    <span class="pip-label" data-i18n="pip.hint"></span>
+  </div>
+
+  <!-- Brand + HUD -->
+  <div class="topleft">
+    <header class="brand">
+      <h1 data-i18n="app.title">KALEIDOSCOPE</h1>
+      <p class="subtitle" data-i18n="app.subtitle"></p>
+    </header>
+
+    <section id="hud" class="glass" aria-live="off">
+      <div class="hud-row"><span class="hud-label" data-i18n="hud.fractal"></span><span class="hud-val" id="hud-fractal"></span></div>
+      <div class="hud-row hud-row-center"><span class="hud-label" data-i18n="hud.center"></span><span class="hud-val hud-val-wrap" id="hud-center"></span></div>
+      <div class="hud-row"><span class="hud-label" data-i18n="hud.zoom"></span><span class="hud-val" id="hud-zoom"></span></div>
+      <div class="hud-row"><span class="hud-label" data-i18n="hud.iter"></span><span class="hud-val" id="hud-iter"></span></div>
+      <div class="hud-row hud-row-mode"><span class="hud-label" data-i18n="hud.mode"></span><span class="hud-val" id="hud-mode"></span></div>
+      <div class="hud-row"><span class="hud-label" data-i18n="hud.status"></span><span class="hud-val" id="hud-status"></span></div>
+      <div class="track hud-track"><div class="track-bar" id="hud-progress"></div></div>
+    </section>
+  </div>
+
+  <!-- Panel toggle -->
+  <button id="btn-panel" class="icon-btn glass" type="button" data-i18n-aria="panel.toggle" data-i18n-title="panel.toggle" aria-controls="panel">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+      <path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>
+    </svg>
+  </button>
+
+  <!-- Control panel -->
+  <aside id="panel" class="glass" aria-label="Controls">
+    <div class="panel-head">
+      <span class="panel-title" data-i18n="panel.title"></span>
+      <div class="panel-head-actions">
+        <a id="btn-lang" class="text-btn" href="/" hreflang="en" data-i18n="lang.switch">English</a>
+        <button id="btn-help" class="icon-btn small" type="button" aria-label="Help" data-i18n-aria="help.title" data-i18n-title="help.title">?</button>
+      </div>
+    </div>
+
+    <div class="panel-body">
+
+      <!-- Fractal -->
+      <details class="section" open>
+        <summary data-i18n="sec.fractal"></summary>
+        <div class="section-body">
+          <div id="fractal-grid" class="fractal-grid"></div>
+
+          <div class="switch-row" id="row-julia">
+            <label for="toggle-julia" data-i18n="ctl.julia"></label>
+            <input type="checkbox" id="toggle-julia" class="switch" role="switch">
+          </div>
+
+          <div id="julia-controls" class="sub-controls">
+            <div class="field">
+              <label for="julia-re" data-i18n="ctl.julia-re"></label>
+              <div class="pair">
+                <input type="range" id="julia-re" min="-2" max="2" step="0.0001">
+                <input type="number" id="julia-re-num" step="0.0001" data-i18n-aria="ctl.julia-re">
+              </div>
+            </div>
+            <div class="field">
+              <label for="julia-im" data-i18n="ctl.julia-im"></label>
+              <div class="pair">
+                <input type="range" id="julia-im" min="-2" max="2" step="0.0001">
+                <input type="number" id="julia-im-num" step="0.0001" data-i18n-aria="ctl.julia-im">
+              </div>
+            </div>
+          </div>
+          <p class="note tip" data-i18n="ctl.julia-tip"></p>
+          <a id="learn-link" class="learn-link" href="/learn/mandelbrot.html" data-i18n="ctl.learn-link"></a>
+        </div>
+      </details>
+
+      <!-- Shape -->
+      <details class="section" id="power-section" open>
+        <summary data-i18n="sec.power"></summary>
+        <div class="section-body">
+          <div class="field">
+            <label for="power" data-i18n="ctl.power"></label>
+            <div class="pair">
+              <input type="range" id="power" min="1.5" max="8" step="0.1">
+              <input type="number" id="power-num" min="1.5" max="12" step="0.1" data-i18n-aria="ctl.power">
+            </div>
+          </div>
+          <p id="power-note" class="note" data-i18n="ctl.power-note"></p>
+        </div>
+      </details>
+
+      <!-- Colour -->
+      <details class="section" open>
+        <summary data-i18n="sec.color"></summary>
+        <div class="section-body">
+          <div id="palette-grid" class="palette-grid"></div>
+
+          <div class="field">
+            <label for="mapping" data-i18n="ctl.mapping"></label>
+            <select id="mapping">
+              <option value="relative" data-i18n="map.relative"></option>
+              <option value="sqrt" data-i18n="map.sqrt"></option>
+              <option value="log" data-i18n="map.log"></option>
+              <option value="linear" data-i18n="map.linear"></option>
+            </select>
+            <p id="mapping-note" class="note hidden" data-i18n="ctl.mapping-note"></p>
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="density" data-i18n="ctl.density"></label>
+              <output class="badge" id="density-val" for="density"></output>
+            </div>
+            <input type="range" id="density" min="-3" max="3" step="0.01">
+          </div>
+
+          <div class="field">
+            <label for="offset" data-i18n="ctl.offset"></label>
+            <input type="range" id="offset" min="0" max="1" step="0.001">
+          </div>
+
+          <div class="switch-row">
+            <label for="toggle-cycle" data-i18n="ctl.cycle"></label>
+            <input type="checkbox" id="toggle-cycle" class="switch" role="switch">
+          </div>
+          <div class="field compact">
+            <input type="range" id="cycle-speed" min="0.01" max="0.5" step="0.01" data-i18n-aria="ctl.cycle-speed" data-i18n-title="ctl.cycle-speed">
+          </div>
+
+          <div class="field">
+            <span class="label" id="shading-label" data-i18n="ctl.shading"></span>
+            <div class="seg-group" id="shading-seg" role="group" aria-labelledby="shading-label">
+              <button type="button" class="seg" data-shading="flat" data-i18n="shade.flat"></button>
+              <button type="button" class="seg" data-shading="filaments" data-i18n="shade.filaments"></button>
+              <button type="button" class="seg" data-shading="relief" data-i18n="shade.relief"></button>
+            </div>
+          </div>
+
+          <div class="field" id="light-row">
+            <label for="light-angle" data-i18n="ctl.light"></label>
+            <input type="range" id="light-angle" min="0" max="360" step="1">
+          </div>
+
+          <div class="field">
+            <label for="interior" data-i18n="ctl.interior"></label>
+            <select id="interior">
+              <option value="black" data-i18n="interior.black"></option>
+              <option value="glow" data-i18n="interior.glow"></option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <!-- Detail -->
+      <details class="section" open>
+        <summary data-i18n="sec.detail"></summary>
+        <div class="section-body">
+          <div class="switch-row">
+            <label for="toggle-auto-iter" data-i18n="ctl.auto-iter"></label>
+            <input type="checkbox" id="toggle-auto-iter" class="switch" role="switch">
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="iter" data-i18n="ctl.iter"></label>
+              <output class="badge" id="iter-val" for="iter"></output>
+            </div>
+            <input type="range" id="iter" min="0" max="1000" step="1">
+            <p class="note" data-i18n="ctl.iter-note"></p>
+          </div>
+
+          <div class="field">
+            <label for="aa" data-i18n="ctl.aa"></label>
+            <select id="aa">
+              <option value="1">1×</option>
+              <option value="4">4×</option>
+              <option value="8">8×</option>
+              <option value="16">16×</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="res" data-i18n="ctl.res"></label>
+              <output class="badge" id="res-val" for="res"></output>
+            </div>
+            <input type="range" id="res" min="25" max="100" step="5">
+            <p class="note" data-i18n="ctl.res-note"></p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Engine -->
+      <details class="section" open>
+        <summary data-i18n="sec.engine"></summary>
+        <div class="section-body">
+          <div class="seg-group" id="engine-seg" role="group" data-i18n-aria="sec.engine">
+            <button type="button" class="seg" data-engine="gpu" data-i18n="engine.gpu"></button>
+            <button type="button" class="seg" data-engine="cpu" data-i18n="engine.cpu"></button>
+          </div>
+          <p class="note" id="engine-note"></p>
+        </div>
+      </details>
+
+      <!-- Explore -->
+      <details class="section" open>
+        <summary data-i18n="sec.explore"></summary>
+        <div class="section-body">
+          <div class="row-2 row-tour">
+            <select id="tour" data-i18n-aria="ctl.tour"></select>
+            <button type="button" id="btn-tour-go" class="btn" data-i18n="btn.fly"></button>
+          </div>
+
+          <div class="row-2 even">
+            <button type="button" id="btn-reset" class="btn" data-i18n="btn.reset"></button>
+            <button type="button" id="btn-share" class="btn" data-i18n="btn.share"></button>
+          </div>
+
+          <div class="row-2 row-export">
+            <select id="export-scale" data-i18n-aria="ctl.export-scale">
+              <option value="1">1×</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select>
+            <button type="button" id="btn-export" class="btn btn-primary" data-i18n="btn.export"></button>
+          </div>
+
+          <button type="button" id="btn-benchmark" class="btn btn-block" data-i18n="btn.benchmark"></button>
+        </div>
+      </details>
+
+      <nav class="panel-links" aria-label="More">
+        <a href="/learn/" data-href-en="/learn/" data-href-ja="/ja/learn/" data-i18n="nav.learn"></a>
+        <a href="/about.html" data-href-en="/about.html" data-href-ja="/ja/about.html" data-i18n="nav.about"></a>
+        <a href="/privacy.html" data-href-en="/privacy.html" data-href-ja="/ja/privacy.html" data-i18n="nav.privacy"></a>
+        <a href="/terms.html" data-href-en="/terms.html" data-href-ja="/ja/terms.html" data-i18n="nav.terms"></a>
+      </nav>
+    </div>
+
+    <footer class="panel-foot" data-i18n="panel.footer"></footer>
+  </aside>
+
+  <!-- Hint + toast -->
+  <div id="hint" class="glass" data-i18n="hint.controls"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Benchmark running overlay -->
+  <div id="bench-overlay" role="status" aria-live="off" data-phase="">
+    <!-- Intro title card + countdown (untimed) -->
+    <div id="bench-intro" hidden>
+      <div class="bi-inner">
+        <div class="bi-rule" aria-hidden="true"></div>
+        <h2 class="bi-title" data-i18n="bench.title"></h2>
+        <p class="bi-mode" id="bench-intro-mode"></p>
+        <p class="bi-gpu" id="bench-intro-gpu"></p>
+        <div class="bi-count-wrap" aria-hidden="true">
+          <span class="bi-ring" id="bench-intro-ring"></span>
+          <span class="bi-count" id="bench-intro-count"></span>
+        </div>
+        <p class="bi-skip" data-i18n="bench.intro-skip"></p>
+      </div>
+    </div>
+
+    <!-- Letterbox: top bar -->
+    <div class="bo-bar bo-top">
+      <span class="bo-rec" id="bench-rec" hidden><i></i><span data-i18n="bench.rec"></span></span>
+      <span class="bo-scene" id="bench-scene"></span>
+      <span class="bo-chip" id="bench-chip"></span>
+      <div class="bo-strip"><i id="bench-progress-bar"></i></div>
+    </div>
+    <button type="button" id="btn-bench-abort" class="btn btn-danger small" data-i18n="bench.abort"></button>
+
+    <!-- Scene title (slides in at the start of each scene) -->
+    <div id="bench-scene-title" class="bo-title" aria-hidden="true">
+      <span class="bt-kicker" id="bench-title-kicker"></span>
+      <span class="bt-name" id="bench-title-name"></span>
+    </div>
+
+    <!-- Letterbox: bottom bar with the live HUD -->
+    <div class="bo-bar bo-bottom">
+      <div class="bo-hud">
+        <div class="bo-cell">
+          <span class="bo-label" data-i18n="bench.fps"></span>
+          <span class="bo-big" id="bench-fps">–</span>
+        </div>
+        <div class="bo-spark">
+          <canvas id="bench-spark"></canvas>
+          <span class="bo-label"><span data-i18n="bench.frame-time"></span> · <b id="bench-ms">–</b></span>
+        </div>
+        <div class="bo-cell">
+          <span class="bo-label" data-i18n="bench.live-score"></span>
+          <span class="bo-val" id="bench-live-score">–</span>
+        </div>
+        <div class="bo-cell bo-end">
+          <span class="bo-label" data-i18n="bench.elapsed"></span>
+          <span class="bo-val" id="bench-elapsed">–</span>
+        </div>
+      </div>
+      <div class="segs" id="bench-segs"></div>
+    </div>
+  </div>
+
+  <!-- Benchmark dialog -->
+  <dialog id="bench-dialog" aria-labelledby="bench-title">
+    <div class="dlg">
+      <h2 class="dlg-title" id="bench-title" data-i18n="bench.title"></h2>
+
+      <section id="bench-start">
+        <p class="dlg-desc" data-i18n="bench.desc"></p>
+
+        <div class="radio-cards">
+          <label class="radio-card">
+            <input type="radio" name="bench-mode" value="quick" checked>
+            <span class="rc-body">
+              <span class="rc-title" data-i18n="bench.quick"></span>
+              <span class="rc-desc" data-i18n="bench.quick-desc"></span>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="bench-mode" value="full">
+            <span class="rc-body">
+              <span class="rc-title" data-i18n="bench.full"></span>
+              <span class="rc-desc" data-i18n="bench.full-desc"></span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Shown only when canvas.captureStream and MediaRecorder exist -->
+        <div class="bench-record" id="bench-record-row" hidden>
+          <div class="switch-row">
+            <label class="br-text" for="bench-record">
+              <span class="br-title" data-i18n="bench.record"></span>
+              <span class="br-desc" data-i18n="bench.record-desc"></span>
+            </label>
+            <input type="checkbox" id="bench-record" class="switch" role="switch">
+          </div>
+        </div>
+
+        <button type="button" id="btn-bench-run" class="btn btn-primary btn-block big" data-i18n="bench.run"></button>
+
+        <h3 class="dlg-sub" data-i18n="bench.history"></h3>
+        <ul id="bench-history" class="history"></ul>
+      </section>
+
+      <section id="bench-results" class="hidden">
+        <div class="score-block">
+          <span class="bench-pb" id="bench-pb" hidden data-i18n="bench.pb"></span>
+          <span class="score-label" data-i18n="bench.score"></span>
+          <div class="score-stage">
+            <span class="score-num" id="bench-score"></span>
+            <div class="burst" id="bench-burst" aria-hidden="true"></div>
+          </div>
+          <div class="tier" id="bench-tier">
+            <span class="tier-dots" id="bench-tier-dots" aria-hidden="true"></span>
+            <span class="tier-name" id="bench-tier-name"></span>
+          </div>
+        </div>
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="bench.col-scene"></th>
+              <th scope="col" class="num" data-i18n="bench.col-fps"></th>
+              <th scope="col" class="num" data-i18n="bench.col-time"></th>
+            </tr>
+          </thead>
+          <tbody id="bench-table"></tbody>
+        </table>
+        <h3 class="dlg-sub" data-i18n="bench.compare"></h3>
+        <ul class="cmp" id="bench-compare"></ul>
+        <p id="bench-meta" class="note"></p>
+        <a id="btn-bench-download" class="btn btn-block" download hidden></a>
+        <div class="row-2 even">
+          <button type="button" id="btn-bench-copy" class="btn" data-i18n="bench.copy"></button>
+          <button type="button" id="btn-bench-again" class="btn btn-primary" data-i18n="bench.again"></button>
+        </div>
+      </section>
+
+      <div class="dlg-foot">
+        <button type="button" id="btn-bench-close" class="btn" data-i18n="bench.close"></button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Help dialog -->
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <div class="dlg">
+      <h2 class="dlg-title" id="help-title" data-i18n="help.title"></h2>
+      <dl class="keys">
+        <div class="key-row"><dt><kbd data-i18n="help.k.drag"></kbd></dt><dd data-i18n="help.drag"></dd></div>
+        <div class="key-row"><dt><kbd data-i18n="help.k.wheel"></kbd></dt><dd data-i18n="help.wheel"></dd></div>
+        <div class="key-row"><dt><kbd data-i18n="help.k.dblclick"></kbd></dt><dd data-i18n="help.dblclick"></dd></div>
+        <div class="key-row"><dt><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dt><dd data-i18n="help.arrows"></dd></div>
+        <div class="key-row"><dt><kbd>+</kbd><kbd>−</kbd></dt><dd data-i18n="help.zoomkeys"></dd></div>
+        <div class="key-row"><dt><kbd>R</kbd></dt><dd data-i18n="help.reset"></dd></div>
+        <div class="key-row"><dt><kbd>J</kbd></dt><dd data-i18n="help.julia"></dd></div>
+        <div class="key-row"><dt><kbd>C</kbd></dt><dd data-i18n="help.cycle"></dd></div>
+        <div class="key-row"><dt><kbd>H</kbd></dt><dd data-i18n="help.hide"></dd></div>
+        <div class="key-row"><dt><kbd>F</kbd></dt><dd data-i18n="help.fullscreen"></dd></div>
+        <div class="key-row"><dt><kbd>P</kbd></dt><dd data-i18n="help.panel"></dd></div>
+        <div class="key-row"><dt><kbd>?</kbd></dt><dd data-i18n="help.help"></dd></div>
+        <div class="key-row"><dt><kbd>Esc</kbd></dt><dd data-i18n="help.esc"></dd></div>
+      </dl>
+      <div class="dlg-foot">
+        <button type="button" id="btn-help-close" class="btn" data-i18n="help.close"></button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mandelbrot Set — Kaleidoscope Fractal Encyclopedia</title>
+  <meta name="description" content="What the Mandelbrot set is, its history, how to read the bulbs and spirals, and where to zoom in, with the formula and links to exact views in the explorer.">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/mandelbrot.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:title" content="The Mandelbrot Set — Kaleidoscope Fractal Encyclopedia">
+  <meta property="og:description" content="The most famous picture in mathematics: its formula, its history and the best places to zoom, with one-click views in the explorer.">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Mandelbrot set rendered in the Kaleidoscope fractal explorer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Mandelbrot Set — Kaleidoscope Fractal Encyclopedia">
+  <meta name="twitter:description" content="The most famous picture in mathematics: its formula, its history and the best places to zoom, with one-click views in the explorer.">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html#article","headline":"The Mandelbrot Set","description":"What the Mandelbrot set is, its history, how to read the bulbs and spirals, and where to zoom in, with the formula and links to exact views in the explorer.","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html","inLanguage":"en","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/mandelbrot.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"about":{"@type":"Thing","name":"Mandelbrot set","sameAs":"https://en.wikipedia.org/wiki/Mandelbrot_set"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/"},{"@type":"ListItem","position":3,"name":"Mandelbrot set","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/mandelbrot.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="Site"><a href="/">Explore</a><a href="/learn/">Learn</a><a href="/about.html">About</a></nav>
+    <a class="lang-switch" href="/ja/learn/mandelbrot.html" hreflang="ja" lang="ja">日本語</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/">Home</a></li><li><a href="/learn/">Learn</a></li><li>Mandelbrot set</li></ol>
+    <article class="article">
+    <h1>The Mandelbrot Set</h1>
+    <p class="lede">The most famous picture in mathematics comes from one line of arithmetic: square a number, add a constant, repeat. Here is what the set is, where it came from and where to look when you zoom in.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot">Open in explorer</a> <a class="btn" href="/#f=mandelbrot&amp;x=-0.7445398&amp;y=0.1217237&amp;z=-6.38">Seahorse Valley</a></div>
+    <nav class="toc" aria-label="On this page"><strong>On this page</strong><ol><li><a href="#what-it-is">What it is</a></li><li><a href="#history">A short history</a></li><li><a href="#reading">How to read the picture</a></li><li><a href="#places">Places to visit</a></li><li><a href="#powers">Higher powers: the Multibrots</a></li><li><a href="#in-the-explorer">In the explorer</a></li></ol></nav>
+<h2 id="what-it-is">What it is</h2>
+<p>Pick a point on a flat sheet and treat it as a <a href="/learn/glossary.html#complex-plane">complex number</a> <math alttext="c"><mi>c</mi></math>: a number with two parts, where the left-right position is the <em>real part</em> and the up-down position is the <em>imaginary part</em>. Now play a simple game. Start with <math alttext="z = 0"><mi>z</mi><mo>=</mo><mn>0</mn></math>, then repeat one step again and again: square the current number, then add <math alttext="c"><mi>c</mi></math>.</p>
+<math display="block" alttext="z → z² + c, starting from z = 0"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → z² + c, starting from z = 0</code></p>
+<p>For some values of <math alttext="c"><mi>c</mi></math> the numbers stay small forever. For others they grow without limit and "escape" to infinity. The <strong>Mandelbrot set</strong> is the collection of every <math alttext="c"><mi>c</mi></math> whose numbers never escape. In the explorer these are the black regions; the colors around them show how quickly the other points escape.</p>
+<p>Try <math alttext="c = 0"><mi>c</mi><mo>=</mo><mn>0</mn></math>: the number stays at 0, so 0 is in the set. With <math alttext="c = 1"><mi>c</mi><mo>=</mo><mn>1</mn></math> you get 0, 1, 2, 5, 26, 677 and so on, which explodes, so 1 is out. With <math alttext="c = −1"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>1</mn></math> you get 0, -1, 0, -1 and so on forever, so -1 is in.</p>
+<p>The whole set fits inside a circle of radius 2, and once the numbers leave that circle they never come back. A program only has to count how many steps a point takes to leave. That count, the <a href="/learn/glossary.html#escape-time-algorithm">escape time</a>, is what the colors show (see <a href="/learn/how-it-works.html">How it works</a>).</p>
+
+<h2 id="history">A short history</h2>
+<p>The rule <math alttext="z → z² + c"><mi>z</mi><mo>→</mo><msup><mi>z</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi></math> is old. Pierre Fatou and Gaston Julia studied it around 1918 with pencil and paper (see <a href="/learn/julia.html">Julia sets</a>). The picture is newer. A crude computer plot appeared in a paper by Robert Brooks and Peter Matelski, written in 1978 and published in 1981. In 1980 Benoit Mandelbrot, working at IBM, produced the first detailed images. He had coined the word "fractal" in 1975.</p>
+<p>In the early 1980s Adrien Douady and John Hubbard put the set on firm ground. They proved that it is <strong>connected</strong>, a single piece with no islands, and named it after Mandelbrot. Peitgen and Richter's 1986 book <em>The Beauty of Fractals</em> made it famous.</p>
+
+<h2 id="reading">How to read the picture</h2>
+<figure><img src="/assets/learn/mandelbrot-overview.webp" width="1200" height="675" loading="lazy" alt="The Mandelbrot set in full: a black heart-shaped main cardioid with a round bulb on its left and many smaller bulbs and thin antennae around its edge, surrounded by blue bands."><figcaption>The whole Mandelbrot set at the explorer's home view.</figcaption></figure>
+<p>The big heart-shaped body is the <a href="/learn/glossary.html#cardioid">main cardioid</a>. For every <math alttext="c"><mi>c</mi></math> inside it, the numbers settle toward a single value. The large disc on its left is the <em>period-2 bulb</em>: there the numbers end up alternating between two values. Each smaller <a href="/learn/glossary.html#period-bulb">bulb</a> has its own period (3, 4, 5 and so on), which you can read off by counting the spokes of the little antenna growing from it.</p>
+<p>The colored bands outside are contour lines of escape speed, crowding closer as you approach the boundary. That boundary is so crinkled that its <a href="/learn/glossary.html#hausdorff-dimension">Hausdorff dimension</a> is 2, as intricate as a plane curve can be (Mitsuhiro Shishikura, 1998).</p>
+<p>Along the horizontal axis the set stretches from <math alttext="c = −2"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mn>2</mn></math> to <math alttext="c = 1/4"><mi>c</mi><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></math>. Walk left from the cardioid's cusp and the final value splits into two at <math alttext="c = −3/4"><mi>c</mi><mo>=</mo><mo form="prefix">−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></math>, then four, then eight, with the splits coming faster until they pile up at about <math alttext="c ≈ −1.4012"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>1.4012</mn></math>, where chaos begins. The ratio of successive splits, about 4.669, is Feigenbaum's constant.</p>
+
+<h2 id="places">Places to visit</h2>
+<p>Each button opens that exact view.</p>
+
+<h3 id="seahorse-valley">Seahorse Valley</h3>
+<p>The groove between the main cardioid and the period-2 disc, on the upper side. Look for spirals that curl like seahorse tails.</p>
+<figure><img src="/assets/learn/mandelbrot-seahorse.webp" width="1200" height="675" loading="lazy" alt="Seahorse Valley in the Mandelbrot set: along the black edge of the set on the right, curling seahorse-tail spirals and star-like whorls in gold and red."><figcaption>Seahorse Valley, near c = -0.7445 + 0.1217i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;x=-0.7445398&amp;y=0.1217237&amp;z=-6.38">Open Seahorse Valley</a></div>
+
+<h3 id="elephant-valley">Elephant Valley</h3>
+<p>Just right of the cardioid's cusp at <math alttext="c = 1/4"><mi>c</mi><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></math>, a procession of small round bulbs, each trailing curling, trunk-like tendrils.</p>
+<figure><img src="/assets/learn/mandelbrot-elephant.webp" width="1200" height="675" loading="lazy" alt="Elephant Valley in the Mandelbrot set: a chain of small round black bulbs along the boundary, each with curling tendrils and fine spiral patterns, against a blue background."><figcaption>Elephant Valley, near c = 0.2829 + 0.0103i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;x=0.2829&amp;y=0.0103&amp;z=-6.38">Open Elephant Valley</a></div>
+
+<h3 id="triple-spiral">Triple spiral</h3>
+<p>Higher up the cardioid, the boundary pinches into a narrow valley whose two walls are lined with rows of spirals. Press <kbd>C</kbd> to watch the colors flow along the walls.</p>
+<figure><img src="/assets/learn/mandelbrot-spiral.webp" width="1200" height="675" loading="lazy" alt="A narrow, tapering valley outside the Mandelbrot set, with rows of small spirals lining both walls and the black interior of the set above and below."><figcaption>The triple spiral region, near c = -0.0886 + 0.6545i.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;x=-0.0886&amp;y=0.6545&amp;z=-6.38">Open the triple spiral</a></div>
+
+<h3 id="mini-mandelbrot">A mini Mandelbrot</h3>
+<p>On the thin spike to the left, at <math alttext="c ≈ −1.7549"><mi>c</mi><mo>≈</mo><mo form="prefix">−</mo><mn>1.7549</mn></math>, sits a tiny copy of the whole set: the center of a period-3 bulb. These "minibrots" appear at every scale, each a little stretched and twisted.</p>
+<figure><img src="/assets/learn/mandelbrot-minibrot.webp" width="1200" height="675" loading="lazy" alt="A miniature copy of the whole Mandelbrot set, a minibrot, with its own cardioid and bulbs, surrounded by long streaks radiating into the background."><figcaption>A minibrot at c = -1.75488, the center of the period-3 component on the real axis.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;x=-1.7548776662466927&amp;y=0&amp;z=-5.5">Open the minibrot</a></div>
+
+<h3 id="deep-spiral">A very deep spiral</h3>
+<p>The half-height of this view is <math alttext="4 × 10^(−30)"><mn>4</mn><mo>×</mo><msup><mn>10</mn><mrow><mo form="prefix">−</mo><mn>30</mn></mrow></msup></math>, roughly <math alttext="3 × 10^29"><mn>3</mn><mo>×</mo><msup><mn>10</mn><mn>29</mn></msup></math> times magnified. On a 30 cm screen that is like zooming into a picture of the set about a hundred times wider than the observable universe. Ordinary 64-bit numbers carry only about 16 digits, so the explorer switches to <a href="/learn/how-it-works.html#deep-zoom">perturbation theory</a>.</p>
+<figure><img src="/assets/learn/mandelbrot-deep.webp" width="1200" height="675" loading="lazy" alt="A deep Mandelbrot zoom: concentric rings of golden spirals and curls around a tiny dark center ringed by small minibrots."><figcaption>Zoom level 10<sup>-30</sup>: the structure never runs out.</figcaption></figure>
+<div class="btn-row"><a class="btn btn-primary" href="/#f=mandelbrot&amp;x=-0.743643887037158704752191506114774&amp;y=0.131825904205311970493132056385139&amp;z=-97.6&amp;map=sqrt">Dive to 10⁻³⁰</a></div>
+
+<h2 id="powers">Higher powers: the Multibrots</h2>
+<p>Nothing says the exponent has to be 2. Using a power <math alttext="p"><mi>p</mi></math> gives the family of <strong>Multibrot</strong> sets.</p>
+<math display="block" alttext="z → z^p + c"><msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msubsup><mi>z</mi><mi>n</mi><mi>p</mi></msubsup><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">Plain text: <code>z → z^p + c</code></p>
+<p>For a whole-number power the picture has <math alttext="(p − 1)"><mo stretchy="false">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></math>-fold rotational symmetry: two lobes for the cubic set, three for the quartic. For a fractional power such as 2.5 the computer must choose one of several possible values of <math alttext="zᵖ"><msup><mi>z</mi><mi>p</mi></msup></math> (the <a href="/learn/glossary.html#principal-branch">principal branch</a>), and the choice jumps along the negative real axis, leaving a faint <strong>seam</strong>. The explorer accepts any power from 1.5 to 12.</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/power-3.webp" width="1200" height="675" loading="lazy" alt="The cubic Multibrot set, power 3: two large black circular lobes stacked vertically, with smaller bulbs around them."><figcaption>Power 3.</figcaption></figure>
+<figure><img src="/assets/learn/power-4.webp" width="1200" height="675" loading="lazy" alt="The quartic Multibrot set, power 4: three large overlapping black lobes with smaller bulbs around them."><figcaption>Power 4.</figcaption></figure>
+<figure><img src="/assets/learn/power-2.5.webp" width="1200" height="675" loading="lazy" alt="The Mandelbrot-style set for power 2.5, with a faint horizontal seam running left from the set along the negative real axis."><figcaption>Power 2.5: look for the seam on the left.</figcaption></figure>
+</div>
+<div class="btn-row"><a class="btn" href="/#f=mandelbrot&amp;p=3">Power 3</a> <a class="btn" href="/#f=mandelbrot&amp;p=4">Power 4</a> <a class="btn" href="/#f=mandelbrot&amp;p=2.5">Power 2.5</a></div>
+<p>Ultra-deep zoom needs power 2; for other powers the explorer stops at the limit of ordinary precision and tells you so.</p>
+
+<h2 id="in-the-explorer">In the explorer</h2>
+<div class="callout tip">
+<p><strong>Try this:</strong> hover over any point of the Mandelbrot set and press <kbd>J</kbd> to open the Julia set for that exact point. A small picture-in-picture preview follows your pointer. Press <kbd>R</kbd> to return to the home view.</p>
+</div>
+<p>The <em>Explore</em> section of the side panel has a guided tour through all the places above. Next: <a href="/learn/julia.html">Julia sets</a>.</p>
+
+    <nav class="pager" aria-label="Previous and next pages"><a href="/learn/" rel="up">← All topics</a><a href="/learn/julia.html" rel="next">Julia sets →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>

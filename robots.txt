@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tests/
+Disallow: /.github/
+
+Sitemap: https://yellow-wave-04cc1c20f.7.azurestaticapps.net/sitemap.xml

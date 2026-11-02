@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>エクスプローラーのしくみ — Kaleidoscope フラクタル百科</title>
+  <meta name="description" content="Kaleidoscope がフラクタルを描くしくみを解説します。脱出時間の反復、滑らかな色付け、距離推定、レリーフ照明、アンチエイリアス、摂動法による深いズームを順に紹介します。">
+  <link rel="canonical" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html">
+  <link rel="alternate" hreflang="en" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <link rel="alternate" hreflang="ja" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html">
+  <link rel="alternate" hreflang="x-default" href="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/learn/how-it-works.html">
+  <meta name="theme-color" content="#07080e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kaleidoscope">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="フラクタルエクスプローラーのしくみ — Kaleidoscope">
+  <meta property="og:description" content="脱出時間の反復、滑らかな色付け、レリーフ照明、そして 10^300 倍までのズームを可能にする摂動法を、やさしく解説します。">
+  <meta property="og:url" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html">
+  <meta property="og:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kaleidoscope で摂動法を使って描画した、マンデルブロ集合の深いズーム">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="フラクタルエクスプローラーのしくみ — Kaleidoscope">
+  <meta name="twitter:description" content="脱出時間の反復、滑らかな色付け、レリーフ照明、そして 10^300 倍までのズームを可能にする摂動法を、やさしく解説します。">
+  <meta name="twitter:image" content="https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/pages.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html#article","headline":"エクスプローラーのしくみ","description":"Kaleidoscope がフラクタルを描くしくみを解説します。脱出時間の反復、滑らかな色付け、距離推定、レリーフ照明、アンチエイリアス、摂動法による深いズームを順に紹介します。","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html","mainEntityOfPage":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html","inLanguage":"ja","image":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/assets/og/how-it-works.jpg","datePublished":"2026-11-03","dateModified":"2026-11-03","proficiencyLevel":"Beginner","author":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"publisher":{"@type":"Organization","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"},"isPartOf":{"@type":"WebSite","name":"Kaleidoscope","url":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/"},{"@type":"ListItem","position":2,"name":"学ぶ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/"},{"@type":"ListItem","position":3,"name":"エクスプローラーのしくみ","item":"https://yellow-wave-04cc1c20f.7.azurestaticapps.net/ja/learn/how-it-works.html"}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header"><div class="bar">
+    <a class="brand" href="/ja/">KALEIDOSCOPE</a>
+    <nav class="site-nav" aria-label="サイト"><a href="/ja/">探索</a><a href="/ja/learn/">学ぶ</a><a href="/ja/about.html">このサイトについて</a></nav>
+    <a class="lang-switch" href="/learn/how-it-works.html" hreflang="en" lang="en">English</a>
+  </div></header>
+  <main id="main">
+    <ol class="breadcrumb"><li><a href="/ja/">ホーム</a></li><li><a href="/ja/learn/">学ぶ</a></li><li>しくみ</li></ol>
+    <article class="article">
+    <h1>エクスプローラーのしくみ</h1>
+    <p class="lede">絵の裏側をのぞいてみましょう。数行の計算が何百万回も繰り返されて、飛び込んでいける映像になり、拡大率 10<sup>300</sup> の深さにまで届くまでの道のりです。</p>
+    
+    <nav class="toc" aria-label="このページの内容"><strong>このページの内容</strong><ol><li><a href="#one-formula">5 つのフラクタルを 1 つの式で</a></li><li><a href="#escape-time">脱出時間の反復</a></li><li><a href="#smooth-coloring">滑らかな色付け</a></li><li><a href="#relief">距離推定とレリーフ照明</a></li><li><a href="#antialiasing">プログレッシブ・アンチエイリアス</a></li><li><a href="#deep-zoom">とても深くへ：摂動法</a></li><li><a href="#engines">2 つのエンジンと正確な三角形</a></li><li><a href="#in-the-explorer">エクスプローラーで見る</a></li></ol></nav>
+<h2 id="one-formula">5 つのフラクタルを 1 つの式で</h2>
+<p>エクスプローラーのどの脱出時間型フラクタルも、1 つのルールとして書き表せます。今の数 <math alttext="z"><mi>z</mi></math> を用意し、必要なら<em>折りたたみ</em>（「前処理」のステップ）をし、<math alttext="p"><mi>p</mi></math> 乗し、必要ならその結果を折りたたみ（「後処理」のステップ）、定数 <math alttext="c"><mi>c</mi></math> を足します。</p>
+<math display="block" alttext="z → post(pre(z)^p) + c"><mi>z</mi><mo>→</mo><mi mathvariant="normal">post</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false">(</mo><msup><mrow><mi mathvariant="normal">pre</mi><mo lspace="0" rspace="0">&#x2061;</mo><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><mrow><mspace width="0.3em"></mspace><mi>p</mi></mrow></msup><mo stretchy="false">)</mo><mo>+</mo><mi>c</mi></math>
+<p class="eq-note">テキスト表記：<code>z → post(pre(z)^p) + c</code></p>
+<p>折りたたみとは小さな反射のことで、実部の絶対値、虚部の絶対値、または複素共役をとる操作です。折りたたみ方が違えば、フラクタルも変わります。べき乗が 2 で、<math alttext="z = x + iy"><mi>z</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>i</mi><mi>y</mi></math> および <math alttext="c = a + ib"><mi>c</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>i</mi><mi>b</mi></math> と書くと、次のようになります。</p>
+<table>
+<thead><tr><th>フラクタル</th><th>折りたたみ</th><th>1 ステップ</th></tr></thead>
+<tbody>
+<tr><td><a href="/ja/learn/mandelbrot.html">マンデルブロ</a></td><td>なし</td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>、<math alttext="y′ = 2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/ja/learn/burning-ship.html">バーニングシップ</a></td><td>2 乗の前に <math alttext="|x|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math>、<math alttext="|y|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math></td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>、<math alttext="y′ = 2|x||y| + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/ja/learn/tricorn.html">トライコーン</a></td><td>2 乗の前に共役</td><td><math alttext="x′ = x² − y² + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo><mi>a</mi></math>、<math alttext="y′ = −2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/ja/learn/celtic.html">ケルト</a></td><td>2 乗の後に <math alttext="|Re |"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math></td><td><math alttext="x′ = |x² − y²| + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi></math>、<math alttext="y′ = 2xy + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mn>2</mn><mi>x</mi><mi>y</mi><mo>+</mo><mi>b</mi></math></td></tr>
+<tr><td><a href="/ja/learn/buffalo.html">バッファロー</a></td><td>2 乗の前に両方、後に <math alttext="|Re |"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Re</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math> と <math alttext="−|Im |"><mo form="prefix">−</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi mathvariant="normal">Im</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo></math></td><td><math alttext="x′ = |x² − y²| + a"><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><msup><mi>y</mi><mn>2</mn></msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>a</mi></math>、<math alttext="y′ = −2|x||y| + b"><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mo form="prefix">−</mo><mn>2</mn><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>x</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>y</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>+</mo><mi>b</mi></math></td></tr>
+</tbody>
+</table>
+<p>マンデルブロ型の表示は <math alttext="z = c"><mi>z</mi><mo>=</mo><mi>c</mi></math> から始まり、ピクセルに応じて <math alttext="c"><mi>c</mi></math> を変えます。ジュリア型の表示は <math alttext="c"><mi>c</mi></math> を固定し、出発点の <math alttext="z"><mi>z</mi></math> を変えます。べき乗 <math alttext="p"><mi>p</mi></math> は 1.5 から 12 までの任意の値にできます。整数のときは正確な繰り返しの掛け算を使い、分数のときは複素べき乗の主枝を使うため、継ぎ目が残ります。</p>
+
+<h2 id="escape-time">脱出時間の反復</h2>
+<p>エクスプローラーは、ピクセルごとにこのルールを繰り返し、<math alttext="z"><mi>z</mi></math> の大きさを見守ります。<math alttext="|z|²"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></math> が 65536 を超えたとき、つまり <math alttext="|z|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> が<a href="/ja/learn/glossary.html#escape-radius">発散半径</a> <math alttext="R = 256"><mi>R</mi><mo>=</mo><mn>256</mn></math> を超えたとき、そのピクセルは脱出したと判定され、ループは止まります。反復回数の上限まで生き残ったピクセルは、黒く塗られます。上限は自動で決まり、ズームするほど大きくなります。深い表示では、近くの点どうしを区別するのにより多くのステップが必要になるからです。マンデルブロ集合の古典的な発散半径はわずか 2 ですが、これより大きくとると、次に説明する滑らかな色付けがうまく働きます。</p>
+
+<h2 id="smooth-coloring">滑らかな色付け</h2>
+<p>ステップ数を整数のまま数えると、見苦しい縞が出ます。これを直すのが小数の回数で、軌道が最後のステップの<em>どのあたりまで進んで</em>脱出したかを表します。<math alttext="z"><mi>z</mi></math> を、<math alttext="n"><mi>n</mi></math> ステップ後の最終的な値、<math alttext="R"><mi>R</mi></math> を発散半径とすると、次のようになります。</p>
+<math display="block" alttext="mu = n − log_p( log|z|² / log R² )"><mi>μ</mi><mo>=</mo><mi>n</mi><mo>−</mo><msub><mi>log</mi><mi>p</mi></msub><mo lspace="0" rspace="0.17em">&#x2061;</mo><mfrac><mrow><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></mrow><mrow><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><msup><mi>R</mi><mn>2</mn></msup></mrow></mfrac></math>
+<p class="eq-note">テキスト表記：<code>mu = n − log_p( log|z|² / log R² )</code></p>
+<p>考え方は単純です。軌道が 0 から遠く離れているとき、もう 1 ステップ進むと大きさはおよそ <math alttext="p"><mi>p</mi></math> 乗になり、<math alttext="log |z|²"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><msup><mo stretchy="false" lspace="0" rspace="0">|</mo><mn>2</mn></msup></math> はおよそ <math alttext="p"><mi>p</mi></math> 倍されます。この比の <math alttext="logₚ"><msub><mi>log</mi><mi>p</mi></msub><mo lspace="0" rspace="0">&#x2061;</mo></math> をとると、軌道が発散半径をステップのどのくらいの割合だけ飛び越えたかがわかります。実際のべき乗 <math alttext="p"><mi>p</mi></math> を使うことで、固定の <math alttext="log 2"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mn>2</mn></math> を使うよりも、どのべき乗でも帯が連続になります。</p>
+<p>この数 <math alttext="μ"><mi>μ</mi></math> は、次に<a href="/ja/learn/glossary.html#palette">パレット</a>上の位置に対応づけられます。既定の<em>クラシック</em>は、外側の帯から反復回数の上限まで、パレットを 1 回だけなぞります。そのため、上限を変えると色がずれます。<em>平方根</em>、<em>対数</em>、<em>線形</em>の 3 つの<em>循環</em>マッピングは、<math alttext="μ"><mi>μ</mi></math> だけで決まります。違いは、集合の近くにある大きな値をどれだけ圧縮するかで、そのために帯が幅広く見えたり、細く見えたりします。パレットは OKLab 色空間で混ぜ合わせています。同じ大きさの変化が、目には同じ程度の違いに見えるように設計された色空間です。密度とオフセットのスライダーはパレットを伸縮・移動させ、<kbd>C</kbd> キーはそのオフセットをアニメーションさせます。これが<a href="/ja/learn/glossary.html#color-cycling">カラーサイクル</a>です。</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/mapping-relative.webp" width="1200" height="675" loading="lazy" alt="クラシック・マッピングで色づけした、マンデルブロ集合のタツノオトシゴの谷の縁。青と紫で描かれています。"><figcaption>クラシック（既定）</figcaption></figure>
+<figure><img src="/assets/learn/mapping-sqrt.webp" width="1200" height="675" loading="lazy" alt="平方根マッピングで色づけした同じ表示。ピンクと青のパレットです。"><figcaption>平方根</figcaption></figure>
+<figure><img src="/assets/learn/mapping-log.webp" width="1200" height="675" loading="lazy" alt="対数マッピングで色づけした同じ表示。"><figcaption>対数</figcaption></figure>
+<figure><img src="/assets/learn/mapping-linear.webp" width="1200" height="675" loading="lazy" alt="線形マッピングで色づけした同じ表示。"><figcaption>線形</figcaption></figure>
+</div>
+
+<h2 id="relief">距離推定とレリーフ照明</h2>
+<p>各ステップでは、2 × 2 の<a href="/ja/learn/glossary.html#jacobian">ヤコビ行列</a>も一緒に更新していきます。これは、出発点のわずかな変化がどれだけ強く拡大されるかを記録する、小さな数の表です。ヤコビ行列の大きさ <math alttext="|J|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>J</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> から、エクスプローラーは<a href="/ja/learn/glossary.html#distance-estimate">距離推定</a>、つまり各ピクセルが集合からおよそどれだけ離れているかを求めます。</p>
+<math display="block" alttext="d ≈ |z| ln|z| / |J|"><mi>d</mi><mo>≈</mo><mfrac><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mspace width="0.3em"></mspace><mi>ln</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>J</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow></mfrac></math>
+<p class="eq-note">テキスト表記：<code>d ≈ |z| ln|z| / |J|</code></p>
+<p>これは<em>フィラメント</em>・シェーディングでは、細く明るい糸として現れます。単純な脱出回数では見落としてしまう構造です。<em>レリーフ</em>・シェーディングでは、脱出ポテンシャル <math alttext="log |z|"><mi>log</mi><mo lspace="0" rspace="0.17em">&#x2061;</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>z</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> のなめらかな輝きを、起伏のある地形とみなします。その傾きの方向（<math alttext="J^Tz"><msup><mi>J</mi><mi>T</mi></msup><mi>z</mi></math> に比例します）が面の法線になり、角度を調整できる光源からの通常の拡散反射と鏡面反射によって、縁が立体的に見えます。</p>
+<div class="fig-grid">
+<figure><img src="/assets/learn/shading-flat.webp" width="1200" height="675" loading="lazy" alt="フラット・シェーディングのマンデルブロ集合の境界の表示。色だけで、照明も輪郭線もありません。"><figcaption>フラット</figcaption></figure>
+<figure><img src="/assets/learn/shading-filaments.webp" width="1200" height="675" loading="lazy" alt="フィラメント・シェーディングで表示した同じ眺め。集合の境界に近いピクセルが、白に近い色まで明るくなっています。"><figcaption>フィラメント</figcaption></figure>
+<figure><img src="/assets/learn/shading-relief.webp" width="1200" height="675" loading="lazy" alt="レリーフ・シェーディングで表示した同じ眺め。決まった方向から光を当てているので、構造が立体的に見えます。"><figcaption>レリーフ</figcaption></figure>
+</div>
+<div class="btn-row"><a class="btn" href="/ja/#f=mandelbrot&amp;sh=flat">フラット</a> <a class="btn" href="/ja/#f=mandelbrot&amp;sh=filaments">フィラメント</a> <a class="btn" href="/ja/#f=mandelbrot&amp;sh=relief">レリーフ</a></div>
+
+<h2 id="antialiasing">プログレッシブ・アンチエイリアス</h2>
+<p>ドラッグやズームをしているあいだ、エクスプローラーは高速で粗いプレビューを描きます。表示が止まると、各ピクセルの内側のランダムにずらした位置でサンプルを追加し、その平均をとります。ピクセルあたり 1、4、8、16 個から、<em>ディテール</em>セクションで選べます。これが<a href="/ja/learn/glossary.html#anti-aliasing">アンチエイリアス</a>です。作業は小さな帯に分けて行われるので、ページは応答し続けます。</p>
+
+<h2 id="deep-zoom">とても深くへ：摂動法</h2>
+<p>コンピューターは、たいていの数を、有効数字およそ 7 桁（32 ビット）か 16 桁（64 ビット）で保存します。拡大率 10<sup>30</sup> では、隣り合うピクセルの違いがその桁数をはるかに超えた細かさになり、通常の計算はブロック状に崩れてしまいます。そこで使われるのが<a href="/ja/learn/glossary.html#perturbation">摂動法</a>で、難しい計算を 1 回だけにするという工夫です。</p>
+<p>エクスプローラーは、表示の中心でただ 1 本の<a href="/ja/learn/glossary.html#reference-orbit">参照軌道</a> <math alttext="Zₙ"><msub><mi>Z</mi><mi>n</mi></msub></math> を、非常に高い精度で計算します。多倍長整数（BigInt）を使い、深く進むほど桁数を増やします。そのあと、各ピクセルはその軌道からの小さな差 <math alttext="δₙ"><msub><mi>δ</mi><mi>n</mi></msub></math> だけを追いかけ、差がどう変化するかは、短い計算でわかります。</p>
+<math display="block" alttext="z = Z + δ、このとき δ&#x27; = 2·Z·δ + δ² + δ_c"><msub><mi>z</mi><mi>n</mi></msub><mo>=</mo><msub><mi>Z</mi><mi>n</mi></msub><mo>+</mo><msub><mi>δ</mi><mi>n</mi></msub><mo>,</mo><mspace width="1em"></mspace><msub><mi>δ</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>Z</mi><mi>n</mi></msub><mspace width="0.3em"></mspace><msub><mi>δ</mi><mi>n</mi></msub><mo>+</mo><msubsup><mi>δ</mi><mi>n</mi><mn>2</mn></msubsup><mo>+</mo><msub><mi>δ</mi><mi>c</mi></msub></math>
+<p class="eq-note">テキスト表記：<code>z = Z + δ、このとき δ&#x27; = 2·Z·δ + δ² + δ_c</code></p>
+<p><math alttext="δ"><mi>δ</mi></math> はごく小さいので、通常の浮動小数点数で十分な精度が得られます。GPU では、32 ビット浮動小数点数で表せるより小さな値に届くように、各 <math alttext="δ"><mi>δ</mi></math> を仮数部と指数部に分けて保存します。折りたたみ型のフラクタルでは、<math alttext="|c + d| − |c|"><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>c</mi><mo>+</mo><mi>d</mi><mo stretchy="false" lspace="0" rspace="0">|</mo><mo>−</mo><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>c</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></math> を求める補助関数を使い、桁落ちで桁が失われるのを防いでいます。</p>
+<p>参照軌道が 1 本だけで、いつも代表になれるとは限りません。あるピクセル自身の軌道が、参照軌道よりも 0 に近づいたとき、差はもう小さくありません。そこでエクスプローラーは、そのピクセルを<a href="/ja/learn/glossary.html#rebasing">リベース</a>します。差を完全な値 <math alttext="z"><mi>z</mi></math> に置き換え、参照軌道の先頭に対して計算をやり直すのです。これにより、素の摂動法で生じるグリッチが取り除かれます。どの参照点も有効なので、表示が離れすぎるまで現在の参照軌道を使い続けます。参照軌道はバックグラウンドのワーカーで計算されるので、ページが固まることはありません。</p>
+<figure><img src="/assets/learn/mandelbrot-deep.webp" width="1200" height="675" loading="lazy" alt="10 の -30 乗付近の、マンデルブロ集合の深いズーム。摂動法で描画されており、金色のらせんと巻きひげが同心円状に並んでいます。"><figcaption>10<sup>-30</sup> での表示。摂動法で描画しています。</figcaption></figure>
+<p>この方法により、べき乗が 2 のフラクタルは、約 10<sup>300</sup> まで進めます。ほかのべき乗では直接の反復を使い、浮動小数点の精度の限界で止まります。限界に達したときは、エクスプローラーがお知らせします。</p>
+
+<h2 id="engines">2 つのエンジンと正確な三角形</h2>
+<p>既定の <em>GPU</em> エンジンは、WebGL2 のシェーダーで何百万ものピクセルを並列に反復します。<em>CPU</em> エンジンは、64 ビットの数を使い、画像をワーカースレッドに分担させます。速度は落ちますが、WebGL がなくても動作します。<a href="/ja/learn/sierpinski.html">シェルピンスキーの三角形</a>は、脱出時間の反復も摂動法も使わず、そのページで説明したとおり、2 進数の桁を使った正確な計算だけで描かれます。</p>
+
+<h2 id="in-the-explorer">エクスプローラーで見る</h2>
+<div class="callout tip">
+<p><strong>試してみましょう：</strong><kbd>P</kbd> キーでコントロールパネルを開くと、シェーディング、色のマッピング、パレット、アンチエイリアスの段階を変えられます。<kbd>?</kbd> キーを押すと、ショートカットの一覧が表示されます。表示のすべてがページのアドレスに保存されるので、<em>リンクをコピー</em>すれば、そのまま共有できます。</p>
+</div>
+<div class="btn-row"><a class="btn btn-primary" href="/ja/#f=mandelbrot">エクスプローラーで開く</a> <a class="btn" href="/ja/#f=mandelbrot&amp;x=-0.743643887037158704752191506114774&amp;y=0.131825904205311970493132056385139&amp;z=-97.6&amp;map=sqrt">10⁻³⁰ まで深くズーム</a> <a class="btn" href="/ja/#f=mandelbrot&amp;map=log">対数マッピング</a></div>
+<p>見慣れない言葉は、<a href="/ja/learn/glossary.html">用語集</a>にまとめてあります。</p>
+
+    <nav class="pager" aria-label="前後のページ"><a href="/ja/learn/sierpinski.html" rel="prev">← シェルピンスキーの三角形</a><a href="/ja/learn/glossary.html" rel="next">用語集 →</a></nav>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="bar">
+    <a href="/ja/about.html">このサイトについて</a><a href="/ja/privacy.html">プライバシー</a><a href="/ja/terms.html">利用規約</a><a href="https://github.com/prajwal-3-14159/Kaleidoscope" rel="noopener">GitHub</a>
+    <span class="copy">© 2026 Kaleidoscope</span>
+  </div></footer>
+  <script src="/pages.js" defer></script>
+</body>
+</html>
