@@ -4,11 +4,11 @@ const STORAGE_KEY = 'kaleidoscope.lang';
 const SUPPORTED = ['en', 'ja'];
 
 const en = {
-  'app.doc-title': 'Kaleidoscope — Infinite Fractal Explorer',
-  'app.og-title': 'Kaleidoscope — Infinite Fractal Explorer',
-  'app.doc-desc': 'Explore the Mandelbrot set, Julia sets, Burning Ship and more in your browser. Free WebGL2 fractal explorer with ultra-deep zoom to 10^300, smooth colouring, PNG export and a GPU benchmark.',
+  'app.doc-title': 'Kaleidoscope — Quantum Fractals · Infinite Fractal Explorer',
+  'app.og-title': 'Kaleidoscope — Quantum Fractals · Infinite Fractal Explorer',
+  'app.doc-desc': 'Kaleidoscope (Quantum Fractals): explore the Mandelbrot set, Julia sets and Burning Ship in your browser, with deep zoom to 10^300, PNG export and a GPU benchmark.',
   'app.title': 'KALEIDOSCOPE',
-  'app.subtitle': 'Infinite fractal explorer',
+  'app.subtitle': 'Quantum Fractals · Infinite fractal explorer',
 
   // Links to the content pages
   'nav.learn': 'Learn: fractal encyclopedia',
@@ -210,11 +210,11 @@ const en = {
 };
 
 const ja = {
-  'app.doc-title': 'Kaleidoscope — 無限フラクタル・エクスプローラー',
-  'app.og-title': 'Kaleidoscope — 無限フラクタル・エクスプローラー',
-  'app.doc-desc': 'マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。滑らかな配色、PNG 書き出し、GPU ベンチマーク付き。',
+  'app.doc-title': 'Kaleidoscope — Quantum Fractals｜無限フラクタル・エクスプローラー',
+  'app.og-title': 'Kaleidoscope — Quantum Fractals｜無限フラクタル・エクスプローラー',
+  'app.doc-desc': 'Kaleidoscope（Quantum Fractals）: マンデルブロ集合、ジュリア集合、バーニングシップなどをブラウザで探索。10^300 倍まで超深度ズームできる無料の WebGL2 フラクタル・エクスプローラー。PNG 書き出し、GPU ベンチマーク付き。',
   'app.title': 'KALEIDOSCOPE',
-  'app.subtitle': '無限のフラクタルを探検',
+  'app.subtitle': 'Quantum Fractals · 無限のフラクタルを探検',
 
   'nav.learn': '学ぶ：フラクタル百科',
   'nav.about': 'このサイトについて',
